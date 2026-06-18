@@ -22,11 +22,11 @@ export default function CoberturaPreview() {
     <section className="cob-preview">
       <div className="cob-preview-inner">
 
-        <div className="cob-preview-header">
+        {/* Texto — izquierda */}
+        <div className="cob-preview-text">
           {/* Overline */}
           <motion.div
             className="overline-wrap"
-            style={{ justifyContent: 'center', marginBottom: 24 }}
             initial="hidden"
             whileInView="show"
             viewport={VIEWPORT}
@@ -60,18 +60,18 @@ export default function CoberturaPreview() {
               ))}
             </motion.div>
           </ScrollReveal>
+
+          {/* Link */}
+          <ScrollReveal className="cob-preview-footer" y={30} delay={0.05}>
+            <Link href="/cobertura" className="btn-primary">
+              Ver cobertura completa
+            </Link>
+          </ScrollReveal>
         </div>
 
-        {/* Globo — sube con el scroll */}
+        {/* Globo — derecha */}
         <ScrollReveal className="cob-preview-map cob-preview-map-anim" y={80}>
           <GlobePreview />
-        </ScrollReveal>
-
-        {/* Link */}
-        <ScrollReveal className="cob-preview-footer" y={30} delay={0.05}>
-          <Link href="/cobertura" className="btn-primary">
-            Ver cobertura completa
-          </Link>
         </ScrollReveal>
 
       </div>

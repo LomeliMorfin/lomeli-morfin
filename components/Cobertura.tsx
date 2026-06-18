@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { VIEWPORT, overlineWrap, goldLine, overlineText, staggerContainer, staggerItem } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 
-const CoberturaMapMx  = dynamic(() => import('./CoberturaMapMx'),  { ssr: false })
 const CoberturaGlobe  = dynamic(() => import('./CoberturaGlobe'),  { ssr: false })
 
 const ESTADOS_NOMBRES = [
@@ -42,10 +41,7 @@ const PAISES = [
 
 export default function Cobertura() {
   const statsRef   = useRef<HTMLDivElement>(null)
-  const listRef    = useRef<HTMLDivElement>(null)
   const [statsVisible, setStatsVisible] = useState(false)
-  const [listVisible,  setListVisible]  = useState(false)
-  const [hoveredMx,    setHoveredMx]    = useState<string | null>(null)
 
   useEffect(() => {
     const obs = (el: Element | null, onVisible: (el: Element) => void, threshold = 0.2) => {
@@ -65,12 +61,7 @@ export default function Cobertura() {
       })
     }, 0.15)
 
-    const o3 = obs(listRef.current, el => {
-      setListVisible(true)
-      el.querySelectorAll<HTMLElement>('.stagger-child').forEach(c => c.classList.add('visible'))
-    }, 0.1)
-
-    return () => { o2?.disconnect(); o3?.disconnect() }
+    return () => { o2?.disconnect() }
   }, [])
 
   return (
@@ -133,61 +124,23 @@ export default function Cobertura() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
 
-      {/* ── Mapa México ── */}
-      <div className="cob-mexico-section">
-        <div className="cob-mexico-inner">
-          <div className="cob-mexico-header">
-            <span className="cob-map-card-tag">Nacional</span>
-            <p className="cob-map-card-title">México — 14 estados con presencia activa</p>
-          </div>
-          <div className="cob-mexico-map">
-            <CoberturaMapMx hoveredId={hoveredMx} onHover={setHoveredMx} />
-          </div>
-        </div>
-      </div>
-
-      {/* ── Info inferior ── */}
-      <div ref={listRef} className="cob-info-strip">
-        <div className="cob-info-strip-inner">
-
-          <div className="cob-paises">
-            <p className="cob-info-label">Países con presencia</p>
-            <div className="cob-paises-grid">
-              {PAISES.map(({ label, sub }, i) => (
-                <div
-                  key={label}
-                  className={`cob-pais stagger-child${listVisible ? ' visible' : ''}`}
-                  style={{ '--delay': `${i * 0.08}s` } as React.CSSProperties}
-                >
-                  <span className="cob-pais-dot" style={{ background: i === 0 ? '#1b4254' : '#2b5a72' }} />
-                  <div>
-                    <p className="cob-pais-name">{label}</p>
-                    <p className="cob-pais-sub">{sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="cob-info-divider" />
-
-          <div className="cob-estados-wrap">
-            <p className="cob-info-label">Estados con presencia en México</p>
-            <ul className="cob-estados-list">
-              {ESTADOS_NOMBRES.map((e, i) => (
-                <li
-                  key={e}
-                  className={`stagger-child${listVisible ? ' visible' : ''}`}
-                  style={{ '--delay': `${0.32 + i * 0.04}s` } as React.CSSProperties}
-                >
-                  {e}
-                </li>
-              ))}
-            </ul>
-          </div>
-
+        {/* Estados — integrados debajo del globo */}
+        <div className="cob-globe-estados">
+          <p className="cob-globe-estados-label">Estados con presencia en México</p>
+          <motion.ul
+            className="cob-globe-estados-list"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={staggerContainer}
+          >
+            {ESTADOS_NOMBRES.map(e => (
+              <motion.li key={e} className="cob-globe-estado" variants={staggerItem}>
+                {e}
+              </motion.li>
+            ))}
+          </motion.ul>
         </div>
       </div>
 
