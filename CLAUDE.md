@@ -26,7 +26,8 @@ npm run lint      # Run ESLint
 - **Autorización:** Cédula de la Comisión Nacional de Seguros y Fianzas (SHCP) desde 1981
 - **Presencia:** México (14 estados) y Argentina
 - **Tipo de sitio:** Single-page corporativo con scroll por secciones
-- **Stack:** Next.js 15 · React 19 · TypeScript 5 · Tailwind CSS v4 — App Router en `/app`
+- **Stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS v4 — App Router en `/app`
+- **Dependencias clave:** `react-globe.gl` + `@types/three` (globo terráqueo en CoberturaPreview)
 - **Referencia visual:** verholy.com/en — estructura editorial, animaciones
   sutiles y de alto impacto, mucho whitespace, sensación premium
 - **Personalidad de marca:** Sobria, confiable, moderna, corporativa con calidez
@@ -38,41 +39,60 @@ npm run lint      # Run ESLint
 ```
 lomeli-morfin/
 ├── CLAUDE.md
+├── .npmrc                     ← legacy-peer-deps=true (necesario para react-globe.gl + React 19)
 ├── app/
-│   ├── layout.tsx         ← root layout, Montserrat font, globals.css
-│   ├── page.tsx           ← home (importa secciones como componentes)
-│   └── globals.css        ← @theme con paleta + animaciones + clases especiales
+│   ├── layout.tsx             ← root layout, Montserrat font, globals.css
+│   ├── page.tsx               ← home (importa secciones como componentes)
+│   ├── icon.png               ← favicon (Next.js file-based metadata)
+│   └── globals.css            ← @theme con paleta + animaciones + clases especiales
 ├── components/
-│   ├── Splash.tsx         ← splash-1 y splash-2
-│   ├── Navbar.tsx
+│   ├── Splash.tsx             ← dos fases (renovando + logo), module-level var anti-repeat
+│   ├── Navbar.tsx             ← scroll listener, mobile menu
 │   ├── Hero.tsx
-│   ├── Stats.tsx
-│   ├── Nosotros.tsx
-│   ├── Servicios.tsx
-│   ├── Afianzadoras.tsx
-│   ├── Clientes.tsx
-│   ├── Cobertura.tsx
-│   ├── Contacto.tsx
+│   ├── Stats.tsx              ← contadores animados
+│   ├── NosotrosPreview.tsx    ← preview en home
+│   ├── Nosotros.tsx           ← página completa /nosotros
+│   ├── ServiciosPreview.tsx   ← preview en home
+│   ├── Servicios.tsx          ← página completa /servicios
+│   ├── CoberturaPreview.tsx   ← preview en home con GlobePreview
+│   ├── GlobePreview.tsx       ← globo terráqueo (react-globe.gl), países activos en dorado
+│   ├── Cobertura.tsx          ← página completa /cobertura con mapa SVG México
+│   ├── CoberturaMapMx.tsx     ← mapa SVG de México con estados activos
+│   ├── CoberturaMapWorld.tsx  ← mapa SVG mundial
+│   ├── OficinaSection.tsx     ← video circular, dirección Río Nazas 181 CDMX
+│   ├── Afianzadoras.tsx       ← grid de logos afianzadoras
+│   ├── LogosCarousel.tsx      ← carrusel continuo de logos clientes
+│   ├── ContactoCTA.tsx        ← sección CTA final
+│   ├── ContactoForm.tsx       ← formulario de contacto
+│   ├── PageHeader.tsx         ← header compartido para páginas internas
 │   └── Footer.tsx
 ├── public/
 │   ├── logos/
 │   │   ├── lm/
-│   │   │   ├── lm_logo-color.svg
-│   │   │   ├── lm_logo-white.svg
-│   │   │   ├── lm_isotipo-color.svg
-│   │   │   ├── lm_isotipo-white.svg
-│   │   │   └── lm_favicon.svg
-│   │   ├── afianzadoras/      ← prefijo af_
-│   │   └── clientes/          ← prefijo cl_
+│   │   │   ├── LM-Nav.png         ← logo horizontal para navbar y footer
+│   │   │   └── Lomeli-Morfin.png  ← logo grande para splash
+│   │   ├── afianzadoras/          ← prefijo af_
+│   │   └── clientes/              ← prefijo cl_
 │   ├── images/
 │   │   ├── hero/              ← prefijo hero_
 │   │   ├── nosotros/          ← prefijo nos_
 │   │   ├── servicios/         ← prefijo srv_
 │   │   └── og/                ← prefijo og_
-│   └── icons/                 ← prefijo ico_
-└── _reference/                ← NO incluir en build
+│   ├── icons/                 ← prefijo ico_
+│   ├── videos/
+│   │   └── video_optimizado.mp4   ← video oficina (autoPlay muted loop)
+│   ├── world-countries.geojson    ← GeoJSON mundial para el globo terráqueo
+│   └── mx-states.json             ← GeoJSON estados de México
+└── _reference/                    ← NO incluir en build
     ├── Manual_básico_LM.pdf
     └── concentrado_contenidos.docx
+```
+
+### Orden de secciones en `app/page.tsx`
+```
+Splash → Navbar → Hero → Stats → NosotrosPreview → ServiciosPreview →
+CoberturaPreview → OficinaSection → Afianzadoras → LogosCarousel → ContactoCTA
+Footer (fuera del <main>)
 ```
 
 ### Convención de naming de assets
@@ -94,8 +114,8 @@ lomeli-morfin/
   --color-primary-mid:   #2b5a72;  /* Hover de elementos azules */
   --color-gold:          #c8a020;  /* Dorado institucional — acentos, overlines, CTA */
   --color-gold-dark:     #a08010;  /* Hover del dorado */
-  --color-bg:            #f5f0e8;  /* Fondo crema general — NUNCA blanco puro */
-  --color-bg-alt:        #e8e0d0;  /* Secciones alternas (afianzadoras, etc.) */
+  --color-bg:            #ffffff;  /* Fondo blanco (decisión del cliente, jun 2026) */
+  --color-bg-alt:        #0f2535;  /* Secciones oscuras alternas */
   --color-white:         #ffffff;
   --color-text:          #0f2535;
   --color-text-muted:    #5a6a7a;
@@ -144,38 +164,40 @@ La ligereza tipográfica es parte del ADN de la marca.
 
 ---
 
-## 5. LOGO — CONSTRUCCIÓN SVG
+## 5. LOGO — ARCHIVOS PNG
 
-El isotipo es la L y la M fusionadas en 4 trazos geométricos puros.
+Los logos se usan como archivos PNG con `next/image`. Se aplica `filter: brightness(0) invert(1)` via CSS para la versión blanca sobre fondos oscuros.
 
-```svg
-<!-- lm_isotipo-white.svg -->
-<svg width="64" height="64" viewBox="0 0 64 64"
-     fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- L: vertical + base -->
-  <polyline points="4,4 4,60 30,60"
-    stroke="white" stroke-width="4.5"
-    stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-  <!-- Unión L-M: trazo vertical central -->
-  <line x1="30" y1="4" x2="30" y2="60"
-    stroke="white" stroke-width="4.5" stroke-linecap="square"/>
-  <!-- M: V central -->
-  <polyline points="30,4 47,36 64,4"
-    stroke="white" stroke-width="4.5"
-    stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-  <!-- M: trazo vertical derecho -->
-  <line x1="64" y1="4" x2="64" y2="60"
-    stroke="white" stroke-width="4.5" stroke-linecap="square"/>
-</svg>
+| Archivo | Uso | CSS |
+|---------|-----|-----|
+| `public/logos/lm/LM-Nav.png` | Navbar + Footer | `filter: brightness(0) invert(1)` por defecto; se quita en `.scrolled` |
+| `public/logos/lm/Lomeli-Morfin.png` | Splash fase 2 | `filter: brightness(0) invert(1)` siempre |
+| `app/icon.png` | Favicon (copia de Lomeli-Morfin.png) | — |
+
+### Patrón de uso en componentes
+```tsx
+import Image from 'next/image'
+
+// Navbar
+<Image src="/logos/lm/LM-Nav.png" alt="Lomeli Morfin"
+  width={160} height={40} className="nav-logo-img" />
+
+// Footer
+<Image src="/logos/lm/LM-Nav.png" alt="Lomeli Morfin"
+  width={160} height={40} className="footer-logo-img" />
+
+// Splash
+<Image src="/logos/lm/Lomeli-Morfin.png" alt="Lomeli Morfin"
+  width={200} height={60} className="s2-logo-img" />
 ```
 
-**CRÍTICO:** `stroke-linecap: square` — NUNCA round. El logo tiene esquinas rectas.
-
-Variantes requeridas:
-- `lm_isotipo-white.svg` → stroke white (splash 2, hero, footer)
-- `lm_isotipo-color.svg` → stroke #1b4254 (navbar en scroll)
-- `lm_logo-white.svg` → isotipo + "LOMELI MORFIN" en blanco, Montserrat 300, letter-spacing .28em
-- `lm_logo-color.svg` → igual en color azul marino
+### CSS de logos
+```css
+.nav-logo-img   { height: 52px; width: auto; filter: brightness(0) invert(1); transition: filter 0.35s ease; }
+#navbar.scrolled .nav-logo-img { filter: none; }
+.footer-logo-img { height: 44px; width: auto; filter: brightness(0) invert(1); }
+.s2-logo-img    { height: 90px; width: auto; filter: brightness(0) invert(1); }
+```
 
 ---
 
@@ -183,13 +205,14 @@ Variantes requeridas:
 
 - **Botones:** `border-radius: 2px` SIEMPRE — nunca más de 3px
 - **Cards:** `border-radius: 6px`
-- **NUNCA** usar `box-shadow` decorativas en botones ni cards
-- **NUNCA** usar blanco puro `#ffffff` como fondo de página — usar `#f5f0e8`
+- **Sombras:** usar SOLO el sistema de elevación (`--elevation-1` a `--elevation-4`, tinte navy `rgba(15,37,53,…)`) definido en globals.css para cards flotantes — NUNCA sombras grises genéricas ni `shadow-*` arbitrarias en botones
+- **Fondo de página:** blanco `#ffffff` con washes radiales sutiles (navy/dorado, `background-attachment: fixed`) — el cliente pidió eliminar el crema; la profundidad se compensa con el sistema de elevación y bordes navy sutiles (`rgba(27,66,84,0.09–0.1)`) en cards blancas
+- **Sistema de profundidad (Dimensional Layering):** secciones claras transparentes sobre el fondo del body; contenido en cards/paneles blancos flotantes con `--elevation-N`; paneles que se traslapan (stats sobre hero −68px, servicios/contacto sobre PageHeader −48px); hover lift `translateY(-4/-5px)` respetando `prefers-reduced-motion`
 - **Imágenes:** `object-fit: cover`, sin bordes, sin sombras
 - **Secciones:** `padding: 110px 0` desktop — `60px 0` mobile
 - **Contenedor:** `max-width: 1440px`, `margin: 0 auto`, `padding: 0 6vw`
 - **Separadores:** línea `1px solid #c8a020` o whitespace generoso — NUNCA `<hr>` gris
-- **Fondos alternos:** secciones impares en `#f5f0e8`, pares en `#e8e0d0`
+- **Fondos alternos:** secciones claras transparentes/blancas alternadas con secciones oscuras `#0f2535`/`#1b4254`
 - **NUNCA** usar parallax (las fotos son corporativas, no de paisaje)
 - **NUNCA** animaciones en loop
 - **NUNCA** cursor personalizado
@@ -208,8 +231,8 @@ Definir en `@theme` — Tailwind v4 es CSS-first, NO usar `tailwind.config.js`:
   --color-primary-mid:  #2b5a72;
   --color-gold:         #c8a020;
   --color-gold-dark:    #a08010;
-  --color-bg:           #f5f0e8;
-  --color-bg-alt:       #e8e0d0;
+  --color-bg:           #ffffff;
+  --color-bg-alt:       #0f2535;
   --font-main: 'Montserrat', sans-serif;
 }
 ```
@@ -235,9 +258,9 @@ Usar como clases: `bg-primary`, `text-gold`, `bg-bg`, `font-main`.
 ### Restricciones de Tailwind que NO cambian por el ADN de la marca
 ```
 ✗ NUNCA rounded-xl ni rounded-2xl en botones — máximo rounded-sm (2px)
-✗ NUNCA shadow-* decorativas en cards o botones
+✗ NUNCA shadow-* arbitrarias — solo var(--elevation-N) en cards flotantes, nunca en botones
 ✗ NUNCA font-bold ni font-extrabold — máximo font-semibold (600)
-✗ NUNCA bg-white como fondo de página — usar bg-bg
+✗ NUNCA fondos crema/beige (#f5f0e8, #e8e0d0) — el cliente los eliminó; usar blanco + elevación
 ✗ NUNCA instalar plugins de Tailwind sin consultar primero
 ```
 
@@ -245,116 +268,40 @@ Usar como clases: `bg-primary`, `text-gold`, `bg-bg`, `font-main`.
 
 ## 8. SPLASH SCREENS — SECUENCIA DE ENTRADA
 
-El sitio tiene DOS splashes en secuencia. El usuario puede hacer clic para saltarlos.
+El sitio tiene DOS fases en un solo contenedor. El usuario puede hacer clic para saltar. Se muestra una sola vez por recarga de página (module-level variable).
 
-Implementar como componente `components/Splash.tsx` con `'use client'`. Toda la lógica de secuencia va en `useEffect`.
-
-### Estructura JSX (orden obligatorio)
+### Anti-repetición
 ```tsx
-// En app/page.tsx — renderizar antes que el resto del sitio
+// En Splash.tsx — variable a nivel de módulo (se resetea con cada recarga, persiste en navegación SPA)
+let splashShown = false
+```
+
+### Tiempos actuales
+```ts
+const PHASE1 = 2000   // fase "Nos estamos renovando"
+const CROSSFADE = 600 // transición entre fases
+const PHASE2 = 4000   // fase logo Lomeli Morfin
+const FADE_OUT = 600  // fade final hacia el sitio
+```
+
+### FASE 1 — "Nos estamos renovando" (TEMPORAL)
+- **Fondo:** `#1b4254`
+- **Barra de progreso:** CSS puro animado (`@keyframes barFull`), decorativa
+- **Contenido:** eyebrow muted + pill "Nueva era" + headline + subtext
+
+### FASE 2 — Logo LM (PERMANENTE)
+- **Fondo:** `#0a0a0a`
+- **Logo:** `Lomeli-Morfin.png` con `filter: brightness(0) invert(1)`
+- **Barra de progreso:** CSS puro animado, decorativa
+- **Contenido:** logo + línea divisora + "Consultores en Fianzas"
+
+### Estructura JSX
+```tsx
 <Splash />
 <main id="site" style={{ opacity: 0 }}>
   <Navbar />
   {/* secciones */}
 </main>
-```
-
----
-
-### SPLASH 1 — "Nos estamos renovando" (TEMPORAL)
-**Propósito:** Comunicar el relanzamiento de marca al primer acceso.
-**Se elimina cuando:** el relanzamiento ya esté posicionado.
-**Cómo eliminar:** comentar/borrar el bloque splash-1 en `Splash.tsx` y ajustar los timers.
-
-- **Fondo:** `#1b4254` (azul marino principal)
-- **Duración:** 3.5 segundos, luego fade out
-- **Contenido y secuencia de animación:**
-  1. `0.2s` — eyebrow: "Lomeli Morfin · 2025" (fadeIn, muted, pequeño)
-  2. `0.6s` — tag pill: "Nueva era" (fadeUp, borde dorado `#c8a020`)
-  3. `1.0s` — headline: `<strong>Nos estamos renovando</strong>` + "una nueva imagen, el mismo compromiso" (fadeUp, strong en 600, resto en 300)
-  4. `1.5s` — subtext: "Más de 40 años de experiencia en el sector afianzador" (fadeUp, muted)
-  5. `0.3s–3.5s` — barra de progreso dorada recorre el `bottom`
-
----
-
-### SPLASH 2 — Logo LM (PERMANENTE)
-**Propósito:** Identidad de entrada, siempre presente.
-
-- **Fondo:** `#0a0a0a`
-- **Duración:** 3 segundos, luego fade out → aparece el sitio
-- **Contenido y secuencia de animación:**
-  1. `0.2s` — isotipo LM SVG inline, 64–72px (scaleIn: scale .88→1 + opacity)
-  2. `0.8s` — "LOMELI MORFIN" Montserrat 300, letter-spacing .28em (fadeUp)
-  3. `1.2s` — línea divisora: `width 0 → 130px`, 1px, rgba(255,255,255,.2)
-  4. `1.5s` — "Consultores en Fianzas", 12px, muted (fadeUp)
-  5. `0.2s–3.0s` — barra de progreso dorada en el `bottom`
-
----
-
-### Lógica de secuencia (`components/Splash.tsx`)
-```tsx
-'use client'
-import { useEffect, useRef } from 'react'
-
-const SPLASH1_DURATION = 3500
-const SPLASH2_DURATION = 3000
-const FADE = 700
-
-export default function Splash() {
-  const splash1Ref = useRef<HTMLDivElement>(null)
-  const splash2Ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const site = document.getElementById('site') as HTMLElement
-    const s1 = splash1Ref.current!
-    const s2 = splash2Ref.current!
-
-    function fadeTo(elOut: HTMLElement, elIn: HTMLElement | null, cb?: () => void) {
-      elOut.style.transition = `opacity ${FADE}ms ease`
-      elOut.style.opacity = '0'
-      setTimeout(() => {
-        elOut.style.display = 'none'
-        if (elIn) {
-          elIn.style.display = 'flex'
-          void elIn.offsetWidth
-          elIn.style.transition = `opacity ${FADE}ms ease`
-          elIn.style.opacity = '1'
-          elIn.querySelectorAll<HTMLElement>('[data-anim]').forEach(el => el.classList.add('go'))
-        }
-        cb?.()
-      }, FADE)
-    }
-
-    const t1 = setTimeout(() => fadeTo(s1, s2), SPLASH1_DURATION)
-    const t2 = setTimeout(() => {
-      fadeTo(s2, null, () => {
-        site.style.transition = `opacity ${FADE}ms ease`
-        site.style.opacity = '1'
-      })
-    }, SPLASH1_DURATION + SPLASH2_DURATION)
-
-    function skipAll() {
-      ;[s1, s2].forEach(el => (el.style.display = 'none'))
-      site.style.opacity = '1'
-    }
-    s1.addEventListener('click', skipAll)
-    s2.addEventListener('click', skipAll)
-
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      s1.removeEventListener('click', skipAll)
-      s2.removeEventListener('click', skipAll)
-    }
-  }, [])
-
-  return (
-    <>
-      <div ref={splash1Ref} id="splash-1" className="splash">{/* contenido splash 1 */}</div>
-      <div ref={splash2Ref} id="splash-2" className="splash" style={{ display: 'none', opacity: 0 }}>{/* contenido splash 2 */}</div>
-    </>
-  )
-}
 ```
 
 ---
@@ -365,7 +312,7 @@ export default function Splash() {
 - **Estado inicial** (sobre hero): `background: transparent`, logo blanco, links blancos
 - **Al scroll >60px:** `background: rgba(245,240,232,0.97)`, `backdrop-filter: blur(10px)`, logo color, links azul marino
 - **Transición:** `all 0.35s ease`
-- **Logo:** `lm_logo-white.svg` sobre hero / `lm_logo-color.svg` al scroll
+- **Logo:** `LM-Nav.png` — blanco sobre hero (CSS filter), color al scroll (filter none)
 - **Ítems de navegación:** número dorado `(01)` seguido del nombre y slash: `(01) Nosotros/`
 - **CTA botón:** "Solicitar cotización" — `background: #c8a020`, `color: #0f2535`, `border-radius: 2px`
 - **Hover ítems nav:** `::after` línea dorada `width: 0 → 60%`, `transition: .3s ease`
@@ -556,23 +503,42 @@ Logo LM | (01) Nosotros/ | (02) Servicios/ | (03) Clientes/ | (04) Cobertura/ | 
 
 ---
 
-### (07) COBERTURA
+### (07) COBERTURA PREVIEW — en home (`CoberturaPreview.tsx`)
 
-- **Fondo:** `#f5f0e8`
-- **Overline + línea dorada:** "Capítulo 5 · Cobertura"
-- **H2:** "Presencia nacional e internacional"
-- **Implementación:** mapa SVG del continente americano (usar SVG libre, no imagen raster)
-- **México:** `fill: #1b4254` con 14 marcadores dorados pulsantes
-- **Argentina:** `fill: #2b5a72`
-- **Resto del continente:** `fill: #d0cfc8`
-- **Marcadores:** puntos dorados con animación `pulse` sobre cada estado activo
-- **Tooltip en hover:** nombre del estado
-- **Contador debajo:** "14 estados · 2 países" (animado al entrar al viewport)
+- **Fondo:** `#0f2535`
+- **Layout:** 2 columnas — texto izquierda, globo terráqueo derecha
+- **Globo:** componente `GlobePreview.tsx` usando `react-globe.gl` + `world-countries.geojson`
+  - Países activos (dorado `#c8a020`): México, Argentina, Colombia, España
+  - ISO codes: `MEX`, `ARG`, `COL`, `ESP`
+  - Resto del mundo: azul oscuro translúcido
+  - Fondo del globo: transparente (sin textura)
+  - Renderizado sólo en cliente (`dynamic` con `ssr: false`)
+  - Forma: circular (`.globe-circle-mask` con `border-radius: 50%`, `overflow: hidden`)
+- **Mobile:** columna única, globo centrado, tamaño `min(420px, 85vw)`
+
+### (07b) COBERTURA — página completa (`/cobertura`)
+
+- **Implementación:** mapa SVG de México (`CoberturaMapMx.tsx`) con estados activos
+- **Marcadores:** puntos dorados con animación `pulse`
+- **Contadores animados:** 14 estados, 4 países, 40+ años
 
 **14 estados activos en México:**
 Monterrey · Guadalajara · CDMX · Puebla · Villahermosa ·
 Baja California · Veracruz · Chiapas · Estado de México ·
 Mérida · Colima · Nayarit · Morelos · Michoacán
+
+---
+
+### (07c) OFICINA (`OficinaSection.tsx`)
+
+- **Fondo:** `#0f2535`
+- **Layout:** 2 columnas — video circular izquierda, texto derecha
+- **Video:** `public/videos/video_optimizado.mp4` — `autoPlay muted loop playsInline`
+- **Forma del video:** círculo con borde dorado (`border-radius: 50%`, `overflow: hidden`)
+- **Decoración:** `::before` ring exterior dorado translúcido
+- **Animación del video:** `@keyframes videoReveal` (scale 1.06→1 + opacity), 2s
+- **Dirección:** Río Nazas 181, Cuauhtémoc, 06500, CDMX
+- **Mobile:** columna única, video centrado `min(420px, 85vw)`
 
 ---
 
@@ -589,7 +555,7 @@ Mérida · Colima · Nayarit · Morelos · Michoacán
 
 - **Fondo:** `#0f2535`
 - **Separador superior:** línea 2px `#c8a020`
-- **Logo:** `lm_logo-white.svg`
+- **Logo:** `LM-Nav.png` con `filter: brightness(0) invert(1)`
 - **4 columnas:**
   - Logo + descripción corta
   - Navegación: Nosotros / Servicios / Clientes / Cobertura / Contacto
@@ -611,19 +577,21 @@ Mérida · Colima · Nayarit · Morelos · Michoacán
 
 ---
 
-### Animación 1 — Clip-path reveal (títulos)
+### Animación 1 — fadeUp reveal (títulos h2)
+
+Los h2 empiezan ocultos con `.clip-hidden` y revelan al entrar al viewport.
 
 ```css
-@keyframes clipReveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0%   0 0); }
-}
+.clip-hidden { opacity: 0; transform: translateY(16px); }
+
 .reveal-title {
-  animation: clipReveal 1.1s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+  animation: fadeUp 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 ```
 
-**Uso:** H1 del hero (al cargar), H2 de cada sección (IntersectionObserver en `useEffect`)
+> **Nota:** originalmente se usaba `clip-path: inset()` pero se cambió a `opacity + transform` por incompatibilidad con Android (MIUI/Xiaomi). `@keyframes clipReveal` sigue en globals.css pero **no se usa** en h2.
+
+**Uso:** H2 de cada sección — IntersectionObserver en `useEffect` añade clase `.reveal-title` y quita `.clip-hidden`
 
 ---
 
@@ -745,22 +713,33 @@ Activar con IntersectionObserver dentro de `useEffect` en `Stats.tsx`.
 
 ---
 
-## 13. FLUJO DE DESARROLLO — SESIONES RECOMENDADAS
+## 13. ESTADO ACTUAL DEL DESARROLLO
 
-Construir en este orden, una sesión por bloque:
+### Completado ✓
+- Base: globals.css, layout.tsx, page.tsx
+- Splash (dos fases, anti-repeat, barra CSS decorativa)
+- Navbar (scroll listener, mobile menu, logo PNG)
+- Hero (100vh, placeholder gradiente)
+- Stats (contadores animados)
+- NosotrosPreview + Nosotros completo
+- ServiciosPreview + Servicios completo (cards + modal)
+- CoberturaPreview con globo terráqueo (react-globe.gl)
+- Cobertura completa con mapa SVG México
+- OficinaSection (video circular, dirección)
+- Afianzadoras (grid logos)
+- LogosCarousel (carrusel continuo clientes)
+- ContactoCTA + ContactoForm
+- Footer
+- Animaciones: fadeUp, stagger, overline, contadores
+- Responsive mobile
+- Favicon (app/icon.png)
+- Deploy en Vercel (.npmrc legacy-peer-deps)
 
-1. **Base:** `globals.css` con `@theme` + reset (box-sizing, margin 0, scroll-behavior smooth) + `app/layout.tsx` con Montserrat + `app/page.tsx` limpio
-2. **Splashes:** `components/Splash.tsx` con lógica `useEffect`
-3. **Navbar + Hero:** `Navbar.tsx` con scroll listener + `Hero.tsx`
-4. **Stats + Nosotros:** `Stats.tsx` con contadores + `Nosotros.tsx` con valores
-5. **Servicios:** `Servicios.tsx` con grid de cards + modal de subtipos
-6. **Afianzadoras + Clientes:** grids de logos con placeholders
-7. **Cobertura:** `Cobertura.tsx` con mapa SVG interactivo
-8. **Contacto + Footer:** CTA final + footer completo
-9. **Animaciones:** implementar las 4 animaciones en `globals.css` + observers en cada componente
-10. **Responsive mobile:** breakpoints, tipografía fluida, grids a 1 columna
-11. **Assets reales:** reemplazar placeholders por fotos y logos definitivos
-12. **Pulido final:** performance, meta tags, og:image, favicon
+### Pendiente
+- Assets reales: fotos hero, nosotros, servicios (actualmente placeholders con gradientes)
+- Logos PNG de afianzadoras y clientes (actualmente texto placeholder)
+- og:image para redes sociales
+- Formulario de contacto: conectar backend/email
 
 ---
 
@@ -773,8 +752,8 @@ Construir en este orden, una sesión por bloque:
 ✗ tailwind.config.js para definir la paleta — usar @theme en globals.css
 ✗ font-weight 700 u 800 en cualquier elemento
 ✗ border-radius > 6px en UI (excepto pills/tags: hasta 20px)
-✗ box-shadow decorativas en cards o botones
-✗ Fondo blanco puro #ffffff como fondo de página
+✗ box-shadow fuera del sistema de elevación (--elevation-1..4) — nunca en botones
+✗ Fondos crema/beige — el fondo de página es blanco por decisión del cliente
 ✗ Parallax en imágenes
 ✗ Cursor personalizado
 ✗ Animaciones en loop (excepto el pulse del mapa)

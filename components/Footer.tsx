@@ -4,7 +4,8 @@ import Link from 'next/link'
 const NAV_LINKS = [
   { label: 'Nosotros',  href: '/nosotros'  },
   { label: 'Servicios', href: '/servicios' },
-  { label: 'Clientes y Alianzas',  href: '/clientes'  },
+  { label: 'Clientes',  href: '/clientes'  },
+  { label: 'Alianzas',  href: '/alianzas'  },
   { label: 'Cobertura', href: '/cobertura' },
   { label: 'Contacto',  href: '/contacto'  },
 ]
@@ -78,7 +79,7 @@ export default function Footer() {
               </li>
               <li>
                 <span className="footer-contact-label">Cobertura</span>
-                <span className="footer-contact-text">14 estados · México y Argentina</span>
+                <span className="footer-contact-text">Presencia Nacional e Internacional</span>
               </li>
             </ul>
           </div>

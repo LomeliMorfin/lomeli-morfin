@@ -6,10 +6,10 @@ import { useEffect, useRef } from 'react'
 // Persiste durante navegación SPA, se resetea con cada recarga de página
 let splashShown = false
 
-// Tiempos: 2s fase 1, crossfade 600ms, 4s fase 2, fade out 600ms
-const PHASE1 = 2000
+// Tiempos: 4s fase 1, crossfade 600ms, 4.5s fase 2, fade out 600ms
+const PHASE1 = 4000
 const CROSSFADE = 600
-const PHASE2 = 4000
+const PHASE2 = 4500
 const FADE_OUT = 600
 
 export default function Splash() {
@@ -92,7 +92,7 @@ export default function Splash() {
         style={{ display: 'none', opacity: 0 }}
       >
         <div data-anim className="s2-logo">
-          <Image src="/logos/lm/Lomeli-Morfin.png" alt="Lomeli Morfin" width={200} height={60} className="s2-logo-img" />
+          <Image src="/logos/lm/Lomeli-Morfin.png" alt="Lomeli Morfin" width={480} height={144} quality={100} className="s2-logo-img" />
         </div>
         <p data-anim className="s2-name">LOMELI MORFIN</p>
         <div data-anim className="s2-divider" />

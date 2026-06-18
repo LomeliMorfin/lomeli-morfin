@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { VIEWPORT, overlineWrap, goldLine, overlineText, staggerContainer, staggerItem } from './animations'
+import { ScrollReveal } from './ScrollReveal'
 
 const AFIANZADORAS = [
   { nombre: 'ACE Fianzas Monterrey',          logo: '/logos/afianzadoras/af_monterrey.png' },
@@ -17,75 +19,47 @@ const AFIANZADORAS = [
 ]
 
 export default function Afianzadoras() {
-  const overlineRef = useRef<HTMLDivElement>(null)
-  const h2Ref = useRef<HTMLHeadingElement>(null)
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-          obs.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.2 }
-    )
-    if (overlineRef.current) obs.observe(overlineRef.current)
-
-    const h2Obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { entry.target.classList.add('reveal-title'); h2Obs.unobserve(entry.target) }
-      },
-      { threshold: 0.3 }
-    )
-    if (h2Ref.current) h2Obs.observe(h2Ref.current)
-
-    const gridObs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll<HTMLElement>('.stagger-child').forEach((el) =>
-            el.classList.add('visible')
-          )
-          gridObs.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (gridRef.current) gridObs.observe(gridRef.current)
-
-    return () => { obs.disconnect(); h2Obs.disconnect(); gridObs.disconnect() }
-  }, [])
-
   return (
     <section id="afianzadoras">
       <div className="section-container">
-        <div ref={overlineRef} className="overline-wrap">
-          <div className="gold-line" />
-          <span className="overline-text">Nuestro Respaldo</span>
-        </div>
 
-        <h2 ref={h2Ref} className="section-h2 clip-hidden">
-          Respaldados por las mejores afianzadoras
-        </h2>
+        {/* Overline */}
+        <motion.div
+          className="overline-wrap"
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          variants={overlineWrap}
+        >
+          <motion.div className="gold-line" variants={goldLine} style={{ height: 1, background: '#c8a020' }} />
+          <motion.span className="overline-text" variants={overlineText}>Nuestro Respaldo</motion.span>
+        </motion.div>
 
-        <p className="af-intro">
-          Contamos con relación comercial y apoyo de las afianzadoras líderes del sector:
-        </p>
+        {/* H2 + intro — suben con el scroll */}
+        <ScrollReveal y={60}>
+          <h2 className="section-h2">Nuestros Socios Comerciales son las mejores Afianzadoras del sector</h2>
+          <p className="af-intro">
+            Contamos con relación comercial y apoyo de las afianzadoras líderes del sector:
+          </p>
+        </ScrollReveal>
 
-        <div ref={gridRef} className="af-grid logo-grid">
-          {AFIANZADORAS.map(({ nombre, logo }) => (
-            <div key={nombre} className="af-item stagger-child" title={nombre}>
-              <Image
-                src={logo}
-                alt={nombre}
-                width={160}
-                height={80}
-                className="af-logo"
-              />
-            </div>
-          ))}
-        </div>
+        {/* Grid logos — stagger whileInView */}
+        <ScrollReveal y={40} delay={0.05}>
+          <motion.div
+            className="af-grid logo-grid"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={staggerContainer}
+          >
+            {AFIANZADORAS.map(({ nombre, logo }) => (
+              <motion.div key={nombre} className="af-item" title={nombre} variants={staggerItem}>
+                <Image src={logo} alt={nombre} width={160} height={80} className="af-logo" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </ScrollReveal>
+
       </div>
     </section>
   )

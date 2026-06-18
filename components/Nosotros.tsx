@@ -1,6 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import {
+  VIEWPORT, overlineWrap, goldLine, overlineText,
+  staggerContainer, staggerItem, slideLeft, slideRight,
+} from './animations'
+import { ScrollReveal } from './ScrollReveal'
 
 const VALORES = [
   {
@@ -64,110 +69,163 @@ const VALORES = [
   },
 ]
 
+const NOS_STATS = [
+  { num: '40+', label: 'Años de trayectoria',    detail: 'Desde 1981' },
+  { num: '6',   label: 'Países con presencia',   detail: 'Nacional e Internacional' },
+  { num: '14',  label: 'Estados activos',        detail: 'República Mexicana' },
+  { num: '12+', label: 'Clientes estratégicos',  detail: 'Sectores clave' },
+]
+
 export default function Nosotros() {
-  const overlineRef = useRef<HTMLDivElement>(null)
-  const h2Ref = useRef<HTMLHeadingElement>(null)
-  const valoresRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-          obs.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.2 }
-    )
-    if (overlineRef.current) obs.observe(overlineRef.current)
-
-    const h2Obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { entry.target.classList.add('reveal-title'); h2Obs.unobserve(entry.target) }
-      },
-      { threshold: 0.3 }
-    )
-    if (h2Ref.current) h2Obs.observe(h2Ref.current)
-
-    const staggerObs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll<HTMLElement>('.stagger-child').forEach((el) =>
-            el.classList.add('visible')
-          )
-          staggerObs.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (valoresRef.current) staggerObs.observe(valoresRef.current)
-
-    return () => { obs.disconnect(); h2Obs.disconnect(); staggerObs.disconnect() }
-  }, [])
-
   return (
-    <section id="nosotros">
-      <div className="nosotros-container">
-        {/* Overline */}
-        <div ref={overlineRef} className="overline-wrap">
-          <div className="gold-line" />
-          <span className="overline-text">Quiénes Somos</span>
+    <>
+      {/* ── Panel de Stats flotante sobre PageHeader ── */}
+      <section id="nos-stats">
+        <div className="nos-stats-inner">
+          <motion.div
+            className="nos-stats-grid"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={staggerContainer}
+          >
+            {NOS_STATS.map(({ num, label, detail }) => (
+              <motion.div key={label} className="nos-stat-item" variants={staggerItem}>
+                <span className="nos-stat-num">{num}</span>
+                <div>
+                  <p className="nos-stat-label">{label}</p>
+                  <p className="nos-stat-detail">{detail}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
+      </section>
 
-        {/* Grid 2 col: texto + foto */}
-        <div className="nosotros-grid">
-          {/* Columna texto */}
-          <div>
-            <h2 ref={h2Ref} className="nosotros-h2 clip-hidden">
-              Más de 40 años respaldando tu patrimonio
-            </h2>
+      {/* ── Historia ── */}
+      <section id="nosotros">
+        <div className="nosotros-container">
+          <motion.div
+            className="overline-wrap"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={overlineWrap}
+          >
+            <motion.div className="gold-line" variants={goldLine} style={{ height: 1, background: '#c8a020' }} />
+            <motion.span className="overline-text" variants={overlineText}>Quiénes Somos · Desde 1981</motion.span>
+          </motion.div>
 
-            <p className="nosotros-body">
-              LOMELI MORFIN CONSULTORES es una organización especializada en Asesoría,
-              Consultoría e Intermediación de todo tipo de Fianzas (Administrativas,
-              Judiciales, Fidelidad y de Crédito), contamos con la Cédula de Autorización
-              por parte de la Comisión Nacional de Seguros y Fianzas (SHCP) desde el año
-              de 1981, lo que nos permite contar con una amplia experiencia profesional en
-              el Sector Afianzador para brindar a nuestros Clientes un servicio de calidad
-              y excelencia de acuerdo a sus necesidades.
-            </p>
-
-            {/* Misión */}
-            <div className="mision-block">
-              <p className="mision-label">Misión</p>
-              <p className="mision-text">
-                Lograr a partir del compromiso de todo nuestro Equipo, la atracción y
-                confianza de cada uno de nuestros Clientes, que les permita tener una
-                ventaja competitiva frente a otros creando una total satisfacción.
+          <div className="nos-grid">
+            {/* Columna texto */}
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={VIEWPORT}
+              variants={slideLeft}
+            >
+              <h2 className="nos-h2">
+                Más de 40 años<br />respaldando<br />tu patrimonio
+              </h2>
+              <p className="nos-body">
+                LOMELI MORFIN CONSULTORES es una organización especializada en Asesoría,
+                Consultoría e Intermediación de todo tipo de Fianzas (Fidelidad, Judiciales,
+                Administrativas y de Crédito), contamos con la Cédula de Autorización por parte
+                de la Comisión Nacional de Seguros y Fianzas (SHCP) desde el año de 1981,
+                lo que nos permite contar con una amplia experiencia profesional en el Sector
+                Afianzador para brindar a nuestros Clientes un servicio de calidad y excelencia
+                de acuerdo a sus necesidades.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Visión */}
-            <div className="mision-block">
-              <p className="mision-label">Visión</p>
-              <p className="mision-text">
-                Posicionarnos como <strong>LA ORGANIZACIÓN DE TRÁMITE DE FIANZAS</strong> más
-                importante a nivel nacional e internacional, ofreciendo una opción de
-                excelencia en servicios de consultoría y asesoría para las Empresas.
-              </p>
-            </div>
+            {/* Columna visual */}
+            <motion.div
+              className="nos-visual"
+              initial="hidden"
+              whileInView="show"
+              viewport={VIEWPORT}
+              variants={slideRight}
+            >
+              <div className="nos-year-badge" aria-hidden>1981</div>
+              <div className="nos-photo" />
+            </motion.div>
           </div>
-
-          {/* Columna foto */}
-          <div className="nosotros-photo" />
         </div>
+      </section>
 
-        {/* 6 Valores */}
-        <div ref={valoresRef} className="valores-grid">
-          {VALORES.map(({ titulo, desc, icon }) => (
-            <div key={titulo} className="valor-item stagger-child">
-              <div className="valor-icon">{icon}</div>
-              <p className="valor-title">{titulo}</p>
-              <p className="valor-desc">{desc}</p>
-            </div>
-          ))}
+      {/* ── Misión / Visión ── */}
+      <section id="nos-mv">
+        <div className="nos-mv-inner">
+          <div className="nos-mv-grid">
+
+            <ScrollReveal y={50}>
+              <div>
+                <span className="nos-mv-label">Misión</span>
+                <p className="nos-mv-quote">&ldquo;</p>
+                <p className="nos-mv-text">
+                  Lograr a partir del compromiso de todo nuestro Equipo, la atracción y
+                  confianza de cada uno de nuestros Clientes, que les permita tener una
+                  ventaja competitiva frente a otros creando una total satisfacción.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="nos-mv-divider" aria-hidden />
+
+            <ScrollReveal y={50} delay={0.1}>
+              <div>
+                <span className="nos-mv-label">Visión</span>
+                <p className="nos-mv-quote">&ldquo;</p>
+                <p className="nos-mv-text">
+                  Posicionarnos como la Organización más importante para el trámite de
+                  Fianzas a nivel Nacional e Internacional, ofreciendo una opción de
+                  excelencia en Servicios de Consultoría y Asesoría para las Empresas.
+                </p>
+              </div>
+            </ScrollReveal>
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ── Valores ── */}
+      <section id="nos-valores">
+        <div className="nosotros-container">
+          <motion.div
+            className="overline-wrap"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={overlineWrap}
+          >
+            <motion.div className="gold-line" variants={goldLine} style={{ height: 1, background: '#c8a020' }} />
+            <motion.span className="overline-text" variants={overlineText}>Nuestros Valores</motion.span>
+          </motion.div>
+
+          <ScrollReveal y={30}>
+            <h2 className="section-h2" style={{ marginTop: 24 }}>
+              Los principios que nos guían
+            </h2>
+          </ScrollReveal>
+
+          <motion.div
+            className="nos-valores-grid"
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={staggerContainer}
+          >
+            {VALORES.map(({ titulo, desc, icon }, i) => (
+              <motion.div key={titulo} className="nos-valor-card" variants={staggerItem}>
+                <span className="nos-valor-num">0{i + 1}</span>
+                <div className="nos-valor-icon">{icon}</div>
+                <h3 className="nos-valor-title">{titulo}</h3>
+                <p className="nos-valor-desc">{desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </>
   )
 }

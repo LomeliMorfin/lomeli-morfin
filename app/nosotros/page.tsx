@@ -16,7 +16,7 @@ export default function NosotrosPage() {
         <PageHeader
           label="Quiénes Somos"
           title="Más de 40 años respaldando tu patrimonio"
-          subtitle="Especialistas en fianzas con Cédula de Autorización de la CNSF (SHCP) desde 1981. Presencia en 14 estados de México y Argentina."
+          subtitle="Especialistas en Fianzas con Cédula de Autorización de la Comisión Nacional de Seguros y Fianzas desde 1981, con presencia Nacional e Internacional."
           breadcrumb="Nosotros"
         />
         <Nosotros />

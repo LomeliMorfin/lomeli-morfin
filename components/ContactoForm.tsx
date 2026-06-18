@@ -115,7 +115,7 @@ export default function ContactoForm() {
             </div>
             <div className="cf-info-block">
               <p className="cf-info-label">Cobertura</p>
-              <p className="cf-info-value">14 estados en México · Argentina · Colombia · España</p>
+              <p className="cf-info-value">República Mexicana · Argentina · Colombia · España · El Salvador · Chile</p>
             </div>
           </div>
 

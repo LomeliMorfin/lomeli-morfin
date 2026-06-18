@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import { useState, useRef, useEffect } from 'react'
 
 const SERVICIOS = [
   {
@@ -60,153 +61,125 @@ const SERVICIOS = [
     subtipos: [
       {
         categoria: 'Tipos',
-        items: [
-          'Suministro PEMEX',
-          'Suministro ASA',
-          'Compra-Venta',
-          'Distribución Mercantil',
-        ],
+        items: ['Suministro PEMEX', 'Suministro ASA', 'Compra-Venta', 'Distribución Mercantil'],
       },
     ],
   },
 ]
 
-type Servicio = (typeof SERVICIOS)[number]
-
-function Modal({ servicio, onClose }: { servicio: Servicio; onClose: () => void }) {
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
-    document.addEventListener('keydown', handler)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', handler)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Cerrar">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-          </svg>
-        </button>
-
-        <div className={`modal-hero ${servicio.placeholder}`}>
-          <div className="modal-hero-overlay">
-            <span className="modal-num">({servicio.num})</span>
-            <h3 className="modal-titulo">{servicio.titulo}</h3>
-          </div>
-        </div>
-
-        <div className="modal-body">
-          <p className="modal-desc">{servicio.desc}</p>
-
-          {servicio.subtipos && (
-            <div className="modal-subtipos">
-              {servicio.subtipos.map(({ categoria, items }) => (
-                <div key={categoria} className="modal-categoria">
-                  {servicio.subtipos!.length > 1 && (
-                    <p className="modal-cat-label">{categoria}</p>
-                  )}
-                  <ul className="modal-items">
-                    {items.map((item) => (
-                      <li key={item} className="modal-item">
-                        <span className="modal-item-dot" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <a href="#contacto" className="btn-primary" onClick={onClose}>
-            Solicitar cotización
-          </a>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Servicios() {
-  const overlineRef = useRef<HTMLDivElement>(null)
-  const h2Ref = useRef<HTMLHeadingElement>(null)
-  const gridRef = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState<Servicio | null>(null)
+  const [activeId, setActiveId] = useState('fidelidad')
+  const active = SERVICIOS.find((s) => s.id === activeId)!
+  const sectionRef = useRef<HTMLElement>(null)
+  const tabsRef = useRef<HTMLDivElement>(null)
+  const indicatorRef = useRef<HTMLSpanElement>(null)
+
+  // Mueve el indicador dorado al tab activo
+  useEffect(() => {
+    const indicator = indicatorRef.current
+    const container = tabsRef.current
+    if (!indicator || !container) return
+    const activeEl = container.querySelector<HTMLElement>('[aria-selected="true"]')
+    if (!activeEl) return
+    indicator.style.left = `${activeEl.offsetLeft}px`
+    indicator.style.width = `${activeEl.offsetWidth}px`
+  }, [activeId])
 
   useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-          obs.unobserve(entry.target)
+          el.classList.add('srv-entered')
+          obs.unobserve(el)
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     )
-    if (overlineRef.current) obs.observe(overlineRef.current)
-
-    const h2Obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { entry.target.classList.add('reveal-title'); h2Obs.unobserve(entry.target) }
-      },
-      { threshold: 0.3 }
-    )
-    if (h2Ref.current) h2Obs.observe(h2Ref.current)
-
-    const gridObs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll<HTMLElement>('.stagger-child').forEach((el) =>
-            el.classList.add('visible')
-          )
-          gridObs.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (gridRef.current) gridObs.observe(gridRef.current)
-
-    return () => { obs.disconnect(); h2Obs.disconnect(); gridObs.disconnect() }
+    obs.observe(el)
+    return () => obs.disconnect()
   }, [])
 
   return (
-    <>
-      <section id="servicios">
-        <div className="section-container">
-          <div ref={overlineRef} className="overline-wrap">
-            <div className="gold-line" />
-            <span className="overline-text">Nuestros Servicios</span>
-          </div>
+    <section id="servicios" ref={sectionRef}>
+      <div className="srv-tabs-wrap">
+        {/* Barra de tabs */}
+        <div className="srv-tabs" role="tablist" aria-label="Tipos de fianza" ref={tabsRef}>
+          {SERVICIOS.map((srv) => (
+            <button
+              key={srv.id}
+              role="tab"
+              aria-selected={activeId === srv.id}
+              aria-controls={`srv-panel-${srv.id}`}
+              className={`srv-tab${activeId === srv.id ? ' active' : ''}`}
+              onClick={() => setActiveId(srv.id)}
+            >
+              <span className="srv-tab-num">{srv.num}</span>
+              <span className="srv-tab-name">{srv.titulo}</span>
+            </button>
+          ))}
+          {/* Indicador deslizante — se posiciona con JS en el tab activo */}
+          <span ref={indicatorRef} className="srv-indicator" aria-hidden />
+        </div>
 
-          <h2 ref={h2Ref} className="section-h2 clip-hidden">Soluciones para cada necesidad</h2>
+        {/* Panel de contenido — key fuerza re-mount y dispara la animación CSS */}
+        <div
+          key={activeId}
+          id={`srv-panel-${activeId}`}
+          role="tabpanel"
+          className="srv-panel"
+        >
+          <div className="srv-panel-inner">
+            {/* Bloque visual izquierdo */}
+            <div className={`srv-visual ${active.placeholder}`}>
+              <div className="srv-visual-overlay">
+                <span className="srv-visual-num">{active.num}</span>
+              </div>
+            </div>
 
-          <div ref={gridRef} className="servicios-grid">
-            {SERVICIOS.map((srv) => (
-              <button
-                key={srv.id}
-                className="service-card stagger-child"
-                onClick={() => setActive(srv)}
-                aria-label={`Ver detalles de ${srv.titulo}`}
-              >
-                <div className={`service-card-bg ${srv.placeholder}`} />
-                <div className="overlay" />
-                <div className="service-card-content">
-                  <span className="service-num">({srv.num})</span>
-                  <p className="service-titulo label">{srv.titulo}</p>
-                  <span className="service-cta">Ver detalles →</span>
+            {/* Contenido derecho */}
+            <div className="srv-detail">
+              {/* Overline */}
+              <div className="srv-detail-overline">
+                <span className="srv-detail-dot" />
+                <span className="srv-detail-label">Servicio {active.num} de 04</span>
+              </div>
+
+              <h2 className="srv-detail-titulo">{active.titulo}</h2>
+              <p className="srv-detail-desc">{active.desc}</p>
+
+              {/* Subtipos */}
+              {active.subtipos && (
+                <div className="srv-detail-subtipos">
+                  {active.subtipos.map(({ categoria, items }) => (
+                    <div key={categoria} className="srv-detail-cat">
+                      {active.subtipos!.length > 1 && (
+                        <p className="srv-detail-cat-label">{categoria}</p>
+                      )}
+                      <ul className="srv-detail-items">
+                        {items.map((item) => (
+                          <li key={item} className="srv-detail-item">
+                            <span className="srv-detail-item-dot" aria-hidden="true" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              </button>
-            ))}
+              )}
+
+              <Link href={`/contacto?servicio=${active.id}`} className="srv-detail-cta">
+                Solicitar cotización
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
-
-      {active && <Modal servicio={active} onClose={() => setActive(null)} />}
-    </>
+      </div>
+    </section>
   )
 }

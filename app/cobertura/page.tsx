@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'Cobertura — Lomeli Morfin Consultores en Fianzas',
-  description: 'Presencia en 14 estados de México, Argentina, Colombia y España.',
+  description: 'Presencia en la República Mexicana, Argentina, Colombia, España, El Salvador y Chile.',
 }
 
 export default function CoberturaPage() {
@@ -15,8 +15,8 @@ export default function CoberturaPage() {
       <main>
         <PageHeader
           label="Nuestra Cobertura"
-          title="Presencia nacional e internacional"
-          subtitle="14 estados en México y presencia en Argentina, Colombia y España, respaldados por las principales afianzadoras del sector."
+          title="Presencia Nacional e Internacional"
+          subtitle="Presencia en la República Mexicana, Argentina, Colombia, España, El Salvador y Chile, respaldados por las principales afianzadoras del sector."
           breadcrumb="Cobertura"
         />
         <Cobertura />

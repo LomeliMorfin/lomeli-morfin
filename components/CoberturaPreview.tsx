@@ -1,84 +1,78 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { VIEWPORT, overlineWrap, goldLine, overlineText, staggerContainer, staggerItem } from './animations'
+import { ScrollReveal } from './ScrollReveal'
 
 const GlobePreview = dynamic(() => import('./GlobePreview'), { ssr: false })
 
 const PAISES = [
-  { label: 'México',    sub: '14 estados' },
-  { label: 'Argentina', sub: 'Buenos Aires' },
-  { label: 'Colombia',  sub: 'Bogotá' },
-  { label: 'España',    sub: 'Madrid' },
+  { label: 'México',      sub: 'República Mexicana' },
+  { label: 'Argentina',   sub: 'Buenos Aires' },
+  { label: 'Colombia',    sub: 'Bogotá' },
+  { label: 'España',      sub: 'Madrid' },
+  { label: 'El Salvador', sub: 'San Salvador' },
+  { label: 'Chile',       sub: 'Santiago' },
 ]
 
 export default function CoberturaPreview() {
-  const overlineRef = useRef<HTMLDivElement>(null)
-  const h2Ref       = useRef<HTMLHeadingElement>(null)
-  const paisesRef   = useRef<HTMLDivElement>(null)
-  const mapRef      = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const once = (el: Element | null, fn: (el: Element) => void, threshold = 0.2) => {
-      if (!el) return
-      const io = new IntersectionObserver(([e]) => {
-        if (e.isIntersecting) { fn(e.target); io.unobserve(e.target) }
-      }, { threshold })
-      io.observe(el)
-      return io
-    }
-
-    const o1 = once(overlineRef.current, el => el.classList.add('visible'))
-    const o2 = once(h2Ref.current, el => el.classList.add('reveal-title'), 0.3)
-    const o3 = once(paisesRef.current, el => {
-      el.querySelectorAll<HTMLElement>('.stagger-child').forEach(c => c.classList.add('visible'))
-    }, 0.2)
-    const o4 = once(mapRef.current, el => el.classList.add('visible'), 0.15)
-
-    return () => { o1?.disconnect(); o2?.disconnect(); o3?.disconnect(); o4?.disconnect() }
-  }, [])
-
   return (
     <section className="cob-preview">
       <div className="cob-preview-inner">
 
-        {/* Encabezado centrado */}
         <div className="cob-preview-header">
-          <div ref={overlineRef} className="overline-wrap" style={{ justifyContent: 'center', marginBottom: 24 }}>
-            <div className="gold-line" />
-            <span className="overline-text">Cobertura</span>
-          </div>
+          {/* Overline */}
+          <motion.div
+            className="overline-wrap"
+            style={{ justifyContent: 'center', marginBottom: 24 }}
+            initial="hidden"
+            whileInView="show"
+            viewport={VIEWPORT}
+            variants={overlineWrap}
+          >
+            <motion.div className="gold-line" variants={goldLine} style={{ height: 1, background: '#c8a020' }} />
+            <motion.span className="overline-text" variants={overlineText}>Cobertura</motion.span>
+          </motion.div>
 
-          <h2 ref={h2Ref} className="cob-preview-h2 clip-hidden">Presencia nacional e internacional</h2>
+          {/* H2 — sube con el scroll */}
+          <ScrollReveal y={60}>
+            <h2 className="cob-preview-h2">Presencia Nacional e Internacional</h2>
+          </ScrollReveal>
 
-          <div ref={paisesRef} className="cob-preview-paises">
-            {PAISES.map(({ label, sub }, i) => (
-              <div
-                key={label}
-                className="cob-preview-pais stagger-child"
-                style={{ '--delay': `${i * 0.08}s` } as React.CSSProperties}
-              >
-                <span className="cob-preview-pais-dot" />
-                <span className="cob-preview-pais-name">{label}</span>
-                <span className="cob-preview-pais-sep">·</span>
-                <span className="cob-preview-pais-sub">{sub}</span>
-              </div>
-            ))}
-          </div>
+          {/* Países — stagger con scroll */}
+          <ScrollReveal y={40} delay={0.1}>
+            <motion.div
+              className="cob-preview-paises"
+              initial="hidden"
+              whileInView="show"
+              viewport={VIEWPORT}
+              variants={staggerContainer}
+            >
+              {PAISES.map(({ label, sub }) => (
+                <motion.div key={label} className="cob-preview-pais" variants={staggerItem}>
+                  <span className="cob-preview-pais-dot" />
+                  <span className="cob-preview-pais-name">{label}</span>
+                  <span className="cob-preview-pais-sep">·</span>
+                  <span className="cob-preview-pais-sub">{sub}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </ScrollReveal>
         </div>
 
-        {/* Globo 3D centrado */}
-        <div ref={mapRef} className="cob-preview-map cob-preview-map-anim">
+        {/* Globo — sube con el scroll */}
+        <ScrollReveal className="cob-preview-map cob-preview-map-anim" y={80}>
           <GlobePreview />
-        </div>
+        </ScrollReveal>
 
-        {/* Link al pie */}
-        <div className="cob-preview-footer">
+        {/* Link */}
+        <ScrollReveal className="cob-preview-footer" y={30} delay={0.05}>
           <Link href="/cobertura" className="btn-primary">
             Ver cobertura completa
           </Link>
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

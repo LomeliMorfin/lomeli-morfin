@@ -10,13 +10,17 @@ const HIGHLIGHTED: Record<string, string> = {
   '032': '#2b5a72',   // Argentina
   '170': '#2b5a72',   // Colombia
   '724': '#2b5a72',   // España
+  '222': '#2b5a72',   // El Salvador
+  '152': '#2b5a72',   // Chile
 }
 
 const COUNTRY_MARKERS: { id: string; label: string; coords: [number, number] }[] = [
-  { id: 'mexico',    label: 'México',    coords: [-102.0, 23.5]  },
-  { id: 'argentina', label: 'Argentina', coords: [-64.0,  -34.0] },
-  { id: 'colombia',  label: 'Colombia',  coords: [-74.1,   4.7]  },
-  { id: 'espana',    label: 'España',    coords: [-3.7,   40.4]  },
+  { id: 'mexico',      label: 'México',      coords: [-102.0, 23.5]  },
+  { id: 'argentina',   label: 'Argentina',   coords: [-64.0,  -34.0] },
+  { id: 'colombia',    label: 'Colombia',    coords: [-74.1,   4.7]  },
+  { id: 'espana',      label: 'España',      coords: [-3.7,   40.4]  },
+  { id: 'elsalvador',  label: 'El Salvador', coords: [-89.2,  13.7]  },
+  { id: 'chile',       label: 'Chile',       coords: [-70.7, -33.4]  },
 ]
 
 interface Props {

@@ -5,11 +5,12 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 const NAV_ITEMS = [
-  { num: '01', label: 'Nosotros',          href: '/nosotros' },
-  { num: '02', label: 'Servicios',         href: '/servicios' },
-  { num: '03', label: 'Clientes y Alianzas', href: '/clientes' },
-  { num: '04', label: 'Cobertura',         href: '/cobertura' },
-  { num: '05', label: 'Contacto',          href: '/contacto' },
+  { num: '01', label: 'Nosotros',  href: '/nosotros' },
+  { num: '02', label: 'Servicios', href: '/servicios' },
+  { num: '03', label: 'Clientes',  href: '/clientes' },
+  { num: '04', label: 'Alianzas',  href: '/alianzas' },
+  { num: '05', label: 'Cobertura', href: '/cobertura' },
+  { num: '06', label: 'Contacto',  href: '/contacto' },
 ]
 
 export default function Navbar() {

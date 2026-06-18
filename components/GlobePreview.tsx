@@ -5,13 +5,23 @@ import Globe, { GlobeMethods } from 'react-globe.gl'
 import { MeshPhongMaterial } from 'three'
 
 // Países con presencia — resaltados en dorado
-const ACTIVE_ISO = new Set(['MEX', 'ARG', 'COL', 'ESP'])
+const ACTIVE_ISO = new Set(['MEX', 'ARG', 'COL', 'ESP', 'SLV', 'CHL'])
+
+const ARCS = [
+  { startLat: 23.6,  startLng: -102.5, endLat: -38.4, endLng: -63.6 },
+  { startLat: 23.6,  startLng: -102.5, endLat:   4.6, endLng: -74.1 },
+  { startLat: 23.6,  startLng: -102.5, endLat:  40.4, endLng:  -3.7 },
+  { startLat: 23.6,  startLng: -102.5, endLat:  13.7, endLng: -89.2 },
+  { startLat: 23.6,  startLng: -102.5, endLat: -33.4, endLng: -70.7 },
+]
 
 const MARKERS = [
-  { lat: 23.6,  lng: -102.5, label: 'México',    sub: '14 estados',  size: 0.6  },
-  { lat: -38.4, lng:  -63.6, label: 'Argentina', sub: 'Buenos Aires', size: 0.4 },
-  { lat:   4.6, lng:  -74.1, label: 'Colombia',  sub: 'Bogotá',       size: 0.4 },
-  { lat:  40.4, lng:   -3.7, label: 'España',    sub: 'Madrid',       size: 0.4 },
+  { lat: 23.6,  lng: -102.5, label: 'México',      sub: 'República Mexicana', size: 0.6 },
+  { lat: -38.4, lng:  -63.6, label: 'Argentina',   sub: 'Buenos Aires', size: 0.4 },
+  { lat:   4.6, lng:  -74.1, label: 'Colombia',    sub: 'Bogotá',       size: 0.4 },
+  { lat:  40.4, lng:   -3.7, label: 'España',      sub: 'Madrid',       size: 0.4 },
+  { lat:  13.7, lng:  -89.2, label: 'El Salvador', sub: 'San Salvador', size: 0.4 },
+  { lat: -33.4, lng:  -70.7, label: 'Chile',       sub: 'Santiago',     size: 0.4 },
 ]
 
 const GLOBE_MATERIAL = new MeshPhongMaterial({ color: '#0a1a24' })
@@ -82,7 +92,7 @@ export default function GlobePreview() {
           const p = (d as { properties: { ADMIN: string; ISO_A3: string } }).properties
           if (!ACTIVE_ISO.has(p.ISO_A3)) return ''
           const info: Record<string, string> = {
-            MEX: '14 estados', ARG: 'Buenos Aires', COL: 'Bogotá', ESP: 'Madrid',
+            MEX: 'República Mexicana', ARG: 'Buenos Aires', COL: 'Bogotá', ESP: 'Madrid', SLV: 'San Salvador', CHL: 'Santiago',
           }
           return `<div style="font-family:Montserrat,sans-serif;font-size:12px;font-weight:500;background:rgba(15,37,53,0.92);color:#fff;padding:6px 10px;border-radius:3px;border-left:2px solid #c8a020"><b>${p.ADMIN}</b><br/><span style="color:rgba(255,255,255,0.65);font-size:11px">${info[p.ISO_A3] ?? ''}</span></div>`
         }}
@@ -93,6 +103,18 @@ export default function GlobePreview() {
         pointColor={() => '#ffffff'}
         pointAltitude={0.02}
         pointRadius="size"
+        // Arcos animados entre países con presencia
+        arcsData={ARCS}
+        arcStartLat="startLat"
+        arcStartLng="startLng"
+        arcEndLat="endLat"
+        arcEndLng="endLng"
+        arcColor={() => '#c8a020'}
+        arcDashLength={0.4}
+        arcDashGap={0.15}
+        arcDashAnimateTime={2800}
+        arcStroke={0.4}
+        arcAltitude={0.25}
       />
     </div>
   )
