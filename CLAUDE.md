@@ -201,6 +201,26 @@ import Image from 'next/image'
 
 ---
 
+## 5B. SISTEMA RESPONSIVO (jul 2026)
+
+- **Tipografía en `rem`:** TODOS los `font-size` de globals.css están en rem
+  (nunca px). La raíz escala con el monitor junto a `--container`:
+  `html { font-size: 16px }` → 17px @1600 → 18px @1920 → 20px @2400.
+  Los `max-width` de columnas de texto y alturas de logos/cards también
+  van en rem para escalar proporcionalmente. NUNCA reintroducir font-size en px.
+- **Breakpoints canónicos:** `480 / 768 / 900 / 1024` (max-width) y
+  `1600 / 1920 / 2400` (min-width). Única excepción: 1100 (ad-grid 5→4 col).
+  No crear breakpoints nuevos fuera de estos.
+- **Piso tipográfico:** nada menor a 0.6875rem (11px).
+- **Hero:** `height: 110vh` + `110svh` (fallback) — mantener ambas líneas.
+- **iOS:** inputs a `1rem` (16px) en ≤768px o Safari hace auto-zoom al enfocar.
+- **Dot grids 3D (`::before` con rotateX):** toda sección que los use DEBE
+  estar en el grupo A1 con `overflow: hidden` (#hero incluido) — sin clip,
+  la proyección 3D se ensancha más que el viewport y genera scroll horizontal.
+- **Alturas de cards con texto:** usar `min-height`, nunca `height` fija
+  (csc-card cortaba contenido en pantallas chicas).
+- **`background-attachment: fixed` del body:** desactivado en táctiles/≤1024px.
+
 ## 6. REGLAS DE DISEÑO
 
 - **Botones:** `border-radius: 2px` SIEMPRE — nunca más de 3px

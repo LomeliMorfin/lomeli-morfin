@@ -14,7 +14,7 @@ const DESTACADOS = [
     sector: 'Transporte y Movilidad',
     logo: '/logos/clientes/cl_ado.png',
     fianza: 'Fianzas Administrativas y de Crédito',
-    años: '20+',
+    años: '+20',
     desc: 'El grupo de transporte terrestre más importante de México, con más de 103 empresas filiales. Un caso emblemático de confianza de largo plazo.',
   },
   {
@@ -22,7 +22,7 @@ const DESTACADOS = [
     sector: 'Tecnología Industrial',
     logo: '/logos/clientes/cl_emerson.png',
     fianza: 'Fianzas de Fidelidad',
-    años: '15+',
+    años: '+15',
     desc: 'Líder mundial en automatización y control de procesos industriales. Sus operaciones en México requieren el más alto nivel de garantías.',
   },
   {
@@ -30,7 +30,7 @@ const DESTACADOS = [
     sector: 'Energía',
     logo: '/logos/clientes/cl_abengoa.png',
     fianza: 'Fianzas Administrativas',
-    años: '10+',
+    años: '+10',
     desc: 'Empresa de referencia en energía, ingeniería y construcción con proyectos de infraestructura a lo largo de todo México.',
   },
   {
@@ -38,7 +38,7 @@ const DESTACADOS = [
     sector: 'Construcción Metálica',
     logo: '/logos/clientes/cl_comemsa.png',
     fianza: 'Fianzas Administrativas y Judiciales',
-    años: '12+',
+    años: '+12',
     desc: 'Construyendo México en acero. COMEMSA ejecuta proyectos estructurales de alta complejidad para los sectores industrial y energético.',
   },
 ]

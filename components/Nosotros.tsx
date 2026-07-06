@@ -7,73 +7,21 @@ import {
 } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 
+// Sin íconos — el cliente pidió quitarlos y dar más peso al texto (jul 2026)
 const VALORES = [
-  {
-    titulo: 'Innovación',
-    desc: 'A la vanguardia en estrategias organizacionales',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-        <circle cx="12" cy="12" r="4" />
-      </svg>
-    ),
-  },
-  {
-    titulo: 'Calidad',
-    desc: 'Satisfacer las más altas exigencias del sector',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-      </svg>
-    ),
-  },
-  {
-    titulo: 'Puntualidad',
-    desc: 'La entrega oportuna como base fundamental',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-      </svg>
-    ),
-  },
-  {
-    titulo: 'Honestidad',
-    desc: 'Cumplimiento del reglamento interno',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <path d="M12 2l8 4v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V6l8-4z" />
-        <path d="M9 12l2 2 4-4" />
-      </svg>
-    ),
-  },
-  {
-    titulo: 'Confianza',
-    desc: 'Seguridad y certeza en cada integrante del equipo',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-  },
-  {
-    titulo: 'Comunicación',
-    desc: 'Base que promueve el conocimiento organizacional',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-  },
+  { titulo: 'Innovación',   desc: 'A la vanguardia en estrategias organizacionales' },
+  { titulo: 'Calidad',      desc: 'Satisfacer las más altas exigencias del sector' },
+  { titulo: 'Puntualidad',  desc: 'La entrega oportuna como base fundamental' },
+  { titulo: 'Honestidad',   desc: 'Cumplimiento del reglamento interno' },
+  { titulo: 'Confianza',    desc: 'Seguridad y certeza en cada integrante del equipo' },
+  { titulo: 'Comunicación', desc: 'Base que promueve el conocimiento organizacional' },
 ]
 
 const NOS_STATS = [
-  { num: '40+', label: 'Años de trayectoria',    detail: 'Desde 1981' },
+  { num: '+40', label: 'Años de trayectoria',    detail: 'Desde 1981' },
   { num: '6',   label: 'Países con presencia',   detail: 'Nacional e Internacional' },
-  { num: '14',  label: 'Estados activos',        detail: 'República Mexicana' },
-  { num: '12+', label: 'Clientes estratégicos',  detail: 'Sectores clave' },
+  { num: '30',  label: 'Estados con presencia',  detail: 'República Mexicana' },
+  { num: '+12', label: 'Clientes estratégicos',  detail: 'Sectores clave' },
 ]
 
 export default function Nosotros() {
@@ -215,10 +163,9 @@ export default function Nosotros() {
             viewport={VIEWPORT}
             variants={staggerContainer}
           >
-            {VALORES.map(({ titulo, desc, icon }, i) => (
+            {VALORES.map(({ titulo, desc }, i) => (
               <motion.div key={titulo} className="nos-valor-card" variants={staggerItem}>
                 <span className="nos-valor-num">0{i + 1}</span>
-                <div className="nos-valor-icon">{icon}</div>
                 <h3 className="nos-valor-title">{titulo}</h3>
                 <p className="nos-valor-desc">{desc}</p>
               </motion.div>

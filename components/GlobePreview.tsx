@@ -43,7 +43,7 @@ export default function GlobePreview() {
   useEffect(() => {
     const update = () => {
       if (!wrapRef.current) return
-      setSize(Math.min(wrapRef.current.offsetWidth, 600))
+      setSize(Math.min(wrapRef.current.offsetWidth, 720))
     }
     update()
     const ro = new ResizeObserver(update)

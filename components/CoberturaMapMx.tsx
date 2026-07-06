@@ -4,8 +4,12 @@ import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps
 
 const GEO_URL = '/mx-states.json'
 
-// state_code de los 14 estados activos (INEGI)
-const ACTIVE_CODES = new Set([2, 6, 7, 9, 14, 15, 16, 17, 18, 19, 21, 27, 30, 31])
+// state_code de los 30 estados con presencia (INEGI) — todos excepto
+// Campeche (4) y Tlaxcala (29)
+const ACTIVE_CODES = new Set([
+  1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+  17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32,
+])
 
 const MARKERS: { id: string; label: string; coords: [number, number] }[] = [
   { id: 'baja',         label: 'Baja California',  coords: [-116.8, 31.9] },

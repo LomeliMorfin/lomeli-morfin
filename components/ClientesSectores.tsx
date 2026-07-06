@@ -102,7 +102,7 @@ export default function ClientesSectores() {
         </motion.div>
 
         <ScrollReveal y={50}>
-          <h2 className="section-h2 cs-h2">Presencia en 6 sectores<br />industriales clave</h2>
+          <h2 className="section-h2 cs-h2">Presencia en Sectores Clave<br />de la economía mexicana</h2>
         </ScrollReveal>
 
         {/* Carrusel 3D */}

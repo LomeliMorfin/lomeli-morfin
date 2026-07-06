@@ -9,7 +9,7 @@ const SERVICIOS = [
     num: '01',
     titulo: 'Fianzas de Fidelidad',
     placeholder: 'placeholder-srv-1',
-    desc: 'Garantiza el resarcimiento del daño patrimonial que cause un empleado por la comisión de un delito (Robo, Fraude, Abuso de Confianza o Peculado) en contra de bienes de la empresa.',
+    desc: 'Garantiza el resarcimiento del daño patrimonial que cause un empleado infiel por la comisión de un delito (Robo, Fraude, Abuso de Confianza o Peculado) en contra de bienes de la empresa.',
     subtipos: null,
   },
   {
@@ -140,12 +140,6 @@ export default function Servicios() {
 
             {/* Contenido derecho */}
             <div className="srv-detail">
-              {/* Overline */}
-              <div className="srv-detail-overline">
-                <span className="srv-detail-dot" />
-                <span className="srv-detail-label">Servicio {active.num} de 04</span>
-              </div>
-
               <h2 className="srv-detail-titulo">{active.titulo}</h2>
               <p className="srv-detail-desc">{active.desc}</p>
 

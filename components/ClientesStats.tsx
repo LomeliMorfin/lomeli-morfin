@@ -6,8 +6,8 @@ import { VIEWPORT, staggerContainer, staggerItem } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 
 const STATS = [
-  { num: '40+', caption: 'Años de trayectoria', detail: 'Desde 1981, respaldando cada fianza con experiencia probada' },
-  { num: '12+', caption: 'Empresas estratégicas', detail: 'Clientes activos en sectores clave de la economía mexicana' },
+  { num: '+40', caption: 'Años de trayectoria', detail: 'Desde 1981, respaldando cada fianza con experiencia probada' },
+  { num: '+12', caption: 'Empresas estratégicas', detail: 'Clientes activos en sectores clave de la economía mexicana' },
   { num: '6',   caption: 'Sectores industriales', detail: 'Energía, construcción, logística, manufactura, tecnología y telecomunicaciones' },
 ]
 

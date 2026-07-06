@@ -8,24 +8,29 @@ import { ScrollReveal } from './ScrollReveal'
 
 const CoberturaGlobe  = dynamic(() => import('./CoberturaGlobe'),  { ssr: false })
 
+// Presencia en 30 estados — toda la República excepto Tlaxcala y Campeche
 const ESTADOS_NOMBRES = [
-  'Monterrey', 'Guadalajara', 'CDMX', 'Puebla', 'Villahermosa',
-  'Baja California', 'Veracruz', 'Chiapas', 'Estado de México',
-  'Mérida', 'Colima', 'Nayarit', 'Morelos', 'Michoacán',
+  'Aguascalientes', 'Baja California', 'Baja California Sur', 'Chiapas',
+  'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 'Durango',
+  'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco',
+  'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla',
+  'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora',
+  'Tabasco', 'Tamaulipas', 'Veracruz', 'Yucatán', 'Zacatecas',
 ]
 
+// El "+" de las métricas va SIEMPRE antes del número (feedback cliente jul 2026)
 const COB_STATS = [
-  { id: 'cob-c-states', target: 14, suffix: '',  label: 'Estados en México' },
-  { id: 'cob-c-paises', target: 6,  suffix: '',  label: 'Países' },
-  { id: 'cob-c-years',  target: 40, suffix: '+', label: 'Años de experiencia' },
+  { id: 'cob-c-states', target: 30, prefix: '',  label: 'Estados con presencia' },
+  { id: 'cob-c-paises', target: 6,  prefix: '',  label: 'Países' },
+  { id: 'cob-c-years',  target: 40, prefix: '+', label: 'Años de experiencia' },
 ]
 
-function animateCounter(el: HTMLElement, target: number, suffix = '', duration = 1500) {
+function animateCounter(el: HTMLElement, target: number, prefix = '', duration = 1500) {
   const start = performance.now()
   ;(function step(now: number) {
     const progress = Math.min((now - start) / duration, 1)
     const eased = 1 - Math.pow(1 - progress, 3)
-    el.textContent = Math.floor(eased * target) + suffix
+    el.textContent = prefix + Math.floor(eased * target)
     if (progress < 1) requestAnimationFrame(step)
   })(performance.now())
 }
@@ -55,9 +60,9 @@ export default function Cobertura() {
 
     const o2 = obs(statsRef.current, () => {
       setStatsVisible(true)
-      COB_STATS.forEach(({ id, target, suffix }) => {
+      COB_STATS.forEach(({ id, target, prefix }) => {
         const el = document.getElementById(id)
-        if (el) animateCounter(el, target, suffix)
+        if (el) animateCounter(el, target, prefix)
       })
     }, 0.15)
 
@@ -87,9 +92,9 @@ export default function Cobertura() {
 
         {/* Stats */}
         <div ref={statsRef} className="cob-stats-strip">
-          {COB_STATS.map(({ id, target, suffix, label }) => (
+          {COB_STATS.map(({ id, target, prefix, label }) => (
             <div key={id} className={`cob-stat-item${statsVisible ? ' visible' : ''}`}>
-              <span id={id} className="cob-stat-num">{target}{suffix}</span>
+              <span id={id} className="cob-stat-num">{prefix}{target}</span>
               <span className="cob-stat-label">{label}</span>
             </div>
           ))}
