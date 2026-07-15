@@ -291,7 +291,7 @@ body {
   align-items: center;
   justify-content: space-between;
   /* Scrim oscuro para que el logo blanco siempre sea visible sobre el hero */
-  background: linear-gradient(to bottom, rgba(15, 37, 53, 0.6), rgba(15, 37, 53, 0));
+  background: linear-gradient(to bottom, rgba(15, 37, 53, 0.78), rgba(15, 37, 53, 0));
   transition: background 0.35s ease, backdrop-filter 0.35s ease;
 }
 #navbar.scrolled {
@@ -473,7 +473,7 @@ body {
   position: relative;
   height: 110vh;
   height: 110svh; /* viewport visible real en móvil */
-  min-height: 680px;
+  min-height: 720px;
   display: flex;
   align-items: center;
 }
@@ -518,7 +518,9 @@ body {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 72px 6vw 0;
+  /* Padding inferior: reserva espacio para el panel de stats que traslapa
+     el hero (−68px) — sin él los botones quedaban recortados (feedback jul 2026) */
+  padding: 72px 6vw 120px;
 }
 .hero-inner { max-width: 42.5rem; }
 .hero-h1 {
@@ -1284,6 +1286,15 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #5a6a7a;
+}
+.cob-stat-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c8a020;
 }
 
 /* Mapas */
@@ -2351,6 +2362,7 @@ a.cf-info-value:hover { color: #c8a020; }
 .placeholder-srv-2    { background: linear-gradient(135deg, #1b4254, #2b5a72); }
 .placeholder-srv-3    { background: linear-gradient(135deg, #2b5a72, #1b4254); }
 .placeholder-srv-4    { background: linear-gradient(135deg, #0f2535, #c8a020); }
+.placeholder-srv-5    { background: linear-gradient(135deg, #2b5a72, #0f2535); }
 
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2606,16 +2618,19 @@ a.cf-info-value:hover { color: #c8a020; }
   box-shadow: var(--elevation-dark-3);
 }
 
+/* Logos más grandes — el cliente sentía que no lucían (feedback 07 jul 2026) */
 .cd-logo-frame {
-  width: 180px;
-  height: 72px;
+  width: 260px;
+  max-width: 100%;
+  height: 104px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 28px;
 }
 .cd-logo {
-  max-height: 3.75rem;
+  max-height: 5.5rem;
+  max-width: 100%;
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
@@ -3826,11 +3841,13 @@ a.cf-info-value:hover { color: #c8a020; }
   align-self: stretch;
   min-height: 120px;
 }
+/* Títulos Misión/Visión con jerarquía de H2 — el cliente pidió darles
+   la relevancia de la Razón de Ser (feedback 07 jul 2026) */
 .nos-mv-label {
   display: block;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #c8a020;
   margin-bottom: 20px;

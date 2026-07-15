@@ -17,12 +17,13 @@ export default function ContactoCTA() {
       />
 
       <ScrollReveal className="cta-inner" y={70}>
-        <p className="cta-overline">¿Listo para comenzar?</p>
+        <p className="cta-overline">Atención personalizada</p>
         <h2 className="cta-h2">
-          ¿Listo para tramitar<br />tu fianza?
+          Comienza tu trámite<br />de fianza.
         </h2>
         <p className="cta-sub">
-          Contáctanos y uno de nuestros especialistas te atenderá a la brevedad.
+          Recibe atención personalizada de uno de nuestros especialistas y obtén
+          una cotización de acuerdo con tus necesidades.
         </p>
         <div className="cta-actions">
           <Link href="/contacto" className="btn-cta-gold">

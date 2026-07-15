@@ -106,8 +106,8 @@ export default function ClientesDestacados() {
                   <Image
                     src={active.logo}
                     alt={active.nombre}
-                    width={200}
-                    height={80}
+                    width={280}
+                    height={112}
                     className="cd-logo"
                   />
                 </div>

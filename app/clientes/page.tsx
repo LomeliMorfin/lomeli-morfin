@@ -32,7 +32,7 @@ export default function ClientesPage() {
         <section id="clientes-cta">
           <div className="pg-cta-inner">
             <p className="pg-cta-overline">¿Listo para tramitar?</p>
-            <h2 className="pg-cta-h2">¿Tu empresa necesita respaldo en fianzas?</h2>
+            <h2 className="pg-cta-h2">Tu empresa necesita respaldo en fianzas y nosotros estamos listos para brindarte la mejor asesoría.</h2>
             <p className="pg-cta-sub">Contáctanos y un especialista te atenderá en menos de 24 horas.</p>
             <Link href="/contacto" className="pg-cta-btn">
               Solicitar cotización

@@ -16,7 +16,7 @@ export default function CoberturaPage() {
         <PageHeader
           label="Nuestra Cobertura"
           title="Presencia Nacional e Internacional"
-          subtitle="Presencia en la República Mexicana, Argentina, Colombia, España, El Salvador y Chile, respaldados por las principales afianzadoras del sector."
+          subtitle="Presencia en la República Mexicana, Argentina, Colombia, España, El Salvador y Chile, respaldados por las principales Afianzadoras del sector."
           breadcrumb="Cobertura"
         />
         <Cobertura />

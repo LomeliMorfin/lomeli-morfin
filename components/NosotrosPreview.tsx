@@ -32,8 +32,8 @@ export default function NosotrosPreview() {
               Más de 40 años respaldando tu patrimonio
             </h2>
             <p className="preview-body">
-              Organización especializada en Asesoría, Consultoría e Intermediación de todo tipo
-              de Fianzas, con presencia nacional e internacional. Contamos con Cédula de
+              Organización especializada en asesoría, consultoría e intermediación de todo tipo
+              de Fianzas, con presencia Nacional e Internacional. Contamos con Cédula de
               Autorización de la Comisión Nacional de Seguros y Fianzas desde 1981.
             </p>
             <Link href="/nosotros" className="btn-primary btn-dark">

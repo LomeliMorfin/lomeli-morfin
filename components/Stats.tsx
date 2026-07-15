@@ -6,7 +6,7 @@ import { staggerContainer, staggerItem3D, VIEWPORT } from './animations'
 
 const STATS = [
   { id: 'c-years',    target: 40,   suffix: '', label: 'Años de experiencia' },
-  { id: 'c-clients',  target: 2000, suffix: '', label: 'Clientes confían en nosotros' },
+  { id: 'c-clients',  target: 1800, suffix: '', label: 'Clientes confían en nosotros' },
   { id: 'c-policies', target: 5000, suffix: '', label: 'Pólizas emitidas' },
 ]
 

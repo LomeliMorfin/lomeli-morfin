@@ -20,7 +20,7 @@ const VALORES = [
 const NOS_STATS = [
   { num: '+40', label: 'Años de trayectoria',    detail: 'Desde 1981' },
   { num: '6',   label: 'Países con presencia',   detail: 'Nacional e Internacional' },
-  { num: '30',  label: 'Estados con presencia',  detail: 'República Mexicana' },
+  { num: '32',  label: 'Entidades con cobertura', detail: 'República Mexicana' },
   { num: '+12', label: 'Clientes estratégicos',  detail: 'Sectores clave' },
 ]
 
@@ -76,8 +76,8 @@ export default function Nosotros() {
                 Más de 40 años<br />respaldando<br />tu patrimonio
               </h2>
               <p className="nos-body">
-                LOMELI MORFIN CONSULTORES es una organización especializada en Asesoría,
-                Consultoría e Intermediación de todo tipo de Fianzas (Fidelidad, Judiciales,
+                LOMELI MORFIN es una organización especializada en asesoría,
+                consultoría e intermediación de todo tipo de Fianzas (Fidelidad, Judiciales,
                 Administrativas y de Crédito), contamos con la Cédula de Autorización por parte
                 de la Comisión Nacional de Seguros y Fianzas (SHCP) desde el año de 1981,
                 lo que nos permite contar con una amplia experiencia profesional en el Sector
@@ -127,7 +127,7 @@ export default function Nosotros() {
                 <p className="nos-mv-text">
                   Posicionarnos como la Organización más importante para el trámite de
                   Fianzas a nivel Nacional e Internacional, ofreciendo una opción de
-                  excelencia en Servicios de Consultoría y Asesoría para las Empresas.
+                  excelencia en servicios de consultoría y asesoría para las Empresas.
                 </p>
               </div>
             </ScrollReveal>

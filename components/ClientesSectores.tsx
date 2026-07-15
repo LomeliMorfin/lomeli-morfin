@@ -9,7 +9,7 @@ const SECTORES = [
   {
     num: '01',
     nombre: 'Energía',
-    desc: 'Proyectos energéticos, PEMEX, ASA y el sector eléctrico nacional. Fianzas administrativas de anticipo, cumplimiento y buena calidad.',
+    desc: 'Proyectos energéticos, PEMEX, ASA y el Sector Eléctrico Nacional. Fianzas administrativas de anticipo, cumplimiento y buena calidad.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -19,7 +19,7 @@ const SECTORES = [
   {
     num: '02',
     nombre: 'Construcción',
-    desc: 'Contratos de obra, licitaciones gubernamentales y cumplimiento de proyectos de infraestructura pública y privada a nivel nacional.',
+    desc: 'Contratos de obra, licitaciones gubernamentales y cumplimiento de proyectos de infraestructura pública y privada a Nivel Nacional.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />
@@ -51,7 +51,7 @@ const SECTORES = [
   {
     num: '05',
     nombre: 'Telecomunicaciones',
-    desc: 'Infraestructura de red, operadores de telecomunicaciones y proyectos TI de cobertura nacional e internacional.',
+    desc: 'Infraestructura de red, operadores de telecomunicaciones y proyectos TI de cobertura Nacional e Internacional.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M1.42 9a16 16 0 0121.16 0" /><path d="M5 12.55a11 11 0 0114.08 0" />
@@ -62,7 +62,7 @@ const SECTORES = [
   {
     num: '06',
     nombre: 'Manufactura',
-    desc: 'Planta industrial, cadena de suministro y operaciones de exportación. Cobertura integral para el sector manufacturero mexicano.',
+    desc: 'Planta industrial, cadena de suministro y operaciones de exportación. Cobertura integral para el Sector Manufacturero Mexicano.',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />

@@ -68,7 +68,7 @@ export default function Clientes() {
         <h2 ref={h2Ref} className="section-h2 clip-hidden">Empresas que confían en nosotros</h2>
 
         <p className="cl-intro">
-          Orgullosos de respaldar a empresas líderes en sus sectores con soluciones afianzadoras a la medida:
+          Orgullosos de respaldar a empresas líderes en sus sectores con soluciones Afianzadoras a la medida:
         </p>
 
         <div ref={gridRef} className="cl-grid logo-grid">

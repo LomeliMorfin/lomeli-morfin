@@ -39,7 +39,7 @@ export default function Afianzadoras() {
         <ScrollReveal y={60}>
           <h2 className="section-h2">Nuestros Socios Comerciales son las mejores Afianzadoras del sector</h2>
           <p className="af-intro">
-            Contamos con relación comercial y apoyo de las afianzadoras líderes del sector:
+            Contamos con relación comercial y apoyo de las Afianzadoras líderes del sector:
           </p>
         </ScrollReveal>
 

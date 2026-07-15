@@ -13,12 +13,12 @@ const PILARES = [
   {
     num: '02',
     titulo: 'Mejores condiciones',
-    desc: 'Nuestra relación directa con 10 afianzadoras líderes nos permite negociar las mejores tarifas del mercado.',
+    desc: 'Nuestra relación directa con 10 Afianzadoras líderes nos permite negociar las mejores tarifas del mercado.',
   },
   {
     num: '03',
     titulo: 'Gestión ágil',
-    desc: 'Un solo punto de contacto. Nosotros coordinamos con la afianzadora idónea para cada tipo de fianza.',
+    desc: 'Un solo punto de contacto. Nosotros coordinamos con la Afianzadora idónea para cada tipo de fianza.',
   },
 ]
 
@@ -31,14 +31,14 @@ export default function AlianzasIntro() {
           <ScrollReveal y={60}>
             <p className="ai-manifesto-eyebrow">El respaldo que hace la diferencia</p>
             <h2 className="ai-manifesto-h2">
-              10 afianzadoras.<br />
+              10 Afianzadoras.<br />
               <span className="ai-manifesto-accent">Una red.</span>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal y={40} delay={0.1}>
             <p className="ai-manifesto-body">
-              Una afianzadora es la institución financiera autorizada por la CNSF que emite y garantiza
+              Una Afianzadora es la institución financiera autorizada por la CNSF que emite y garantiza
               la fianza. Trabajar con las mejores del sector nos permite ofrecerte condiciones competitivas,
               respuesta ágil y la certeza de que tu fianza tiene el respaldo institucional que necesitas.
             </p>

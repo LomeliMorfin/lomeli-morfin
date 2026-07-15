@@ -8,21 +8,23 @@ import { ScrollReveal } from './ScrollReveal'
 
 const CoberturaGlobe  = dynamic(() => import('./CoberturaGlobe'),  { ssr: false })
 
-// Presencia en 30 estados — toda la República excepto Tlaxcala y Campeche
+// Cobertura en las 32 entidades federativas — toda la República Mexicana
+// (feedback cliente 07 jul 2026)
 const ESTADOS_NOMBRES = [
-  'Aguascalientes', 'Baja California', 'Baja California Sur', 'Chiapas',
-  'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 'Durango',
-  'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco',
-  'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla',
-  'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora',
-  'Tabasco', 'Tamaulipas', 'Veracruz', 'Yucatán', 'Zacatecas',
+  'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
+  'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima',
+  'Durango', 'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo',
+  'Jalisco', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca',
+  'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa',
+  'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán',
+  'Zacatecas',
 ]
 
 // El "+" de las métricas va SIEMPRE antes del número (feedback cliente jul 2026)
 const COB_STATS = [
-  { id: 'cob-c-states', target: 30, prefix: '',  label: 'Estados con presencia' },
-  { id: 'cob-c-paises', target: 6,  prefix: '',  label: 'Países' },
-  { id: 'cob-c-years',  target: 40, prefix: '+', label: 'Años de experiencia' },
+  { id: 'cob-c-states', target: 32, prefix: '',  label: 'Entidades con cobertura', sub: 'República Mexicana' },
+  { id: 'cob-c-paises', target: 6,  prefix: '',  label: 'Países', sub: null },
+  { id: 'cob-c-years',  target: 40, prefix: '+', label: 'Años de experiencia', sub: null },
 ]
 
 function animateCounter(el: HTMLElement, target: number, prefix = '', duration = 1500) {
@@ -92,10 +94,11 @@ export default function Cobertura() {
 
         {/* Stats */}
         <div ref={statsRef} className="cob-stats-strip">
-          {COB_STATS.map(({ id, target, prefix, label }) => (
+          {COB_STATS.map(({ id, target, prefix, label, sub }) => (
             <div key={id} className={`cob-stat-item${statsVisible ? ' visible' : ''}`}>
               <span id={id} className="cob-stat-num">{prefix}{target}</span>
               <span className="cob-stat-label">{label}</span>
+              {sub && <span className="cob-stat-sub">{sub}</span>}
             </div>
           ))}
         </div>
@@ -132,7 +135,7 @@ export default function Cobertura() {
 
         {/* Estados — integrados debajo del globo */}
         <div className="cob-globe-estados">
-          <p className="cob-globe-estados-label">Estados con presencia en México</p>
+          <p className="cob-globe-estados-label">Entidades con cobertura en la República Mexicana</p>
           <motion.ul
             className="cob-globe-estados-list"
             initial="hidden"

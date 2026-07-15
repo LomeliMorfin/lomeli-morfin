@@ -18,8 +18,10 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
+    // Umbral bajo: el fondo blanco aparece en cuanto se empieza a bajar,
+    // para que el logo blanco nunca quede sobre fondo claro (feedback jul 2026)
     const handler = () =>
-      navRef.current?.classList.toggle('scrolled', window.scrollY > 60)
+      navRef.current?.classList.toggle('scrolled', window.scrollY > 12)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])

@@ -65,6 +65,14 @@ const SERVICIOS = [
       },
     ],
   },
+  {
+    id: 'internacional',
+    num: '05',
+    titulo: 'Fianza Internacional',
+    placeholder: 'placeholder-srv-5',
+    desc: 'Garantías para operaciones y contratos fuera de México. Gracias a nuestra presencia Internacional en Argentina, Colombia, España, El Salvador y Chile, gestionamos la fianza que tu empresa necesita para proyectos globales.',
+    subtipos: null,
+  },
 ]
 
 export default function Servicios() {
