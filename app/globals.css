@@ -3744,7 +3744,7 @@ a.cf-info-value:hover { color: #c8a020; }
 .nos-stats-inner { max-width: var(--container); margin: 0 auto; }
 .nos-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   background: linear-gradient(160deg, #1b4254 0%, #0f2535 55%, #0a1a24 100%);
   border: 1px solid rgba(200, 160, 32, 0.18);
   border-radius: 6px;

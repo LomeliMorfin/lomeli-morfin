@@ -21,7 +21,6 @@ const NOS_STATS = [
   { num: '+40', label: 'Años de trayectoria',    detail: 'Desde 1981' },
   { num: '6',   label: 'Países con presencia',   detail: 'Nacional e Internacional' },
   { num: '32',  label: 'Entidades con cobertura', detail: 'República Mexicana' },
-  { num: '+12', label: 'Clientes estratégicos',  detail: 'Sectores clave' },
 ]
 
 export default function Nosotros() {

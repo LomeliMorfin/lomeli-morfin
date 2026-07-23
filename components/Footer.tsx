@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Columna 1 — Logo + descripción */}
           <div className="footer-col footer-brand">
             <Link href="/" className="footer-logo-link">
-              <Image src="/logos/lm/LM-Nav.png" alt="Lomeli Morfin" width={160} height={40} className="footer-logo-img" />
+              <Image src="/logos/lm/LM-Nav.svg" alt="Lomeli Morfin" width={160} height={40} className="footer-logo-img" />
             </Link>
             <p className="footer-desc">
               Organización especializada en Asesoría, Consultoría e Intermediación

@@ -39,7 +39,7 @@ export default function Clientes() {
         </motion.div>
 
         <ScrollReveal y={40}>
-          <h2 className="section-h2">Empresas que confían en nosotros</h2>
+          <h2 className="section-h2">Empresas que han confiado en nosotros</h2>
           <p className="cl-intro">
             Orgullosos de respaldar a empresas líderes en sus sectores con soluciones Afianzadoras a la medida:
           </p>

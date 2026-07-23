@@ -14,7 +14,7 @@ const DESTACADOS = [
     sector: 'Transporte y Movilidad',
     logo: '/logos/clientes/cl_ado.png',
     fianza: 'Fianzas Administrativas y de Crédito',
-    años: '+20',
+    años: '+25',
     desc: 'El grupo de transporte terrestre y movilidad más importante de México, con más de 103 empresas filiales. Un caso emblemático de confianza de largo plazo.',
   },
   {

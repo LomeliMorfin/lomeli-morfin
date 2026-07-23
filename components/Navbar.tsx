@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <nav ref={navRef} id="navbar" className={menuOpen ? 'menu-open' : ''}>
       <Link href="/" className="nav-logo" onClick={closeMenu}>
-        <Image src="/logos/lm/LM-Nav.png" alt="Lomeli Morfin" width={160} height={40} className="nav-logo-img" />
+        <Image src="/logos/lm/LM-Nav.svg" alt="Lomeli Morfin" width={160} height={40} className="nav-logo-img" />
       </Link>
 
       {/* Desktop nav */}
