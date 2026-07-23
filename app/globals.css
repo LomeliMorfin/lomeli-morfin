@@ -1197,14 +1197,14 @@ body {
   max-width: 35rem;
 }
 .af-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2px;
+  --af-gap: clamp(16px, 1.8vw, 36px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--af-gap);
 }
-@media (max-width: 900px) { .af-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .af-grid { grid-template-columns: repeat(2, 1fr); } }
-
 .af-item {
+  flex: 0 0 calc((100% - 3 * var(--af-gap)) / 4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1213,6 +1213,8 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.07);
   transition: background 0.3s ease;
 }
+@media (max-width: 900px) { .af-item { flex-basis: calc((100% - 2 * var(--af-gap)) / 3); } }
+@media (max-width: 480px) { .af-item { flex-basis: calc((100% - 1 * var(--af-gap)) / 2); } }
 .af-item:hover { background: rgba(0, 0, 0, 0.03); }
 
 .af-logo {
@@ -1223,6 +1225,7 @@ body {
   filter: grayscale(100%) opacity(0.5);
   transition: filter 0.35s ease;
 }
+.af-logo--lg { max-height: 5.25rem; }
 .af-item:hover .af-logo { filter: grayscale(0%) opacity(1); }
 
 /* ─── Cobertura ─── */
@@ -1481,6 +1484,53 @@ body {
   transition: filter 0.35s ease;
 }
 .cl-item:hover .cl-logo { filter: grayscale(0%) opacity(1); }
+
+/* ─── Clientes: slider de grids (página /clientes) ─── */
+.cl-slider { position: relative; }
+.cl-slider-viewport {
+  overflow: hidden;
+  padding: 10px 6px;
+  margin: -10px -6px;
+}
+.cl-slider-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.cl-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.cl-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 40px;
+}
+.cl-slider-dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(27, 66, 84, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.cl-dot:hover { background: rgba(27, 66, 84, 0.4); }
+.cl-dot--active {
+  background: #c8a020;
+  transform: scale(1.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cl-slider-track { transition: none; }
+}
 
 /* ─── AlianzasIntro ─── */
 #alianzas-intro {
@@ -2241,6 +2291,17 @@ a.cf-info-value:hover { color: #c8a020; }
   display: flex;
   width: max-content;
   animation: logoScroll 40s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.logos-carousel-track.is-ready { animation-play-state: running; }
+.logos-carousel-img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.logos-carousel-track.is-ready .logos-carousel-img { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .logos-carousel-track { animation: none; }
 }
 .logos-carousel-item {
   display: flex;
@@ -2618,24 +2679,27 @@ a.cf-info-value:hover { color: #c8a020; }
   box-shadow: var(--elevation-dark-3);
 }
 
-/* Logos más grandes — el cliente sentía que no lucían (feedback 07 jul 2026) */
+/* Logos sin fondo y grandes, directo sobre la card azul.
+   OJO: los logos deben ser transparentes y de color claro/vivo para leerse. */
 .cd-logo-frame {
-  width: 260px;
-  max-width: 100%;
-  height: 104px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  max-width: 100%;
+  min-height: 8.5rem;
   margin-bottom: 28px;
 }
 .cd-logo {
-  max-height: 5.5rem;
+  max-height: 6.5rem;
   max-width: 100%;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
 }
+
+/* Ajustes por logo (destacados) — todos alineados a la izquierda con el texto */
+.cd-logo-frame--ado .cd-logo { max-height: 9rem; }
+.cd-logo-frame--fedex .cd-logo { max-height: 8.5rem; }
+.cd-logo-frame--pachuca .cd-logo { max-height: 10.5rem; }
 
 .cd-sector {
   display: inline-block;
@@ -2928,7 +2992,7 @@ a.cf-info-value:hover { color: #c8a020; }
   line-height: 1.05;
   letter-spacing: -0.02em;
   margin-bottom: 36px;
-  max-width: 43.75rem;
+  max-width: 53.75rem;
 }
 .ai-manifesto-accent { color: #c8a020; }
 
@@ -3392,7 +3456,7 @@ a.cf-info-value:hover { color: #c8a020; }
 }
 
 /* ── Logos afianzadoras / clientes: tarjetas blancas flotantes ── */
-.af-grid,
+.af-grid { gap: var(--af-gap); }
 .cl-grid { gap: 16px; }
 .servicios-preview-grid { gap: 20px; }
 .af-item,
@@ -3596,8 +3660,9 @@ a.cf-info-value:hover { color: #c8a020; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  max-width: 48.75rem;
+  gap: 22px;
+  width: 100%;
+  max-width: min(1200px, 100%);
 }
 .cob-globe-estados-label {
   font-size: 0.6875rem;
@@ -3610,10 +3675,11 @@ a.cf-info-value:hover { color: #c8a020; }
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
 }
 .cob-globe-estado {
   font-size: 0.75rem;
@@ -3621,7 +3687,7 @@ a.cf-info-value:hover { color: #c8a020; }
   color: rgba(255, 255, 255, 0.82);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(200, 160, 32, 0.22);
-  padding: 6px 14px;
+  padding: 7px 14px;
   border-radius: 2px;
   letter-spacing: 0.04em;
   transition: background 0.2s ease, border-color 0.2s ease;

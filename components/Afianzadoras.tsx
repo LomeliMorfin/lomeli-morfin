@@ -6,16 +6,17 @@ import { VIEWPORT, overlineWrap, goldLine, overlineText, staggerContainer, stagg
 import { ScrollReveal } from './ScrollReveal'
 
 const AFIANZADORAS = [
-  { nombre: 'ACE Fianzas Monterrey',          logo: '/logos/afianzadoras/af_monterrey.png' },
-  { nombre: 'Afianzadora Insurgentes',         logo: '/logos/afianzadoras/af_insurgentes.png' },
-  { nombre: 'Afianzadora Aserta',              logo: '/logos/afianzadoras/af_asserta.png' },
-  { nombre: 'Afianzadora Sofimex',             logo: '/logos/afianzadoras/af_sofimex.png' },
-  { nombre: 'Fianzas Dorama',                  logo: '/logos/afianzadoras/af_dorama.png' },
-  { nombre: 'Afianzadora Fiducia',             logo: '/logos/afianzadoras/af_fiducia.png' },
-  { nombre: 'Liberty Fianzas',                 logo: '/logos/afianzadoras/af_liberty.png' },
-  { nombre: 'Fianzas Atlas',                   logo: '/logos/afianzadoras/af_Atlas.png' },
-  { nombre: 'Zurich Fianzas México',           logo: '/logos/afianzadoras/af_Zurich.png' },
-  { nombre: 'Fianzas Guadiana Inbursa',        logo: '/logos/afianzadoras/af_Inbursa.png' },
+  { nombre: 'Chubb',                    logo: '/logos/afianzadoras/Chubb-Logo-500x281.png' },
+  { nombre: 'Aserta',                   logo: '/logos/afianzadoras/ASERTA.png' },
+  { nombre: 'Insurgentes',              logo: '/logos/afianzadoras/INSURGENTES.png' },
+  { nombre: 'Sofimex',                  logo: '/logos/afianzadoras/Sofimex.png' },
+  { nombre: 'Tokio Marine',             logo: '/logos/afianzadoras/Tokio_Marine_(2).svg' },
+  { nombre: 'Berkley México Fianzas',   logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png' },
+  { nombre: 'Dorama',                   logo: '/logos/afianzadoras/Dorama.png' },
+  { nombre: 'Mapfre',                   logo: '/logos/afianzadoras/Mapfre.png', big: true },
+  { nombre: 'Cesce',                    logo: '/logos/afianzadoras/Cesce.png' },
+  { nombre: 'Fiducia',                  logo: '/logos/afianzadoras/FIDUCIA.png' },
+  { nombre: 'Avanza',                   logo: '/logos/afianzadoras/Avanza Fianzas.svg' },
 ]
 
 export default function Afianzadoras() {
@@ -52,9 +53,9 @@ export default function Afianzadoras() {
             viewport={VIEWPORT}
             variants={staggerContainer}
           >
-            {AFIANZADORAS.map(({ nombre, logo }) => (
+            {AFIANZADORAS.map(({ nombre, logo, big }) => (
               <motion.div key={nombre} className="af-item" title={nombre} variants={staggerItem}>
-                <Image src={logo} alt={nombre} width={160} height={80} className="af-logo" />
+                <Image src={logo} alt={nombre} width={160} height={80} className={big ? 'af-logo af-logo--lg' : 'af-logo'} />
               </motion.div>
             ))}
           </motion.div>

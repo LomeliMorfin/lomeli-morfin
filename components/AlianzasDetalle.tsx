@@ -7,16 +7,17 @@ import { ScrollReveal } from './ScrollReveal'
 import TiltCard from './TiltCard'
 
 const AFIANZADORAS = [
-  { num: '01', logo: '/logos/afianzadoras/af_monterrey.png',  nombre: 'ACE Fianzas Monterrey',       tipos: ['Administrativas', 'Judiciales', 'Fidelidad'] },
-  { num: '02', logo: '/logos/afianzadoras/af_insurgentes.png', nombre: 'Afianzadora Insurgentes',      tipos: ['Administrativas', 'Crédito'] },
-  { num: '03', logo: '/logos/afianzadoras/af_asserta.png',    nombre: 'Afianzadora Aserta',           tipos: ['Administrativas', 'Judiciales', 'Crédito'] },
-  { num: '04', logo: '/logos/afianzadoras/af_sofimex.png',    nombre: 'Afianzadora Sofimex',          tipos: ['Administrativas', 'Fidelidad'] },
-  { num: '05', logo: '/logos/afianzadoras/af_dorama.png',     nombre: 'Fianzas Dorama',               tipos: ['Judiciales', 'Fidelidad'] },
-  { num: '06', logo: '/logos/afianzadoras/af_fiducia.png',    nombre: 'Afianzadora Fiducia',          tipos: ['Administrativas', 'Crédito'] },
-  { num: '07', logo: '/logos/afianzadoras/af_liberty.png',    nombre: 'Liberty Fianzas',              tipos: ['Administrativas', 'Judiciales'] },
-  { num: '08', logo: '/logos/afianzadoras/af_Atlas.png',      nombre: 'Fianzas Atlas',                tipos: ['Todas las modalidades'] },
-  { num: '09', logo: '/logos/afianzadoras/af_Zurich.png',     nombre: 'Zurich Fianzas México',        tipos: ['Administrativas', 'Fidelidad', 'Crédito'] },
-  { num: '10', logo: '/logos/afianzadoras/af_Inbursa.png',    nombre: 'Fianzas Guadiana Inbursa',     tipos: ['Administrativas', 'Judiciales'] },
+  { num: '01', logo: '/logos/afianzadoras/Chubb-Logo-500x281.png',      nombre: 'Chubb',                  tipos: ['Todas las modalidades'] },
+  { num: '02', logo: '/logos/afianzadoras/ASERTA.png',                  nombre: 'Aserta',                 tipos: ['Administrativas', 'Judiciales', 'Crédito'] },
+  { num: '03', logo: '/logos/afianzadoras/INSURGENTES.png',             nombre: 'Insurgentes',            tipos: ['Administrativas', 'Crédito'] },
+  { num: '04', logo: '/logos/afianzadoras/Sofimex.png',                 nombre: 'Sofimex',                tipos: ['Administrativas', 'Fidelidad'] },
+  { num: '05', logo: '/logos/afianzadoras/Tokio_Marine_(2).svg',        nombre: 'Tokio Marine',           tipos: ['Administrativas', 'Fidelidad', 'Crédito'] },
+  { num: '06', logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png',  nombre: 'Berkley México Fianzas', tipos: ['Administrativas', 'Judiciales'] },
+  { num: '07', logo: '/logos/afianzadoras/Dorama.png',                  nombre: 'Dorama',                 tipos: ['Judiciales', 'Fidelidad'] },
+  { num: '08', logo: '/logos/afianzadoras/Mapfre.png',                  nombre: 'Mapfre',                 tipos: ['Todas las modalidades'] },
+  { num: '09', logo: '/logos/afianzadoras/Cesce.png',                   nombre: 'Cesce',                  tipos: ['Crédito'] },
+  { num: '10', logo: '/logos/afianzadoras/FIDUCIA.png',                 nombre: 'Fiducia',                tipos: ['Administrativas', 'Crédito'] },
+  { num: '11', logo: '/logos/afianzadoras/Avanza Fianzas.svg',          nombre: 'Avanza',                 tipos: ['Administrativas', 'Judiciales'] },
 ]
 
 export default function AlianzasDetalle() {
@@ -36,7 +37,7 @@ export default function AlianzasDetalle() {
         </motion.div>
 
         <ScrollReveal y={55}>
-          <h2 className="section-h2 ad-h2">Respaldo de las<br />10 afianzadoras líderes</h2>
+          <h2 className="section-h2 ad-h2">Respaldo de las<br />11 Afianzadoras líderes</h2>
           <p className="ad-intro">
             Relaciones comerciales activas y directas. Sin intermediarios adicionales — negociamos directo
             con cada institución para obtener las mejores condiciones para tus fianzas.

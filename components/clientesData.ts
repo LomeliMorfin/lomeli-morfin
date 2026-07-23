@@ -1,0 +1,57 @@
+// Fuente única de clientes. La usan LogosCarousel (home) y Clientes (grid /clientes).
+// Orden oficial provisto por el cliente (jul 2026); los que no traían orden van al final.
+// NOTA: "Alfa Proveedores y Contratistas" y "Torres, Estructuras y Postes de Puebla"
+// están en el orden oficial pero AÚN NO tienen logo — agregar cuando lleguen los assets.
+
+export type Cliente = { nombre: string; logo: string }
+
+export const CLIENTES: Cliente[] = [
+  { nombre: 'Mobility ADO',                       logo: '/logos/clientes/cl_ado.png' },
+  { nombre: 'Mitsubishi',                         logo: '/logos/clientes/cl_mitsubishi.svg' },
+  { nombre: 'Google México',                      logo: '/logos/clientes/cl_google.svg' },
+  { nombre: 'Emerson Electric de México',         logo: '/logos/clientes/cl_emerson.png' },
+  { nombre: 'Club de Fútbol Pachuca',             logo: '/logos/clientes/cl_pachuca.png' },
+  { nombre: 'Elecnor México',                     logo: '/logos/clientes/cl_elecnor.png' },
+  { nombre: 'Schneider Electric',                 logo: '/logos/clientes/cl_schneider.png' },
+  { nombre: 'Spanicar',                           logo: '/logos/clientes/cl_spanicar.jpg' },
+  { nombre: 'Consorcio Aristos',                  logo: '/logos/clientes/cl_aristos.jpg' },
+  { nombre: 'Avanza Spain',                       logo: '/logos/clientes/cl_avanza-spain.png' },
+  { nombre: 'Federal Express Holdings México',    logo: '/logos/clientes/cl_fedex.svg' },
+  { nombre: 'Farmamigo',                          logo: '/logos/clientes/cl_farmamigo.png' },
+  { nombre: 'ISI Mustang',                        logo: '/logos/clientes/cl_isi-mustang.jpg' },
+  { nombre: 'Abengoa',                            logo: '/logos/clientes/cl_abengoa.jpg' },
+  { nombre: 'Tautanet Internacional',             logo: '/logos/clientes/cl_tautanet.png' },
+  { nombre: 'Data Air Electric',                  logo: '/logos/clientes/cl_data-air-electric.png' },
+  { nombre: 'Makicop',                            logo: '/logos/clientes/cl_makicop.png' },
+  { nombre: 'Pasteko',                            logo: '/logos/clientes/cl_pasteko.png' },
+  { nombre: 'Comemsa',                            logo: '/logos/clientes/cl_comemsa.jpg' },
+  { nombre: 'Genesal Energy',                     logo: '/logos/clientes/cl_genesal.jpg' },
+  { nombre: 'Sidisa',                             logo: '/logos/clientes/cl_sidisa.jpg' },
+  { nombre: 'Lamsyco Laboratorios',               logo: '/logos/clientes/cl_lamsyco.jpg' },
+  { nombre: 'Uny II de México',                   logo: '/logos/clientes/cl_uny.jpg' },
+  { nombre: 'Concretos Huasteca',                 logo: '/logos/clientes/cl_concretos-huasteca.png' },
+  { nombre: 'Landsoft Company',                   logo: '/logos/clientes/cl_landsoft.png' },
+  // Sin orden oficial asignado:
+  { nombre: 'Abener',                             logo: '/logos/clientes/cl_abener.png' },
+  { nombre: 'Alldora',                            logo: '/logos/clientes/cl_alldora.png' },
+  { nombre: 'Axix',                               logo: '/logos/clientes/cl_axix.png' },
+  { nombre: 'Cobra',                              logo: '/logos/clientes/cl_cobra.png' },
+  { nombre: 'Comaple',                            logo: '/logos/clientes/cl_comaple.png' },
+  { nombre: 'Copeland',                           logo: '/logos/clientes/cl_copeland.jpeg' },
+  { nombre: 'Creas',                              logo: '/logos/clientes/cl_creas.jpg' },
+  { nombre: 'Daquiva Industrial y Comercial',     logo: '/logos/clientes/cl_daquiva.png' },
+  { nombre: 'DTXT de México',                     logo: '/logos/clientes/cl_dtxt.jpg' },
+  { nombre: 'Gocar',                              logo: '/logos/clientes/cl_gocar.png' },
+  { nombre: 'Internet Power',                     logo: '/logos/clientes/cl_internet-power.jpeg' },
+  { nombre: 'Norpower',                           logo: '/logos/clientes/cl_norpower.png' },
+  { nombre: 'OR Importaciones y Reparaciones',    logo: '/logos/clientes/cl_or-importaciones.jpg' },
+  { nombre: 'Orbe',                               logo: '/logos/clientes/cl_orbe.png' },
+  { nombre: 'Origami Creativa',                   logo: '/logos/clientes/cl_origami.jpg' },
+  { nombre: 'Powergyworks',                       logo: '/logos/clientes/cl_powergyworks.jpg' },
+  { nombre: 'Pyseco',                             logo: '/logos/clientes/cl_pyseco.png' },
+  { nombre: 'Rotork',                             logo: '/logos/clientes/cl_rotork.jpeg' },
+  { nombre: 'Sscope',                             logo: '/logos/clientes/cl_sscope.png' },
+  { nombre: 'SunPower',                           logo: '/logos/clientes/cl_sunpower.svg' },
+  { nombre: 'Shell',                              logo: '/logos/clientes/cl_shell.svg' },
+  { nombre: 'Teletec',                            logo: '/logos/clientes/cl_teletec.jpg' },
+]

@@ -10,36 +10,44 @@ import TiltCard from './TiltCard'
 
 const DESTACADOS = [
   {
-    id: 'ado', num: '01', nombre: 'Grupo ADO',
+    id: 'ado', num: '01', nombre: 'Mobility ADO',
     sector: 'Transporte y Movilidad',
     logo: '/logos/clientes/cl_ado.png',
     fianza: 'Fianzas Administrativas y de Crédito',
     años: '+20',
-    desc: 'El grupo de transporte terrestre más importante de México, con más de 103 empresas filiales. Un caso emblemático de confianza de largo plazo.',
+    desc: 'El grupo de transporte terrestre y movilidad más importante de México, con más de 103 empresas filiales. Un caso emblemático de confianza de largo plazo.',
   },
   {
-    id: 'emerson', num: '02', nombre: 'Emerson Process Management',
-    sector: 'Tecnología Industrial',
-    logo: '/logos/clientes/cl_emerson.png',
-    fianza: 'Fianzas de Fidelidad',
-    años: '+15',
-    desc: 'Líder mundial en automatización y control de procesos industriales. Sus operaciones en México requieren el más alto nivel de garantías.',
-  },
-  {
-    id: 'abengoa', num: '03', nombre: 'Abengoa México',
-    sector: 'Energía',
-    logo: '/logos/clientes/cl_abengoa.png',
+    id: 'mitsubishi', num: '02', nombre: 'Mitsubishi',
+    sector: 'Industria y Manufactura',
+    logo: '/logos/clientes/cl_mitsubishi-white.svg',
     fianza: 'Fianzas Administrativas',
     años: '+10',
-    desc: 'Empresa de referencia en energía, ingeniería y construcción con proyectos de infraestructura a lo largo de todo México.',
+    desc: 'Conglomerado industrial global con presencia en manufactura, maquinaria pesada y proyectos de infraestructura en el mercado mexicano.',
   },
   {
-    id: 'comemsa', num: '04', nombre: 'COMEMSA',
-    sector: 'Construcción Metálica',
-    logo: '/logos/clientes/cl_comemsa.png',
-    fianza: 'Fianzas Administrativas y Judiciales',
-    años: '+12',
-    desc: 'Construyendo México en acero. COMEMSA ejecuta proyectos estructurales de alta complejidad para los sectores industrial y energético.',
+    id: 'google', num: '03', nombre: 'Google México',
+    sector: 'Tecnología',
+    logo: '/logos/clientes/cl_google.svg',
+    fianza: 'Fianzas Administrativas',
+    años: '+5',
+    desc: 'Uno de los líderes tecnológicos a nivel mundial. Sus operaciones en México demandan el más alto estándar de respaldo y cumplimiento.',
+  },
+  {
+    id: 'fedex', num: '04', nombre: 'Federal Express Holdings México',
+    sector: 'Logística y Transporte',
+    logo: '/logos/clientes/cl_fedex.svg',
+    fianza: 'Fianzas Administrativas y de Crédito',
+    años: '+10',
+    desc: 'Líder mundial en logística y mensajería express. Sus operaciones en México requieren garantías del más alto nivel de cumplimiento.',
+  },
+  {
+    id: 'pachuca', num: '05', nombre: 'Club de Fútbol Pachuca',
+    sector: 'Deporte y Entretenimiento',
+    logo: '/logos/clientes/cl_pachuca.png',
+    fianza: 'Fianzas Administrativas',
+    años: '+8',
+    desc: 'Institución deportiva de referencia en México. Respaldamos sus operaciones con soluciones de fianzas a la medida de su actividad.',
   },
 ]
 
@@ -102,7 +110,7 @@ export default function ClientesDestacados() {
                 transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 maxTilt={5}
               >
-                <div className="cd-logo-frame">
+                <div className={`cd-logo-frame cd-logo-frame--${active.id}`}>
                   <Image
                     src={active.logo}
                     alt={active.nombre}

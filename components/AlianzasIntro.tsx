@@ -29,9 +29,9 @@ export default function AlianzasIntro() {
       <div className="ai-manifesto">
         <div className="ai-manifesto-inner">
           <ScrollReveal y={60}>
-            <p className="ai-manifesto-eyebrow">El respaldo que hace la diferencia</p>
+            <p className="ai-manifesto-eyebrow">El respaldo que hace la diferencia, nuestros socios comerciales</p>
             <h2 className="ai-manifesto-h2">
-              10 Afianzadoras.<br />
+              Afianzadoras Líderes<br />
               <span className="ai-manifesto-accent">Una red.</span>
             </h2>
           </ScrollReveal>
@@ -45,7 +45,7 @@ export default function AlianzasIntro() {
           </ScrollReveal>
 
           {/* Gran número decorativo */}
-          <div className="ai-big-num" aria-hidden>10</div>
+          <div className="ai-big-num" aria-hidden></div>
         </div>
       </div>
 
