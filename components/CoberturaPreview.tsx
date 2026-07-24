@@ -22,9 +22,8 @@ export default function CoberturaPreview() {
     <section className="cob-preview">
       <div className="cob-preview-inner">
 
-        {/* Texto — izquierda */}
-        <div className="cob-preview-text">
-          {/* Overline */}
+        {/* Encabezado (área "head") — overline + h2 */}
+        <div className="cob-preview-head">
           <motion.div
             className="overline-wrap"
             initial="hidden"
@@ -36,12 +35,18 @@ export default function CoberturaPreview() {
             <motion.span className="overline-text" variants={overlineText}>Cobertura</motion.span>
           </motion.div>
 
-          {/* H2 — sube con el scroll */}
           <ScrollReveal y={60}>
             <h2 className="cob-preview-h2">Presencia Nacional e Internacional</h2>
           </ScrollReveal>
+        </div>
 
-          {/* Países — stagger con scroll */}
+        {/* Globo (área "map") — en móvil va antes de los países */}
+        <ScrollReveal className="cob-preview-map cob-preview-map-anim" y={80}>
+          <GlobePreview />
+        </ScrollReveal>
+
+        {/* Cuerpo (área "body") — países + botón */}
+        <div className="cob-preview-body">
           <ScrollReveal y={40} delay={0.1}>
             <motion.div
               className="cob-preview-paises"
@@ -61,18 +66,12 @@ export default function CoberturaPreview() {
             </motion.div>
           </ScrollReveal>
 
-          {/* Link */}
           <ScrollReveal className="cob-preview-footer" y={30} delay={0.05}>
             <Link href="/cobertura" className="btn-primary">
               Ver cobertura completa
             </Link>
           </ScrollReveal>
         </div>
-
-        {/* Globo — derecha */}
-        <ScrollReveal className="cob-preview-map cob-preview-map-anim" y={80}>
-          <GlobePreview />
-        </ScrollReveal>
 
       </div>
     </section>

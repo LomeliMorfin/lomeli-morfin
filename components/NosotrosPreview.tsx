@@ -26,7 +26,7 @@ export default function NosotrosPreview() {
 
         <div className="preview-grid">
 
-          {/* Columna texto — sube con el scroll */}
+          {/* Texto (área "text") */}
           <ScrollReveal className="preview-text" y={70}>
             <h2 className="section-h2">
               Más de 40 años respaldando tu patrimonio
@@ -36,13 +36,10 @@ export default function NosotrosPreview() {
               de Fianzas, con presencia Nacional e Internacional. Contamos con Cédula de
               Autorización de la Comisión Nacional de Seguros y Fianzas desde 1981.
             </p>
-            <Link href="/nosotros" className="btn-primary btn-dark">
-              Conocer más →
-            </Link>
           </ScrollReveal>
 
-          {/* Columna valores — sube con el scroll, ligero retraso */}
-          <ScrollReveal y={50} delay={0.1}>
+          {/* Valores (área "valores") — en móvil van antes del botón */}
+          <ScrollReveal className="preview-valores-col" y={50} delay={0.1}>
             <motion.div
               className="preview-valores"
               initial="hidden"
@@ -56,6 +53,13 @@ export default function NosotrosPreview() {
                 </motion.span>
               ))}
             </motion.div>
+          </ScrollReveal>
+
+          {/* Botón (área "cta") */}
+          <ScrollReveal className="preview-cta-col" y={30} delay={0.15}>
+            <Link href="/nosotros" className="btn-primary btn-dark">
+              Conocer más →
+            </Link>
           </ScrollReveal>
 
         </div>

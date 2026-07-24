@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { VIEWPORT, overlineWrap, goldLine, overlineText } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 import { CLIENTES } from './clientesData'
+import { useSwipe } from './useSwipe'
 
 // Clientes por slide (5 columnas × 2 filas en desktop)
 const PER_PAGE = 10
@@ -23,6 +24,7 @@ export default function Clientes() {
 
   const prev = () => setPage(p => (p - 1 + total) % total)
   const next = () => setPage(p => (p + 1) % total)
+  const swipe = useSwipe(next, prev)
 
   return (
     <section id="clientes">
@@ -48,7 +50,7 @@ export default function Clientes() {
         {/* Slider de grids */}
         <ScrollReveal y={40} delay={0.05}>
           <div className="cl-slider">
-            <div className="cl-slider-viewport">
+            <div className="cl-slider-viewport" {...swipe}>
               <div
                 className="cl-slider-track"
                 style={{ transform: `translateX(-${page * 100}%)` }}

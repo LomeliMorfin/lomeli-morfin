@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
+import { useSwipe } from './useSwipe'
 
 const SERVICIOS = [
   {
@@ -78,11 +79,16 @@ const SERVICIOS = [
 export default function Servicios() {
   const [activeId, setActiveId] = useState('fidelidad')
   const active = SERVICIOS.find((s) => s.id === activeId)!
+  const activeIndex = SERVICIOS.findIndex((s) => s.id === activeId)
   const sectionRef = useRef<HTMLElement>(null)
   const tabsRef = useRef<HTMLDivElement>(null)
   const indicatorRef = useRef<HTMLSpanElement>(null)
 
-  // Mueve el indicador dorado al tab activo
+  const goNext = () => setActiveId(SERVICIOS[(activeIndex + 1) % SERVICIOS.length].id)
+  const goPrev = () => setActiveId(SERVICIOS[(activeIndex - 1 + SERVICIOS.length) % SERVICIOS.length].id)
+  const swipe = useSwipe(goNext, goPrev)
+
+  // Mueve el indicador dorado al tab activo y lo centra en la barra scrolleable
   useEffect(() => {
     const indicator = indicatorRef.current
     const container = tabsRef.current
@@ -91,6 +97,7 @@ export default function Servicios() {
     if (!activeEl) return
     indicator.style.left = `${activeEl.offsetLeft}px`
     indicator.style.width = `${activeEl.offsetWidth}px`
+    activeEl.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' })
   }, [activeId])
 
   useEffect(() => {
@@ -137,6 +144,7 @@ export default function Servicios() {
           id={`srv-panel-${activeId}`}
           role="tabpanel"
           className="srv-panel"
+          {...swipe}
         >
           <div className="srv-panel-inner">
             {/* Bloque visual izquierdo */}

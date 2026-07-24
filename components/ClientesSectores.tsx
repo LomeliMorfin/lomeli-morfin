@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { VIEWPORT, overlineWrap, goldLine, overlineText } from './animations'
 import { ScrollReveal } from './ScrollReveal'
+import { useSwipe } from './useSwipe'
 
 const SECTORES = [
   {
@@ -85,6 +86,7 @@ export default function ClientesSectores() {
 
   const prev = () => setActive(a => (a - 1 + n) % n)
   const next = () => setActive(a => (a + 1) % n)
+  const swipe = useSwipe(next, prev)
 
   return (
     <section id="clientes-sectores">
@@ -106,7 +108,7 @@ export default function ClientesSectores() {
         </ScrollReveal>
 
         {/* Carrusel 3D */}
-        <div className="csc-stage" role="group" aria-roledescription="carrusel" aria-label="Sectores industriales">
+        <div className="csc-stage" role="group" aria-roledescription="carrusel" aria-label="Sectores industriales" {...swipe}>
           {SECTORES.map((s, i) => {
             const off = offsetFor(i, active, n)
             const abs = Math.abs(off)
