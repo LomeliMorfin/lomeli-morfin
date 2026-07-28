@@ -11,7 +11,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'Lomeli Morfin — Consultores en Fianzas',
   description:
-    'Especialistas en asesoría, consultoría e intermediación de fianzas con más de 40 años de experiencia en el sector afianzador.',
+    'Especialistas en asesoría, consultoría e intermediación de Fianzas con más de 40 años de experiencia en el sector afianzador.',
 }
 
 export default function RootLayout({

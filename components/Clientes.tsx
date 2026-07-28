@@ -58,9 +58,16 @@ export default function Clientes() {
                 {pages.map((group, pi) => (
                   <div className="cl-slide" key={pi} aria-hidden={pi !== page}>
                     <div className="cl-grid logo-grid">
-                      {group.map(({ nombre, logo }) => (
+                      {group.map(({ nombre, logo, kind, scale }) => (
                         <div key={nombre} className="cl-item" title={nombre}>
-                          <Image src={logo} alt={nombre} width={160} height={80} className="cl-logo" />
+                          <Image
+                            src={logo}
+                            alt={nombre}
+                            width={160}
+                            height={80}
+                            className={`cl-logo cl-logo--${kind}`}
+                            style={scale ? { transform: `scale(${scale})` } : undefined}
+                          />
                         </div>
                       ))}
                     </div>

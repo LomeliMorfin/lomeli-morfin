@@ -59,7 +59,7 @@ export default function ContactoForm() {
                 </div>
 
                 <div className="cf-field">
-                  <label className="cf-label" htmlFor="servicio">Tipo de fianza</label>
+                  <label className="cf-label" htmlFor="servicio">Tipo de Fianza</label>
                   <select id="servicio" name="servicio" className="cf-input cf-select">
                     <option value="">Selecciona una opción</option>
                     {SERVICIOS.map(s => (

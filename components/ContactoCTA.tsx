@@ -19,7 +19,7 @@ export default function ContactoCTA() {
       <ScrollReveal className="cta-inner" y={70}>
         <p className="cta-overline">Atención personalizada</p>
         <h2 className="cta-h2">
-          Comienza tu trámite<br />de fianza.
+          Comienza tu trámite<br />de Fianza.
         </h2>
         <p className="cta-sub">
           Recibe atención personalizada de uno de nuestros especialistas y obtén

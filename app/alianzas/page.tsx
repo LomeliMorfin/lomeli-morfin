@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'Alianzas — Lomeli Morfin Consultores en Fianzas',
-  description: 'Contamos con relación comercial con las 10 Afianzadoras líderes del sector. El respaldo que tu fianza necesita.',
+  description: 'Contamos con relación comercial con las 10 Afianzadoras líderes del sector. El respaldo que tu Fianza necesita.',
 }
 
 export default function AlianzasPage() {
@@ -18,7 +18,7 @@ export default function AlianzasPage() {
         <PageHeader
           label="Nuestras Alianzas"
           title="El respaldo de las mejores Afianzadoras"
-          subtitle="Contamos con relación comercial con las Afianzadoras líderes del sector, lo que nos permite ofrecerte las mejores condiciones en cada fianza."
+          subtitle="Contamos con relación comercial con las Afianzadoras líderes del sector, lo que nos permite ofrecerte las mejores condiciones en cada Fianza."
           breadcrumb="Alianzas"
         />
         <AlianzasIntro />
@@ -31,7 +31,7 @@ export default function AlianzasPage() {
           <div className="pg-cta-inner">
             <p className="pg-cta-overline">Asesoría especializada</p>
             <h2 className="pg-cta-h2">¿Quieres saber qué Afianzadora conviene para tu caso?</h2>
-            <p className="pg-cta-sub">Te orientamos sin costo para que elijas la mejor opción según tu tipo de fianza.</p>
+            <p className="pg-cta-sub">Te orientamos sin costo para que elijas la mejor opción según tu tipo de Fianza.</p>
             <Link href="/contacto" className="pg-cta-btn">
               Hablar con un especialista
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>

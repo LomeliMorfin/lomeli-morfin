@@ -208,6 +208,16 @@ body {
   /* compensa el hueco que deja el letter-spacing tras la última letra */
   padding-left: 0.38em;
   text-transform: uppercase;
+  /* Siempre en una sola línea (nunca "LOMELI" / "MORFIN" en dos renglones) */
+  white-space: nowrap;
+}
+/* En móvil se reduce tamaño y espaciado para que quepa en una línea */
+@media (max-width: 600px) {
+  .s2-name {
+    font-size: clamp(1.05rem, 5.6vw, 1.75rem);
+    letter-spacing: 0.22em;
+    padding-left: 0.22em;
+  }
 }
 .s2-divider {
   width: 0;
@@ -548,12 +558,16 @@ body {
   gap: 16px;
   flex-wrap: wrap;
 }
-/* En móvil el contenido se ancla arriba con holgura bajo el navbar
-   (centrado verticalmente amontonaba la overline contra el navbar). */
+/* Móvil: altura ajustada al contenido (evita el vacío que hacía ver el texto
+   "muy arriba") + holgura bajo el navbar de 72px para que la overline respire. */
 @media (max-width: 768px) {
-  #hero { align-items: flex-start; }
-  .hero-content { padding-top: 124px; padding-bottom: 96px; }
-  .hero-h1 { margin-top: 20px; }
+  #hero {
+    align-items: center;
+    height: auto;
+    min-height: 90svh;
+  }
+  .hero-content { padding-top: 116px; padding-bottom: 64px; }
+  .hero-h1 { margin-top: 16px; }
 }
 
 /* ─── Stats ─── */
@@ -710,256 +724,343 @@ body {
   margin: 24px 0 48px;
 }
 
-/* ─── Servicios — página completa (tab layout) ─── */
+/* ─── Servicios — página completa (columna índice + tarjeta) ─── */
 #servicios {
   background: #ffffff;
   padding-bottom: 110px;
 }
 @media (max-width: 768px) { #servicios { padding-bottom: 60px; } }
 
-.srv-tabs-wrap {
+.srv-wrap {
   max-width: var(--container);
   margin: 0 auto;
-}
-
-/* Barra de tabs */
-.srv-tabs {
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid rgba(27, 66, 84, 0.15);
-  overflow-x: auto;
-  scrollbar-width: none;
   padding: 0 6vw;
+}
+
+/* Intro editorial — mismo patrón que otras secciones (overline + h2 + lead) */
+.srv-intro { margin-bottom: clamp(48px, 6vw, 80px); }
+.srv-intro .overline-wrap { margin-bottom: 20px; }
+.srv-intro .section-h2 { margin-bottom: 20px; }
+.srv-intro-lead {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #5a6a7a;
+  max-width: 100%;
+}
+
+/* ===== DESKTOP: columna índice + tarjeta ===== */
+.srv-desktop {
+  display: grid;
+  grid-template-columns: minmax(300px, 5fr) 7fr;
+  gap: clamp(36px, 5vw, 88px);
+  align-items: start;
+}
+
+/* Columna índice */
+.srv-list { display: flex; flex-direction: column; }
+.srv-list-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(27, 66, 84, 0.12);
+  padding: 20px 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  transition: background 0.25s ease;
+}
+.srv-list-item:first-child { border-top: 1px solid rgba(27, 66, 84, 0.12); }
+.srv-list-item:hover { background: rgba(27, 66, 84, 0.03); }
+.srv-list-item--active { background: rgba(27, 66, 84, 0.05); }
+
+/* Icono en marco que se ilumina en azul al seleccionar (círculo que se expande) */
+.srv-list-icon {
   position: relative;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid rgba(27, 66, 84, 0.14);
+  color: #5a6a7a;
+  overflow: hidden;
+  transition: color 0.35s ease, border-color 0.35s ease;
 }
-.srv-tabs::-webkit-scrollbar { display: none; }
-
-/* Indicador deslizante — se mueve con JS */
-.srv-indicator {
+.srv-list-icon::before {
+  content: '';
   position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #c8a020;
-  transition: left 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-  pointer-events: none;
+  inset: 0;
+  border-radius: inherit;
+  background: #1b4254;
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.srv-list-icon svg { position: relative; z-index: 1; width: 1.4rem; height: 1.4rem; }
+.srv-list-item:hover .srv-list-icon { color: #1b4254; border-color: rgba(27, 66, 84, 0.3); }
+.srv-list-item--active .srv-list-icon,
+.srv-list-item--active:hover .srv-list-icon { color: #ffffff; border-color: #1b4254; }
+.srv-list-item--active .srv-list-icon::before { transform: scale(1); }
+
+.srv-list-body { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.srv-list-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5a6a7a;
+  letter-spacing: 0.01em;
+  transition: color 0.25s ease;
+}
+.srv-list-item--active .srv-list-name { color: #0f2535; }
+.srv-list-tag {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(27, 66, 84, 0.4);
+}
+.srv-list-arrow {
+  flex-shrink: 0;
+  color: transparent;
+  transform: translateX(-6px);
+  transition: color 0.25s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.srv-list-item--active .srv-list-arrow { color: #c8a020; transform: translateX(0); }
+
+/* Tarjeta flotante oscura (icono en vez de imagen) */
+.srv-card-wrap { position: relative; }
+.srv-card {
+  background: linear-gradient(150deg, #16374a 0%, #0c1f2d 100%);
+  border: 1px solid rgba(200, 160, 32, 0.22);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: var(--elevation-dark-3);
+  will-change: clip-path, height;
+}
+/* El contenido lleva el padding (el card tiene padding 0 para medir su altura) */
+.srv-card-body { padding: clamp(32px, 4vw, 56px); }
+
+/* Icono dentro del card, arriba */
+.srv-card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 1px solid rgba(200, 160, 32, 0.3);
+  background: rgba(200, 160, 32, 0.08);
+  color: #c8a020;
+  margin-bottom: 24px;
+}
+.srv-card-icon svg { width: 2rem; height: 2rem; }
+.srv-card-tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #c8a020;
+  border: 1px solid rgba(200, 160, 32, 0.4);
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+.srv-card-titulo {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+.srv-card-desc {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 34rem;
 }
 
-.srv-tab {
+/* Subtipos (compartido desktop/móvil, sobre card oscura) */
+.srv-subtipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 48px;
+  border-top: 1px solid rgba(200, 160, 32, 0.2);
+  padding-top: 28px;
+  margin-bottom: 36px;
+}
+.srv-cat-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 14px;
+}
+.srv-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.srv-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 24px 32px 22px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  position: relative;
-  color: #5a6a7a;
-  margin-bottom: -1px;
-  transition: color 0.25s ease, border-bottom-color 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.12s ease;
-}
-.srv-tab:hover { color: #1b4254; }
-.srv-tab:active { transform: scale(0.97); }
-.srv-tab.active {
-  color: #0f2535;
-}
-.srv-tab-num {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: #c8a020;
-  opacity: 0.6;
-  transition: opacity 0.25s ease;
-}
-.srv-tab.active .srv-tab-num,
-.srv-tab:hover .srv-tab-num { opacity: 1; }
-.srv-tab-name {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.8);
 }
-.srv-tab.active .srv-tab-name { font-weight: 500; }
+.srv-item-dot { width: 4px; height: 4px; border-radius: 50%; background: #c8a020; flex-shrink: 0; }
 
-/* Panel — fade rápido al cambiar tab; los hijos manejan el movimiento */
-@keyframes srvPanelIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.srv-panel {
-  padding: 0 6vw;
-  animation: srvPanelIn 0.18s ease forwards;
-}
-
-.srv-panel-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(48px, 6vw, 96px);
-  align-items: center;
-  padding: 72px 0;
-}
-
-/* Bloque visual — placeholder gradiente */
-.srv-visual {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 6px;
-  overflow: hidden;
-}
-.srv-visual-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 37, 53, 0.35);
-  display: flex;
-  align-items: flex-end;
-  padding: 32px;
-}
-.srv-visual-num {
-  font-size: clamp(5rem, 12vw, 10rem);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.12);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  user-select: none;
-}
-
-/* Detalle textual */
-.srv-detail-titulo {
-  font-size: clamp(1.5rem, 3vw, 2.375rem);
-  font-weight: 600;
-  color: #0f2535;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.srv-detail-desc {
-  font-size: 1.0625rem;
-  font-weight: 400;
-  color: #1b4254;
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-
-/* Subtipos */
-.srv-detail-subtipos {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 36px;
-}
-.srv-detail-cat-label {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #c8a020;
-  margin-bottom: 12px;
-}
-.srv-detail-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.srv-detail-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: #1b4254;
-  background: rgba(27, 66, 84, 0.06);
-  border: 1px solid rgba(27, 66, 84, 0.12);
-  padding: 6px 14px;
-  border-radius: 2px;
-}
-.srv-detail-item-dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #c8a020;
-  flex-shrink: 0;
-}
-
-/* CTA */
-.srv-detail-cta {
+.srv-card-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #1b4254;
-  color: white;
+  background: #c8a020;
+  color: #0f2535;
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
   text-transform: uppercase;
+  letter-spacing: 0.14em;
   padding: 14px 28px;
   border-radius: 2px;
   text-decoration: none;
-  transition: background 0.25s ease, transform 0.12s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background 0.25s ease, transform 0.12s ease;
 }
-.srv-detail-cta:hover { background: #2b5a72; }
-.srv-detail-cta:active { transform: scale(0.97); }
+.srv-card-cta:hover { background: #a08010; }
+.srv-card-cta:active { transform: scale(0.97); }
 
-/* ── Mobile ── */
-@media (max-width: 900px) {
-  .srv-panel-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 48px 0;
-  }
-  .srv-visual { aspect-ratio: 16 / 7; }
-  .srv-tabs { scroll-snap-type: x proximity; justify-content: flex-start; }
-  .srv-tab { padding: 20px 20px 18px; scroll-snap-align: center; }
-  .srv-tab-name { font-size: 0.75rem; }
-  /* El panel se puede cambiar deslizando con el dedo */
-  .srv-panel { touch-action: pan-y; }
-}
+/* ===== MÓVIL: rail sticky + servicios apilados ===== */
+.srv-mobile { display: none; }
 
-/* ── Animaciones Servicios (Emil Kowalski) ── */
+/* Entrada desktop (stagger de la columna) */
 @media (prefers-reduced-motion: no-preference) {
-  /* Tabs: ocultos hasta que la sección entra al viewport */
-  #servicios:not(.srv-entered) .srv-tab { opacity: 0; }
-
+  #servicios:not(.srv-entered) .srv-list-item { opacity: 0; transform: translateY(10px); }
   @keyframes srvTabIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  #servicios.srv-entered .srv-tab {
+  #servicios.srv-entered .srv-list-item {
     animation: srvTabIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
   }
-  #servicios.srv-entered .srv-tab:nth-child(1) { animation-delay: 0ms; }
-  #servicios.srv-entered .srv-tab:nth-child(2) { animation-delay: 70ms; }
-  #servicios.srv-entered .srv-tab:nth-child(3) { animation-delay: 140ms; }
-  #servicios.srv-entered .srv-tab:nth-child(4) { animation-delay: 210ms; }
+  #servicios.srv-entered .srv-list-item:nth-child(1) { animation-delay: 0ms; }
+  #servicios.srv-entered .srv-list-item:nth-child(2) { animation-delay: 70ms; }
+  #servicios.srv-entered .srv-list-item:nth-child(3) { animation-delay: 140ms; }
+  #servicios.srv-entered .srv-list-item:nth-child(4) { animation-delay: 210ms; }
+  #servicios.srv-entered .srv-list-item:nth-child(5) { animation-delay: 280ms; }
+}
 
-  /* Visual: fade + scale al cambiar tab (clip-path causaba bugs en Android) */
-  @keyframes srvVisualReveal {
-    from { opacity: 0; transform: scale(0.97); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  .srv-visual {
-    animation: srvVisualReveal 0.65s cubic-bezier(0.23, 1, 0.32, 1) 0.06s both;
+/* ── Breakpoint: experiencia móvil (rail de iconos + scroll-spy) ── */
+@media (max-width: 900px) {
+  .srv-desktop { display: none; }
+  .srv-mobile {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: clamp(16px, 4vw, 28px);
+    align-items: start;
   }
 
-  /* Contenido: stagger de cada hijo directo del panel de detalle */
-  @keyframes srvItemIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
+  /* Rail de iconos sticky — se ilumina el del servicio en pantalla */
+  .srv-rail {
+    position: sticky;
+    top: 30vh;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
-  .srv-detail > * {
-    opacity: 0;
-    animation: srvItemIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+  .srv-rail-icon {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border-radius: 11px;
+    border: 1px solid rgba(27, 66, 84, 0.14);
+    background: #ffffff;
+    color: #9aa8b4;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .srv-detail > *:nth-child(1) { animation-delay: 80ms; }
-  .srv-detail > *:nth-child(2) { animation-delay: 150ms; }
-  .srv-detail > *:nth-child(3) { animation-delay: 220ms; }
-  .srv-detail > *:nth-child(4) { animation-delay: 290ms; }
-  .srv-detail > *:nth-child(5) { animation-delay: 360ms; }
+  .srv-rail-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #1b4254;
+    transform: scale(0);
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .srv-rail-icon svg { position: relative; z-index: 1; width: 1.5rem; height: 1.5rem; }
+  .srv-rail-icon.is-active { color: #ffffff; border-color: #1b4254; transform: scale(1.08); }
+  .srv-rail-icon.is-active::before { transform: scale(1); }
+
+  /* Servicios apilados */
+  .srv-stack { display: flex; flex-direction: column; gap: 20px; }
+  .srv-m-item {
+    background: linear-gradient(150deg, #16374a 0%, #0c1f2d 100%);
+    border: 1px solid rgba(200, 160, 32, 0.18);
+    border-radius: 6px;
+    padding: clamp(24px, 6vw, 36px);
+    box-shadow: var(--elevation-dark-3);
+    opacity: 0.55;
+    transition: opacity 0.4s ease, border-color 0.4s ease;
+  }
+  .srv-m-item.is-active { opacity: 1; border-color: rgba(200, 160, 32, 0.38); }
+  .srv-m-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid rgba(200, 160, 32, 0.3);
+    background: rgba(200, 160, 32, 0.08);
+    color: #c8a020;
+    margin-bottom: 20px;
+  }
+  .srv-m-icon svg { width: 1.8rem; height: 1.8rem; }
+  .srv-m-tag {
+    display: inline-block;
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #c8a020;
+    border: 1px solid rgba(200, 160, 32, 0.4);
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .srv-m-titulo {
+    font-size: clamp(1.35rem, 6vw, 1.75rem);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.12;
+    margin-bottom: 14px;
+  }
+  .srv-m-desc {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    margin-bottom: 26px;
+  }
+  .srv-subtipos { gap: 24px 36px; padding-top: 22px; margin-bottom: 28px; }
+}
+
+@media (max-width: 480px) {
+  .srv-mobile { grid-template-columns: 2.5rem 1fr; gap: 14px; }
+  .srv-rail-icon { width: 2.5rem; height: 2.5rem; border-radius: 9px; }
+  .srv-rail-icon svg { width: 1.25rem; height: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srv-list-icon::before, .srv-rail-icon::before { transition: none; }
+  .srv-list-icon, .srv-rail-icon, .srv-list-arrow, .srv-rail-icon.is-active { transition: color 0.2s ease, border-color 0.2s ease; }
 }
 
 /* .service-num se reutiliza en ServiciosPreview */
@@ -1241,15 +1342,16 @@ body {
 @media (max-width: 480px) { .af-item { flex-basis: calc((100% - 1 * var(--af-gap)) / 2); } }
 .af-item:hover { background: rgba(0, 0, 0, 0.03); }
 
+/* Misma normalización óptica por categoría que el grid de clientes. */
 .af-logo {
-  width: 100%;
+  width: auto;
   height: auto;
-  max-height: 3.5rem;
   object-fit: contain;
   filter: grayscale(100%) opacity(0.5);
   transition: filter 0.35s ease;
 }
-.af-logo--lg { max-height: 5.25rem; }
+.af-logo--wordmark { max-height: 3.4rem; max-width: 88%; }
+.af-logo--mark     { max-height: 4.6rem; max-width: 70%; }
 .af-item:hover .af-logo { filter: grayscale(0%) opacity(1); }
 
 /* ─── Cobertura ─── */
@@ -1499,14 +1601,18 @@ body {
 }
 .cl-item:hover { background: #ffffff; }
 
+/* Normalización óptica por categoría (ver clientesData.ts `kind`):
+   los 'mark' (cuadrados) van más altos, los 'wordmark' (horizontales) más bajos
+   y con más ancho — así pesan visualmente lo mismo pese a su forma distinta. */
 .cl-logo {
-  width: 100%;
+  width: auto;
   height: auto;
-  max-height: 3.5rem;
   object-fit: contain;
   filter: grayscale(100%) opacity(0.55);
   transition: filter 0.35s ease;
 }
+.cl-logo--wordmark { max-height: 3.4rem; max-width: 88%; }
+.cl-logo--mark     { max-height: 4.3rem; max-width: 74%; }
 .cl-item:hover .cl-logo { filter: grayscale(0%) opacity(1); }
 
 /* ─── Clientes: slider de grids (página /clientes) ─── */
@@ -2331,8 +2437,9 @@ a.cf-info-value:hover { color: #c8a020; }
   flex-shrink: 0;
 }
 .logos-carousel-img {
-  height: 38px;
+  height: 38px;      /* fallback; la altura real la fija LogosCarousel por categoría */
   width: auto;
+  max-width: 200px;  /* limita los wordmarks ultra-anchos (sscope, sunpower) */
   object-fit: contain;
   filter: none;
 }
@@ -2470,7 +2577,7 @@ a.cf-info-value:hover { color: #c8a020; }
   max-width: var(--container);
   margin: 0 auto;
   position: relative;
-  background: linear-gradient(135deg, #1b4254 0%, #0f2535 100%);
+  background: #1b4254;
   border: 1px solid rgba(200, 160, 32, 0.22);
   border-radius: 6px;
   box-shadow: var(--elevation-4);
@@ -3419,7 +3526,7 @@ a.cf-info-value:hover { color: #c8a020; }
 }
 #stats::before { display: none; }
 .stats-grid {
-  background: linear-gradient(160deg, #1b4254 0%, #0f2535 55%, #0a1a24 100%);
+  background: #1b4254;
   border: 1px solid rgba(200, 160, 32, 0.18);
   /* excepción a la regla de 6px — el cliente pidió este panel más redondeado */
   border-radius: 12px;
@@ -3429,16 +3536,7 @@ a.cf-info-value:hover { color: #c8a020; }
   overflow: hidden;
   position: relative;
 }
-.stats-grid::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 65% 55% at 50% -5%, rgba(255, 255, 255, 0.05), transparent 65%),
-    radial-gradient(ellipse 30% 50% at 0% 70%, rgba(43, 90, 114, 0.22), transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
+.stats-grid::before { display: none; }
 .stat-item {
   padding: 52px 40px;
   position: relative;
@@ -3515,22 +3613,25 @@ a.cf-info-value:hover { color: #c8a020; }
   box-shadow: var(--elevation-1);
 }
 
-/* ── Página Servicios: panel blanco flotante sobre el header ── */
+/* ── Página Servicios: integrado en el cuerpo (sin panel flotante ni traslape) ── */
 #servicios {
   position: relative;
   z-index: 2;
-  margin-top: -48px;
-  padding: 0 6vw 110px;
+  margin-top: 0;
+  padding: 64px 0 110px;
 }
-.srv-tabs-wrap {
-  background: #ffffff;
-  border: 1px solid rgba(27, 66, 84, 0.09);
-  border-radius: 6px;
-  box-shadow: var(--elevation-3);
-  overflow: hidden;
+#servicios::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 42% 45% at 88% 3%, rgba(200, 160, 32, 0.055), transparent 62%),
+    radial-gradient(ellipse 45% 55% at 2% 97%, rgba(27, 66, 84, 0.05), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
-.srv-panel { padding: 0 clamp(24px, 4vw, 64px); }
-@media (max-width: 768px) { #servicios { margin-top: -32px; padding-bottom: 60px; } }
+.srv-wrap { position: relative; z-index: 1; }
+@media (max-width: 768px) { #servicios { margin-top: 0; padding: 40px 0 60px; } }
 
 /* ── Cobertura: mapas flotantes ── */
 .cob-map-card {

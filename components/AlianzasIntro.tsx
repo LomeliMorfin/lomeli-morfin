@@ -8,7 +8,7 @@ const PILARES = [
   {
     num: '01',
     titulo: 'Cobertura completa',
-    desc: 'Las 4 modalidades de fianza cubiertas: Administrativa, Judicial, Fidelidad y Crédito. Sin excepciones.',
+    desc: 'Las 4 modalidades de Fianza cubiertas: Administrativa, Judicial, Fidelidad y Crédito. Sin excepciones.',
   },
   {
     num: '02',
@@ -18,7 +18,7 @@ const PILARES = [
   {
     num: '03',
     titulo: 'Gestión ágil',
-    desc: 'Un solo punto de contacto. Nosotros coordinamos con la Afianzadora idónea para cada tipo de fianza.',
+    desc: 'Un solo punto de contacto. Nosotros coordinamos con la Afianzadora idónea para cada tipo de Fianza.',
   },
 ]
 
@@ -39,8 +39,8 @@ export default function AlianzasIntro() {
           <ScrollReveal y={40} delay={0.1}>
             <p className="ai-manifesto-body">
               Una Afianzadora es la institución financiera autorizada por la CNSF que emite y garantiza
-              la fianza. Trabajar con las mejores del sector nos permite ofrecerte condiciones competitivas,
-              respuesta ágil y la certeza de que tu fianza tiene el respaldo institucional que necesitas.
+              la Fianza. Trabajar con las mejores del sector nos permite ofrecerte condiciones competitivas,
+              respuesta ágil y la certeza de que tu Fianza tiene el respaldo institucional que necesitas.
             </p>
           </ScrollReveal>
 

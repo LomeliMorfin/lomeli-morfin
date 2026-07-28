@@ -5,7 +5,7 @@ import { VIEWPORT, staggerContainer, staggerItem } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 
 const STATS = [
-  { num: '+40', caption: 'Años de trayectoria', detail: 'Desde 1981, respaldando cada fianza con experiencia probada' },
+  { num: '+40', caption: 'Años de trayectoria', detail: 'Desde 1981, respaldando cada Fianza con experiencia probada' },
   { num: '+30', caption: 'Empresas estratégicas', detail: 'Clientes que han formado parte de sectores clave de la Economía Mexicana' },
   { num: '6',   caption: 'Sectores industriales', detail: 'Energía, construcción, logística, manufactura, tecnología y telecomunicaciones' },
 ]
@@ -54,7 +54,7 @@ export default function ClientesStats() {
           <div className="cst-manifesto">
             <div className="cst-manifesto-line" />
             <p className="cst-manifesto-text">
-              "Cuatro décadas construyendo confianza a través de cada fianza tramitada."
+              “Cuatro décadas construyendo confianza a través de cada Fianza tramitada.”
             </p>
           </div>
         </ScrollReveal>

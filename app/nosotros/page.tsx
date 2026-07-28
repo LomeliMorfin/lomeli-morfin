@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'Nosotros — Lomeli Morfin Consultores en Fianzas',
-  description: 'Más de 40 años de experiencia en asesoría, consultoría e intermediación de fianzas.',
+  description: 'Más de 40 años de experiencia en asesoría, consultoría e intermediación de Fianzas.',
 }
 
 export default function NosotrosPage() {

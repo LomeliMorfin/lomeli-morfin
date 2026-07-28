@@ -27,10 +27,45 @@ npm run lint      # Run ESLint
 - **Presencia:** México (14 estados) y Argentina
 - **Tipo de sitio:** Single-page corporativo con scroll por secciones
 - **Stack:** Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS v4 — App Router en `/app`
-- **Dependencias clave:** `react-globe.gl` + `@types/three` (globo terráqueo en CoberturaPreview)
+- **Dependencias clave:**
+  - `framer-motion` — motor de animación principal del sitio (ver §11)
+  - `react-globe.gl` + `@types/three` — globo terráqueo (CoberturaPreview / GlobePreview)
+  - `@react-three/fiber` + `@react-three/drei` — escena 3D (CoberturaGlobe)
+  - `react-simple-maps` — mapas SVG de cobertura (CoberturaMapMx / CoberturaMapWorld)
+- **Alias de imports:** `@/*` → raíz del repo (tsconfig `paths`). Usar `@/components/...`.
 - **Referencia visual:** verholy.com/en — estructura editorial, animaciones
   sutiles y de alto impacto, mucho whitespace, sensación premium
 - **Personalidad de marca:** Sobria, confiable, moderna, corporativa con calidez
+
+---
+
+## 1B. ESTADO DE SINCRONIZACIÓN DE ESTE DOCUMENTO
+
+> Este documento se redactó en la fase inicial y el sitio ha evolucionado. Las
+> reglas de **marca, paleta, tipografía y diseño** (§3–§7, §12, §14) siguen
+> vigentes y son autoritativas. Los **detalles de contenido, conteos y
+> arquitectura** han cambiado — verifica siempre contra el código y contra
+> `.claude/.../memory/MEMORY.md`, que registra las rondas de feedback del cliente.
+
+**Deltas frente a lo escrito abajo (fuente de verdad = código + memoria):**
+
+- **Animaciones:** el sitio migró de "CSS `@keyframes` + IntersectionObserver" a
+  **framer-motion** (`components/animations.ts` = variants compartidas;
+  `ScrollReveal.tsx` = reveal ligado al scroll). Ver §11 corregido. El sistema
+  CSS antiguo queda como fallback histórico, no como patrón a seguir.
+- **Rutas nuevas:** además de `/nosotros`, `/servicios`, `/cobertura`, existen
+  `/clientes`, `/alianzas` y `/contacto` (cada una `app/<ruta>/page.tsx`).
+  `app/template.tsx` da la transición uniforme entre páginas (fade + y, framer).
+- **Componentes nuevos clave:** `clientesData.ts` (FUENTE ÚNICA de la lista de
+  clientes — no hardcodear logos/nombres en otro lado), `useSwipe.ts` (hook de
+  swipe para carruseles), `TiltCard.tsx`, `CoberturaGlobe.tsx`, familias
+  `Clientes*` (Clientes / ClientesDestacados / ClientesSectores / ClientesStats)
+  y `Alianzas*` (AlianzasIntro / AlianzasDetalle).
+- **Contenido (§10) desactualizado:** el cliente cambió a **32 Entidades**,
+  **6 países** de cobertura, **5 servicios** (se añadió Fianza Internacional),
+  conteos ~1800/2000 clientes, y **body font-weight 400** (no 300). La memoria
+  del proyecto tiene el detalle exacto de cada ronda; §10 abajo es referencia
+  de tono/estructura, no de cifras.
 
 ---
 
@@ -587,13 +622,29 @@ Mérida · Colima · Nayarit · Morelos · Michoacán
 
 ## 11. SISTEMA DE ANIMACIONES
 
-### Filosofía
+> **ACTUALIZADO:** el motor de animación es **framer-motion**, no CSS+IO. Todo
+> lo de abajo (Animación 1–4, keyframes CSS) describe el sistema histórico y se
+> conserva como referencia de intención — pero para código NUEVO usa framer.
+
+### Cómo animar hoy (framer-motion)
+- **Variants compartidas:** `components/animations.ts` — `fadeUp`, `fadeIn`,
+  `slideLeft`, etc. Easing estándar `[0.25, 0.46, 0.45, 0.94]`, y
+  `VIEWPORT = { once: true, margin: '-80px 0px' }`. Reusa estas variants; no
+  redefinas duraciones/easings ad-hoc por componente.
+- **Reveal ligado al scroll:** `components/ScrollReveal.tsx` — el progreso de la
+  animación = progreso del scroll (no un threshold). Úsalo para revelados de
+  bloques grandes; props `y` (px iniciales) y `delay` (fracción 0–0.2).
+- **Reveal por viewport:** envuelve con `<motion.div variants={fadeUp}
+  initial="hidden" whileInView="show" viewport={VIEWPORT}>`.
+- framer respeta `prefers-reduced-motion` vía `useReducedMotion` — úsalo en
+  animaciones ligadas al scroll (ver `app/template.tsx`).
+
+### Filosofía (invariante, con cualquier motor)
 - Las animaciones **revelan**, no decoran
-- Cada elemento anima **una sola vez** al entrar al viewport
+- Cada elemento anima **una sola vez** al entrar al viewport (`once: true`)
 - **NUNCA** loops, **NUNCA** animaciones automáticas en sección visible
-- Siempre envolver en `@media (prefers-reduced-motion: no-preference)`
-- Easing estándar del sitio: `cubic-bezier(0.77, 0, 0.18, 1)`
-- IntersectionObserver e instancias de scroll van en `useEffect` con cleanup
+  (única excepción: el `pulse` del mapa y el carrusel continuo de logos)
+- Siempre respetar `prefers-reduced-motion`
 
 ---
 

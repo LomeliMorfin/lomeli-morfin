@@ -5,18 +5,20 @@ import { motion } from 'framer-motion'
 import { VIEWPORT, overlineWrap, goldLine, overlineText, staggerContainer, staggerItem } from './animations'
 import { ScrollReveal } from './ScrollReveal'
 
-const AFIANZADORAS = [
-  { nombre: 'Chubb',                    logo: '/logos/afianzadoras/Chubb-Logo-500x281.png' },
-  { nombre: 'Aserta',                   logo: '/logos/afianzadoras/ASERTA.png' },
-  { nombre: 'Insurgentes',              logo: '/logos/afianzadoras/INSURGENTES.png' },
-  { nombre: 'Sofimex',                  logo: '/logos/afianzadoras/Sofimex.png' },
-  { nombre: 'Tokio Marine',             logo: '/logos/afianzadoras/Tokio_Marine_(2).svg' },
-  { nombre: 'Berkley México Fianzas',   logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png' },
-  { nombre: 'Dorama',                   logo: '/logos/afianzadoras/Dorama.png' },
-  { nombre: 'Mapfre',                   logo: '/logos/afianzadoras/Mapfre.png', big: true },
-  { nombre: 'Cesce',                    logo: '/logos/afianzadoras/Cesce.png' },
-  { nombre: 'Fiducia',                  logo: '/logos/afianzadoras/FIDUCIA.png' },
-  { nombre: 'Avanza',                   logo: '/logos/afianzadoras/Avanza Fianzas.svg' },
+// kind = misma normalización óptica que clientes: 'mark' (cuadrado) va más grande,
+// 'wordmark' (horizontal) más contenido. Aquí solo Mapfre y Tokio Marine son 'mark'.
+const AFIANZADORAS: { nombre: string; logo: string; kind: 'mark' | 'wordmark'; scale?: number }[] = [
+  { nombre: 'Chubb',                    logo: '/logos/afianzadoras/Chubb-Logo-500x281.png',   kind: 'wordmark' },
+  { nombre: 'Aserta',                   logo: '/logos/afianzadoras/ASERTA.png',               kind: 'wordmark' },
+  { nombre: 'Insurgentes',              logo: '/logos/afianzadoras/INSURGENTES.png',          kind: 'wordmark' },
+  { nombre: 'Sofimex',                  logo: '/logos/afianzadoras/Sofimex.png',              kind: 'wordmark', scale: 1.2 },
+  { nombre: 'Tokio Marine',             logo: '/logos/afianzadoras/Tokio_Marine_(2).svg',     kind: 'mark' },
+  { nombre: 'Berkley México Fianzas',   logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png', kind: 'wordmark' },
+  { nombre: 'Dorama',                   logo: '/logos/afianzadoras/Dorama.png',               kind: 'wordmark' },
+  { nombre: 'Mapfre',                   logo: '/logos/afianzadoras/Mapfre.png',               kind: 'mark', scale: 1.2 },
+  { nombre: 'Cesce',                    logo: '/logos/afianzadoras/Cesce.png',                kind: 'wordmark' },
+  { nombre: 'Fiducia',                  logo: '/logos/afianzadoras/FIDUCIA.png',              kind: 'wordmark' },
+  { nombre: 'Avanza',                   logo: '/logos/afianzadoras/Avanza Fianzas.svg',       kind: 'wordmark' },
 ]
 
 export default function Afianzadoras() {
@@ -53,9 +55,16 @@ export default function Afianzadoras() {
             viewport={VIEWPORT}
             variants={staggerContainer}
           >
-            {AFIANZADORAS.map(({ nombre, logo, big }) => (
+            {AFIANZADORAS.map(({ nombre, logo, kind, scale }) => (
               <motion.div key={nombre} className="af-item" title={nombre} variants={staggerItem}>
-                <Image src={logo} alt={nombre} width={160} height={80} className={big ? 'af-logo af-logo--lg' : 'af-logo'} />
+                <Image
+                  src={logo}
+                  alt={nombre}
+                  width={160}
+                  height={80}
+                  className={`af-logo af-logo--${kind}`}
+                  style={scale ? { transform: `scale(${scale})` } : undefined}
+                />
               </motion.div>
             ))}
           </motion.div>

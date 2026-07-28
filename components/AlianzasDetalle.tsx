@@ -40,7 +40,7 @@ export default function AlianzasDetalle() {
           <h2 className="section-h2 ad-h2">Respaldo de las<br />11 Afianzadoras líderes</h2>
           <p className="ad-intro">
             Relaciones comerciales activas y directas. Sin intermediarios adicionales — negociamos directo
-            con cada institución para obtener las mejores condiciones para tus fianzas.
+            con cada institución para obtener las mejores condiciones para tus Fianzas.
           </p>
         </ScrollReveal>
 

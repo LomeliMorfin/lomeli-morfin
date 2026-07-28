@@ -28,11 +28,11 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1 className="hero-h1" variants={fadeUp}>
-            Solidez y confianza<br />en cada fianza
+            Solidez y confianza<br />en cada Fianza
           </motion.h1>
 
           <motion.p className="hero-p" variants={fadeUp}>
-            Especialistas en asesoría, consultoría e intermediación de fianzas
+            Especialistas en asesoría, consultoría e intermediación de Fianzas
             con más de 40 años de experiencia en el sector afianzador.
           </motion.p>
 

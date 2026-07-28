@@ -7,33 +7,14 @@ import { CLIENTES } from './clientesData'
 // Velocidad visual constante (~2.6s por logo) sin importar cuántos haya.
 const SECONDS_PER_LOGO = 2.6
 
-// Altura base del logo en el carrusel (px). Coincide con .logos-carousel-img.
-const BASE_HEIGHT = 38
-
-// Ajuste fino de tamaño por logo — SOLO en este carrusel (no afecta el grid /clientes).
-// Multiplicador sobre BASE_HEIGHT; 1 = tamaño normal.
-const LOGO_SCALE: Record<string, number> = {
-  cl_sscope: 0.72,
-  cl_sunpower: 0.72,
-  cl_google: 1.18,
-  'cl_avanza-spain': 1.35,
-  cl_copeland: 1.35,
-  cl_elecnor: 1.38,
-  cl_schneider: 1.38,
-  cl_spanicar: 1.35,
-  'cl_isi-mustang': 1.38,
-  cl_comemsa: 1.3,
-  cl_uny: 1.3,
-  cl_creas: 1.3,
-  cl_gocar: 1.3,
-  'cl_internet-power': 1.35,
-  cl_orbe: 1.3,
-  cl_powergyworks: 1.38,
-  cl_rotork: 1.35,
-}
-
-function slugOf(logoPath: string) {
-  return logoPath.split('/').pop()!.replace(/\.[^.]+$/, '')
+// Altura base del logo en el carrusel (px), por categoría óptica (ver clientesData.ts).
+// Los 'mark' (cuadrados) van más altos que los 'wordmark' (horizontales) para que
+// pesen visualmente lo mismo — es el mismo criterio del grid, misma fuente de verdad.
+// Los ultra-anchos (sscope, sunpower) NO se recortan aquí a mano: los limita el
+// max-width de .logos-carousel-img en globals.css.
+const BASE_HEIGHT: Record<'mark' | 'wordmark', number> = {
+  wordmark: 38,
+  mark: 50,
 }
 
 export default function LogosCarousel() {
@@ -88,7 +69,7 @@ export default function LogosCarousel() {
         >
           {doubled.map((logo, i) => {
             const isClone = i >= CLIENTES.length
-            const height = Math.round(BASE_HEIGHT * (LOGO_SCALE[slugOf(logo.logo)] ?? 1))
+            const height = Math.round(BASE_HEIGHT[logo.kind] * (logo.scale ?? 1))
             return (
               <div key={i} className="logos-carousel-item" aria-hidden={isClone}>
                 {active && (
