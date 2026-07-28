@@ -10,6 +10,7 @@ const SERVICIOS_PREVIEW = [
   { num: '02', titulo: 'Fianzas Judiciales',        desc: 'Penales y no penales: civiles, mercantiles, amparo, laborales.' },
   { num: '03', titulo: 'Fianzas Administrativas',   desc: 'Licitación, anticipo, cumplimiento, arrendamiento y más.' },
   { num: '04', titulo: 'Fianzas de Crédito',        desc: 'Suministro PEMEX, ASA, compra-venta y distribución mercantil.' },
+  { num: '05', titulo: 'Fianza Internacional',      desc: 'Cobertura para operaciones y contratos fuera de México.' },
 ]
 
 export default function ServiciosPreview() {
@@ -39,15 +40,19 @@ export default function ServiciosPreview() {
 
         {/* Cards — cada una sube con un ligero retraso */}
         <div className="servicios-preview-grid">
-          {SERVICIOS_PREVIEW.map(({ num, titulo, desc }, i) => (
-            <ScrollReveal key={num} y={50} delay={i * 0.07}>
-              <Link href="/servicios" className="srv-preview-card">
-                <span className="service-num">({num})</span>
-                <p className="srv-preview-titulo">{titulo}</p>
-                <p className="srv-preview-desc">{desc}</p>
-              </Link>
-            </ScrollReveal>
-          ))}
+          {SERVICIOS_PREVIEW.map(({ num, titulo, desc }, i) => {
+            // Si el total es impar, la última va centrada abarcando ambas columnas
+            const loneLast = i === SERVICIOS_PREVIEW.length - 1 && SERVICIOS_PREVIEW.length % 2 === 1
+            return (
+              <ScrollReveal key={num} y={50} delay={i * 0.07} className={loneLast ? 'srv-preview-span' : undefined}>
+                <Link href="/servicios" className="srv-preview-card">
+                  <span className="service-num">({num})</span>
+                  <p className="srv-preview-titulo">{titulo}</p>
+                  <p className="srv-preview-desc">{desc}</p>
+                </Link>
+              </ScrollReveal>
+            )
+          })}
         </div>
 
       </div>

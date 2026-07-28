@@ -17,14 +17,14 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
 const SERVICIOS = [
   {
     id: 'fidelidad',
-    titulo: 'Fianzas de Fidelidad',
+    titulo: 'Fianza de Fidelidad',
     tagline: 'Protección patrimonial',
     desc: 'Garantiza el resarcimiento del daño patrimonial que cause un empleado infiel por la comisión de un delito (Robo, Fraude, Abuso de Confianza o Peculado) en contra de bienes de la empresa.',
     subtipos: null as null | { categoria: string; items: string[] }[],
   },
   {
     id: 'judiciales',
-    titulo: 'Fianzas Judiciales',
+    titulo: 'Fianza Judicial',
     tagline: 'Procesos legales',
     desc: 'Fianzas para procesos judiciales en sus distintas modalidades, garantizando el cumplimiento de obligaciones ante las autoridades competentes.',
     subtipos: [
@@ -34,7 +34,7 @@ const SERVICIOS = [
   },
   {
     id: 'administrativas',
-    titulo: 'Fianzas Administrativas',
+    titulo: 'Fianza Administrativa',
     tagline: 'Contratos y obra pública',
     desc: 'Fianzas para el cumplimiento de contratos y obligaciones ante dependencias gubernamentales y entidades privadas.',
     subtipos: [
@@ -56,7 +56,7 @@ const SERVICIOS = [
   },
   {
     id: 'credito',
-    titulo: 'Fianzas de Crédito',
+    titulo: 'Fianza de Crédito',
     tagline: 'Suministro y crédito',
     desc: 'Garantizan el pago de créditos y el cumplimiento de contratos de suministro y distribución mercantil.',
     subtipos: [

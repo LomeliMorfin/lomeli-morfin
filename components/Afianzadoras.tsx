@@ -8,15 +8,15 @@ import { ScrollReveal } from './ScrollReveal'
 // kind = misma normalización óptica que clientes: 'mark' (cuadrado) va más grande,
 // 'wordmark' (horizontal) más contenido. Aquí solo Mapfre y Tokio Marine son 'mark'.
 const AFIANZADORAS: { nombre: string; logo: string; kind: 'mark' | 'wordmark'; scale?: number }[] = [
-  { nombre: 'Chubb',                    logo: '/logos/afianzadoras/Chubb-Logo-500x281.png',   kind: 'wordmark' },
+  { nombre: 'Chubb',                    logo: '/logos/afianzadoras/Chubb-Logo-500x281.png',   kind: 'wordmark', scale: 1.5 },
   { nombre: 'Aserta',                   logo: '/logos/afianzadoras/ASERTA.png',               kind: 'wordmark' },
   { nombre: 'Insurgentes',              logo: '/logos/afianzadoras/INSURGENTES.png',          kind: 'wordmark' },
-  { nombre: 'Sofimex',                  logo: '/logos/afianzadoras/Sofimex.png',              kind: 'wordmark', scale: 1.2 },
+  { nombre: 'Sofimex',                  logo: '/logos/afianzadoras/Sofimex.png',              kind: 'wordmark', scale: 2 },
   { nombre: 'Tokio Marine',             logo: '/logos/afianzadoras/Tokio_Marine_(2).svg',     kind: 'mark' },
-  { nombre: 'Berkley México Fianzas',   logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png', kind: 'wordmark' },
+  { nombre: 'Berkley México Fianzas',   logo: '/logos/afianzadoras/Berkley-Mexico-Seguros.png', kind: 'wordmark', scale: 1.5 },
   { nombre: 'Dorama',                   logo: '/logos/afianzadoras/Dorama.png',               kind: 'wordmark' },
-  { nombre: 'Mapfre',                   logo: '/logos/afianzadoras/Mapfre.png',               kind: 'mark', scale: 1.2 },
-  { nombre: 'Cesce',                    logo: '/logos/afianzadoras/Cesce.png',                kind: 'wordmark' },
+  { nombre: 'Mapfre',                   logo: '/logos/afianzadoras/Mapfre.png',               kind: 'mark', scale: 3 },
+  { nombre: 'Cesce',                    logo: '/logos/afianzadoras/Cesce.png',                kind: 'wordmark', scale: 1.5 },
   { nombre: 'Fiducia',                  logo: '/logos/afianzadoras/FIDUCIA.png',              kind: 'wordmark' },
   { nombre: 'Avanza',                   logo: '/logos/afianzadoras/Avanza Fianzas.svg',       kind: 'wordmark' },
 ]

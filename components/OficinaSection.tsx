@@ -38,7 +38,7 @@ export default function OficinaSection() {
           </motion.div>
 
           <h2 className="oficina-h2">
-            Excelentes oficinas en el corazón de la Ciudad de México
+            Excelente ubicación de nuestras oficinas en el corazón de la Ciudad de México
           </h2>
 
           <motion.div

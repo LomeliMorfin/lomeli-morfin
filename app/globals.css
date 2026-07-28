@@ -1168,6 +1168,15 @@ body {
 }
 @media (max-width: 768px) { .servicios-preview-grid { grid-template-columns: 1fr; } }
 
+/* Última card impar (Fianza Internacional): centrada bajo las demás */
+.srv-preview-span { grid-column: 1 / -1; }
+@media (min-width: 769px) {
+  .srv-preview-span .srv-preview-card {
+    max-width: calc(50% - 1px);
+    margin: 0 auto;
+  }
+}
+
 .srv-preview-card {
   display: flex;
   flex-direction: column;
@@ -2493,11 +2502,6 @@ a.cf-info-value:hover { color: #c8a020; }
 /* PageHeader — menos altura en mobile */
 @media (max-width: 768px) {
   .page-header { padding: 100px 6vw 48px; min-height: 280px; }
-}
-
-/* Hero content — padding top en mobile */
-@media (max-width: 768px) {
-  .hero-content { padding-top: 48px; }
 }
 
 /* Stats — 1 col en teléfonos pequeños */
