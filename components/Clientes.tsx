@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { motion } from 'framer-motion'
 import { VIEWPORT, overlineWrap, goldLine, overlineText } from './animations'
 import { ScrollReveal } from './ScrollReveal'
@@ -66,7 +66,7 @@ export default function Clientes() {
                             width={160}
                             height={80}
                             className={`cl-logo cl-logo--${kind}`}
-                            style={scale ? { transform: `scale(${scale})` } : undefined}
+                            style={scale ? ({ '--logo-scale': scale } as CSSProperties) : undefined}
                           />
                         </div>
                       ))}

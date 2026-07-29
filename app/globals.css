@@ -1342,25 +1342,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 10rem;        /* altura FIJA → recuadros homogéneos */
   padding: 36px 28px;
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;     /* red de seguridad: nada puede salirse del recuadro */
   transition: background 0.3s ease;
 }
 @media (max-width: 900px) { .af-item { flex-basis: calc((100% - 2 * var(--af-gap)) / 3); } }
 @media (max-width: 480px) { .af-item { flex-basis: calc((100% - 1 * var(--af-gap)) / 2); } }
 .af-item:hover { background: rgba(0, 0, 0, 0.03); }
 
-/* Misma normalización óptica por categoría que el grid de clientes. */
+/* Misma normalización óptica por categoría que el grid de clientes.
+   La escala ajusta el tamaño con tope min() → nunca excede la celda. */
 .af-logo {
+  --logo-scale: 1;
   width: auto;
   height: auto;
   object-fit: contain;
   filter: grayscale(100%) opacity(0.5);
   transition: filter 0.35s ease;
 }
-.af-logo--wordmark { max-height: 3.4rem; max-width: 88%; }
-.af-logo--mark     { max-height: 4.6rem; max-width: 70%; }
+.af-logo--wordmark {
+  max-height: min(5.2rem, calc(3.4rem * var(--logo-scale)));
+  max-width: min(94%, calc(88% * var(--logo-scale)));
+}
+.af-logo--mark {
+  max-height: min(5.2rem, calc(4.6rem * var(--logo-scale)));
+  max-width: min(84%, calc(70% * var(--logo-scale)));
+}
 .af-item:hover .af-logo { filter: grayscale(0%) opacity(1); }
 
 /* ─── Cobertura ─── */
@@ -1604,24 +1614,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 10rem;        /* altura FIJA → todos los recuadros iguales en todos los slides */
   padding: 36px 28px;
   background: #ffffff;
+  overflow: hidden;     /* red de seguridad: nada puede salirse del recuadro */
   transition: background 0.3s ease;
 }
 .cl-item:hover { background: #ffffff; }
 
 /* Normalización óptica por categoría (ver clientesData.ts `kind`):
    los 'mark' (cuadrados) van más altos, los 'wordmark' (horizontales) más bajos
-   y con más ancho — así pesan visualmente lo mismo pese a su forma distinta. */
+   y con más ancho — así pesan visualmente lo mismo pese a su forma distinta.
+   La escala (`--logo-scale`) ajusta el TAMAÑO, no un transform: el max-width con
+   min() nunca deja que el logo exceda el ancho de la celda por más que se escale. */
 .cl-logo {
+  --logo-scale: 1;
   width: auto;
   height: auto;
   object-fit: contain;
   filter: grayscale(100%) opacity(0.55);
   transition: filter 0.35s ease;
 }
-.cl-logo--wordmark { max-height: 3.4rem; max-width: 88%; }
-.cl-logo--mark     { max-height: 4.3rem; max-width: 74%; }
+.cl-logo--wordmark {
+  max-height: min(5.2rem, calc(3.4rem * var(--logo-scale)));
+  max-width: min(94%, calc(88% * var(--logo-scale)));
+}
+.cl-logo--mark {
+  max-height: min(5.2rem, calc(4.3rem * var(--logo-scale)));
+  max-width: min(86%, calc(74% * var(--logo-scale)));
+}
 .cl-item:hover .cl-logo { filter: grayscale(0%) opacity(1); }
 
 /* ─── Clientes: slider de grids (página /clientes) ─── */
