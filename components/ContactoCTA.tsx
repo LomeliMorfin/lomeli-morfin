@@ -29,7 +29,7 @@ export default function ContactoCTA() {
           <Link href="/contacto" className="btn-cta-gold">
             Solicitar cotización
           </Link>
-          <Link href="tel:+525555550000" className="btn-cta-outline">
+          <Link href="tel:+525555251003" className="btn-cta-outline">
             Llamar ahora
           </Link>
         </div>

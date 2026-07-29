@@ -65,7 +65,8 @@ export default function Footer() {
             <ul className="footer-contact-list">
               <li>
                 <span className="footer-contact-label">Teléfono</span>
-                <a href="tel:+525555550000" className="footer-link">+52 (55) 5555-0000</a>
+                <a href="tel:+525555251003" className="footer-link" style={{ display: 'block' }}>+52 55 5525 1003</a>
+                <a href="tel:+525619131913" className="footer-link" style={{ display: 'block' }}>+52 56 1913 1913</a>
               </li>
               <li>
                 <span className="footer-contact-label">Correo</span>

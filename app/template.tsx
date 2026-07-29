@@ -1,14 +1,26 @@
 'use client'
 
+import { useEffect, useLayoutEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+
+// useLayoutEffect en cliente / useEffect en SSR (evita el warning de hidratación).
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 /**
  * Transición uniforme entre páginas (App Router remonta el template
  * en cada navegación). Fade + leve desplazamiento vertical con el
  * easing estándar del sitio.
+ *
+ * Además reinicia el scroll al inicio ANTES del primer paint en cada
+ * navegación, para que la animación de entrada siempre arranque desde
+ * arriba (si venías scrolleado, la página nueva ya no aparece desplazada).
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion()
+
+  useIsoLayoutEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <motion.div

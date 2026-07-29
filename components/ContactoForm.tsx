@@ -13,10 +13,37 @@ const SERVICIOS = [
 
 export default function ContactoForm() {
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSent(true)
+    setError('')
+    const fd = new FormData(e.currentTarget)
+    const payload = {
+      nombre: fd.get('nombre'),
+      empresa: fd.get('empresa'),
+      email: fd.get('email'),
+      telefono: fd.get('telefono'),
+      servicio: fd.get('servicio'),
+      mensaje: fd.get('mensaje'),
+      website: fd.get('website'), // honeypot
+    }
+    setSending(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || 'No se pudo enviar el mensaje.')
+      setSent(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo enviar el mensaje. Intenta de nuevo.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -36,6 +63,15 @@ export default function ContactoForm() {
               </div>
             ) : (
               <form className="cf-form" onSubmit={handleSubmit} noValidate>
+                {/* Honeypot anti-spam: invisible para humanos, los bots lo llenan */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                />
                 <div className="cf-row">
                   <div className="cf-field">
                     <label className="cf-label" htmlFor="nombre">Nombre completo *</label>
@@ -80,9 +116,15 @@ export default function ContactoForm() {
                   />
                 </div>
 
-                <button type="submit" className="cf-submit">
-                  Enviar solicitud
+                <button type="submit" className="cf-submit" disabled={sending}>
+                  {sending ? 'Enviando…' : 'Enviar solicitud'}
                 </button>
+
+                {error && (
+                  <p role="alert" style={{ color: '#c0392b', marginTop: 14, fontSize: '0.85rem', lineHeight: 1.5 }}>
+                    {error}
+                  </p>
+                )}
               </form>
             )}
           </div>
@@ -91,7 +133,8 @@ export default function ContactoForm() {
           <div className="cf-info">
             <div className="cf-info-block">
               <p className="cf-info-label">Teléfono</p>
-              <a href="tel:+525555550000" className="cf-info-value">+52 (55) 5555-0000</a>
+              <a href="tel:+525555251003" className="cf-info-value" style={{ display: 'block' }}>+52 55 5525 1003</a>
+              <a href="tel:+525619131913" className="cf-info-value" style={{ display: 'block', marginTop: 4 }}>+52 56 1913 1913</a>
             </div>
             <div className="cf-info-block">
               <p className="cf-info-label">Correo</p>

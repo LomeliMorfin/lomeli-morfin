@@ -101,24 +101,25 @@ body {
 }
 
 .overline-wrap { display: flex; align-items: center; gap: 16px; }
+/* La animación la controla framer-motion (variants goldLine / overlineText).
+   NO poner aquí `transition` ni reglas `.visible`: eran del sistema viejo (IO)
+   y, al animar las mismas propiedades que framer, provocaban un parpadeo
+   (el texto aparecía y luego re-animaba). Se conservan opacity:0 / width:0
+   como estado oculto base para que nada se vea antes de tiempo en SSR/hidratación. */
 .gold-line {
   height: 1px;
   background: #c8a020;
   width: 0;
-  transition: width 0.9s cubic-bezier(0.77, 0, 0.18, 1);
 }
 .overline-text {
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.55s ease 0.5s, transform 0.55s ease 0.5s;
   font-size: 0.8125rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: #c8a020;
 }
-.overline-wrap.visible .gold-line    { width: 60px; }
-.overline-wrap.visible .overline-text { opacity: 1; transform: translateY(0); }
 
 /* ─── Splash — base ─── */
 .splash {
@@ -2429,11 +2430,11 @@ a.cf-info-value:hover { color: #c8a020; }
 }
 .logos-carousel-label {
   text-align: center;
-  font-size: 0.6875rem;
+  font-size: clamp(0.9375rem, 1.8vw, 1.25rem);
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.45);
   margin-bottom: 40px;
   padding: 0 6vw;
 }
@@ -3959,14 +3960,14 @@ a.cf-info-value:hover { color: #c8a020; }
 
 /* ── Historia ── */
 #nosotros {
-  padding: 88px 6vw 72px;
+  padding: 48px 6vw 72px;   /* menos espacio con el panel de stats de arriba */
 }
 .nos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 88px;
-  align-items: start;
-  margin-top: 56px;
+  align-items: center;      /* la foto queda centrada a lo alto con el texto */
+  margin-top: 40px;
 }
 .nos-h2 {
   font-size: clamp(2rem, 3.8vw, 3.25rem);
@@ -3984,8 +3985,7 @@ a.cf-info-value:hover { color: #c8a020; }
   margin-bottom: 0;
 }
 .nos-visual {
-  position: sticky;
-  top: 100px;
+  position: relative;   /* ya no sigue el scroll: se centra a lo alto junto al texto */
 }
 .nos-year-badge {
   font-size: clamp(5rem, 11vw, 8.5rem);
