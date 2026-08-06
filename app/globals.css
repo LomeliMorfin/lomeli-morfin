@@ -491,7 +491,7 @@ body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/images/hero/hero.jpg');
+  background-image: url('/images/hero/hero.png');
   background-size: cover;
   background-position: center;
   background-color: #0f2535;
@@ -1203,7 +1203,7 @@ body {
 
 /* ─── Page Header (páginas internas) ─── */
 .page-header {
-  background-image: url('/images/hero/hero.jpg');
+  background-image: url('/images/hero/hero.png');
   background-size: cover;
   background-position: center;
   background-color: #0f2535;
@@ -4001,9 +4001,13 @@ a.cf-info-value:hover { color: #c8a020; }
   pointer-events: none;
 }
 .nos-photo {
-  aspect-ratio: 4/3;
+  width: 700px; /* Cambia 800px por el ancho real de tu foto */
+  height: 600px; /* Cambia 600px por el alto real de tu foto */
   border-radius: 6px;
-  background: linear-gradient(135deg, #1b4254, #2b5a72);
+  background-image: url('/images/nosotros/Nosotros.png');
+  background-size: cover; /* o usa 'contain' según necesites */
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: var(--elevation-3);
 }
 @media (max-width: 900px) {
