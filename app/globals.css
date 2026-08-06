@@ -500,21 +500,10 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  /* Degradado direccional: más oscuro a la izquierda donde vive el texto */
-  background: linear-gradient(100deg,
-    rgba(10, 25, 38, 0.88) 0%,
-    rgba(15, 37, 53, 0.72) 45%,
-    rgba(15, 37, 53, 0.45) 100%);
+  /* Color sólido basado en los tonos oscuros originales con 50% de opacidad */
+  background-color: rgba(3, 60, 78, 0.5);
 }
-/* Glow dorado sutil — reemplaza el canvas 3D, da profundidad sin ruido */
-.hero-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 640px 480px at 78% 38%, rgba(200, 160, 32, 0.14), transparent 70%),
-    radial-gradient(ellipse 900px 600px at 90% 85%, rgba(43, 90, 114, 0.35), transparent 65%);
-}
+
 /* Línea de horizonte dorada al pie del hero */
 #hero::after {
   content: '';
