@@ -21,6 +21,7 @@ export const ROUTES = [
   { path: '/alianzas',  priority: 0.7 },
   { path: '/cobertura', priority: 0.8 },
   { path: '/contacto',  priority: 0.8 },
+  { path: '/aviso-de-privacidad', priority: 0.3 },
 ] as const
 
 /**

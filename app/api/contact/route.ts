@@ -11,6 +11,7 @@ type Payload = {
   telefono?: string
   servicio?: string
   mensaje?: string
+  privacidad?: boolean // consentimiento expreso del Aviso de Privacidad
   website?: string // honeypot anti-spam (campo oculto)
 }
 
@@ -39,6 +40,14 @@ export async function POST(req: Request) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'El correo no es válido.' }, { status: 400 })
   }
+  // El consentimiento del Aviso de Privacidad se revalida en el servidor: el
+  // check del cliente se puede saltar y sin consentimiento no hay tratamiento.
+  if (data.privacidad !== true) {
+    return NextResponse.json(
+      { error: 'Es necesario aceptar el Aviso de Privacidad.' },
+      { status: 400 }
+    )
+  }
 
   const user = process.env.GMAIL_USER
   const pass = process.env.GMAIL_APP_PASSWORD
@@ -56,6 +65,12 @@ export async function POST(req: Request) {
   // El origen se marca con el campo "Desde" y las respuestas van al cliente vía Reply-To.
   const safeName = nombre.replace(/["\r\n<>]/g, ' ').trim() || 'Cliente web'
   const ORIGEN = 'Formulario del sitio web · lomelimorfin.com'
+  // Constancia del consentimiento: fecha y hora en que el titular lo otorgó.
+  const CONSENTIMIENTO = `Aviso de Privacidad aceptado el ${new Intl.DateTimeFormat('es-MX', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+    timeZone: 'America/Mexico_City',
+  }).format(new Date())} (hora del centro de México)`
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -75,7 +90,8 @@ export async function POST(req: Request) {
         `Correo: ${email}\n` +
         `Teléfono: ${telefono}\n` +
         `Tipo de Fianza: ${servicio}\n\n` +
-        `Mensaje:\n${mensaje}`,
+        `Mensaje:\n${mensaje}\n\n` +
+        `— ${CONSENTIMIENTO}`,
       html: `
         <div style="font-family:Arial,Helvetica,sans-serif;color:#0f2535;line-height:1.6;max-width:560px">
           <h2 style="color:#1b4254;margin:0 0 4px">Nueva solicitud de cotización</h2>
@@ -87,6 +103,9 @@ export async function POST(req: Request) {
           <p style="margin:4px 0"><strong>Tipo de Fianza:</strong> ${esc(servicio)}</p>
           <p style="margin:16px 0 4px"><strong>Mensaje:</strong></p>
           <p style="white-space:pre-wrap;background:#f5f7f9;padding:12px 14px;border-radius:6px;margin:0">${esc(mensaje)}</p>
+          <p style="margin:20px 0 0;padding-top:14px;border-top:1px solid #e3e8ec;color:#5a6a7a;font-size:12px">
+            ${esc(CONSENTIMIENTO)}
+          </p>
         </div>
       `,
     })

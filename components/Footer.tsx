@@ -93,6 +93,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Lomeli Morfin Consultores en Fianzas. Todos los derechos reservados.
           </p>
           <p className="footer-legal">
+            <Link href="/aviso-de-privacidad" className="footer-link">Aviso de Privacidad</Link>
+            <span className="footer-legal-sep">·</span>
             Cédula de Autorización CNSF · SHCP
           </p>
         </div>

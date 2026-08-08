@@ -4180,3 +4180,163 @@ a.cf-info-value:hover { color: #c8a020; }
   .oficina-circle-wrap { width: min(560px, 32vw); }
   .oficina-content { width: min(600px, 42vw); }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PÁGINAS LEGALES (Aviso de Privacidad)
+   Columna de lectura angosta: el texto largo se lee mal a todo lo
+   ancho del contenedor. Panel blanco flotante que traslapa el
+   PageHeader, igual que el resto de páginas internas.
+   ═══════════════════════════════════════════════════════════════ */
+.legal-section {
+  padding: 0 6vw 6.875rem;
+  margin-top: -48px;
+  position: relative;
+  z-index: 2;
+}
+.legal-container {
+  max-width: 52rem;      /* ~75 caracteres por línea */
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid rgba(27, 66, 84, 0.09);
+  border-radius: 6px;
+  box-shadow: var(--elevation-3);
+  padding: 4.5rem 4rem 4rem;
+}
+.legal-updated {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c8a020;
+  margin-bottom: 2rem;
+}
+.legal-lead {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: #5a6a7a;
+  line-height: 1.8;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(27, 66, 84, 0.1);
+}
+.legal-h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f2535;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  margin: 3rem 0 1rem;
+}
+.legal-p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5a6a7a;
+  line-height: 1.85;
+  margin-bottom: 1.125rem;
+}
+.legal-p strong { color: #0f2535; font-weight: 600; }
+.legal-list {
+  margin: 0 0 1.125rem;
+  padding-left: 1.25rem;
+  list-style: none;
+}
+.legal-list li {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5a6a7a;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+.legal-list li::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 0.75em;
+  width: 5px;
+  height: 1px;
+  background: #c8a020;
+}
+.legal-list li strong { color: #0f2535; font-weight: 600; }
+/* Bloque destacado: lo importante que el usuario debe alcanzar a ver de reojo */
+.legal-highlight {
+  background: rgba(27, 66, 84, 0.035);
+  border-left: 2px solid #c8a020;
+  border-radius: 0 4px 4px 0;
+  padding: 1.125rem 1.375rem;
+  margin: 1.5rem 0;
+}
+.legal-link {
+  color: #1b4254;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(200, 160, 32, 0.5);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.legal-link:hover { color: #c8a020; text-decoration-color: #c8a020; }
+
+@media (max-width: 900px) {
+  .legal-container { padding: 3rem 2rem 2.5rem; }
+  .legal-section { padding-bottom: 4.5rem; }
+}
+@media (max-width: 480px) {
+  .legal-container { padding: 2.25rem 1.375rem 2rem; }
+  .legal-section { margin-top: -32px; }
+  .legal-h2 { margin-top: 2.25rem; }
+}
+
+/* ── Consentimiento del Aviso de Privacidad (formulario de contacto) ── */
+.cf-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 4px 0 22px;
+  cursor: pointer;
+}
+.cf-consent-box {
+  appearance: none;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border: 1px solid rgba(27, 66, 84, 0.35);
+  border-radius: 2px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.cf-consent-box:checked {
+  background: #c8a020;
+  border-color: #c8a020;
+}
+/* Palomita dibujada con bordes: evita depender de una fuente o un SVG */
+.cf-consent-box:checked::after {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 9px;
+  margin: 1px auto 0;
+  border: solid #0f2535;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.cf-consent-box:focus-visible {
+  outline: 2px solid #c8a020;
+  outline-offset: 2px;
+}
+.cf-consent-text {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #5a6a7a;
+  line-height: 1.6;
+}
+.cf-consent-link {
+  color: #1b4254;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(200, 160, 32, 0.6);
+  transition: color 0.2s ease;
+}
+.cf-consent-link:hover { color: #c8a020; }
+
+.footer-legal-sep { margin: 0 8px; opacity: 0.4; }

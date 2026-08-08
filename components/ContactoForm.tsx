@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 
 const SERVICIOS = [
@@ -20,6 +21,14 @@ export default function ContactoForm() {
     e.preventDefault()
     setError('')
     const fd = new FormData(e.currentTarget)
+
+    // El <form> lleva noValidate, así que el `required` del navegador no corre:
+    // el consentimiento se valida aquí antes de enviar nada al servidor.
+    if (!fd.get('privacidad')) {
+      setError('Para enviar tu solicitud necesitas aceptar el Aviso de Privacidad.')
+      return
+    }
+
     const payload = {
       nombre: fd.get('nombre'),
       empresa: fd.get('empresa'),
@@ -27,6 +36,7 @@ export default function ContactoForm() {
       telefono: fd.get('telefono'),
       servicio: fd.get('servicio'),
       mensaje: fd.get('mensaje'),
+      privacidad: true, // consentimiento expreso, se registra en el correo
       website: fd.get('website'), // honeypot
     }
     setSending(true)
@@ -115,6 +125,28 @@ export default function ContactoForm() {
                     required
                   />
                 </div>
+
+                {/* Aviso de privacidad simplificado + consentimiento expreso.
+                    El art. 15 de la LFPDPPP pide que, en recabación por medios
+                    electrónicos, se muestre una versión corta con enlace a la
+                    integral en el punto mismo de la recolección. */}
+                <label className="cf-consent">
+                  <input
+                    type="checkbox"
+                    name="privacidad"
+                    className="cf-consent-box"
+                    required
+                    aria-describedby="cf-consent-text"
+                  />
+                  <span id="cf-consent-text" className="cf-consent-text">
+                    He leído y acepto el{' '}
+                    <Link href="/aviso-de-privacidad" className="cf-consent-link">
+                      Aviso de Privacidad
+                    </Link>
+                    . Autorizo el tratamiento de mis datos personales para atender y dar
+                    seguimiento a esta solicitud. *
+                  </span>
+                </label>
 
                 <button type="submit" className="cf-submit" disabled={sending}>
                   {sending ? 'Enviando…' : 'Enviar solicitud'}
