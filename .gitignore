@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code — skills de terceros instalados localmente.
+# Son herramientas del entorno de trabajo, no código del proyecto, e incluyen
+# bytecode de Python (.pyc). Si algún día se agrega config compartida del
+# equipo (.claude/settings.json, agentes), esa SÍ puede versionarse.
+/.claude/skills/
+skills-lock.json
+
+# Entregables y material fuente que no forma parte del sitio
+# (firmas de correo, manuales, PDFs para el cliente).
+# OJO: hacer respaldo aparte — al no estar en git, viven solo en este equipo.
+/_reference/
