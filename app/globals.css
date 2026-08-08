@@ -2594,12 +2594,9 @@ a.cf-info-value:hover { color: #c8a020; }
   max-width: var(--container);
   margin: 0 auto;
   position: relative;
-  /* Mismo degradado que el panel de stats de /nosotros (.nos-stats-grid):
-     halo dorado arriba + caída navy en diagonal. Va en el shorthand porque
-     ::before ya está ocupado por el dot grid en perspectiva. */
-  background:
-    radial-gradient(ellipse 65% 55% at 50% -5%, rgba(200, 160, 32, 0.1), transparent 65%),
-    linear-gradient(160deg, #1b4254 0%, #0f2535 55%, #0a1a24 100%);
+  /* Caída navy en diagonal, como el panel de /nosotros pero SIN el halo
+     dorado superior (el cliente lo pidió limpio, jul 2026). */
+  background: linear-gradient(160deg, #1b4254 0%, #0f2535 55%, #0a1a24 100%);
   border: 1px solid rgba(200, 160, 32, 0.22);
   border-radius: 6px;
   box-shadow: var(--elevation-4);

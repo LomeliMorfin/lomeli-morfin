@@ -81,7 +81,7 @@ export default function Splash() {
       <div ref={phase1Ref} className="sp-phase sp-phase-1">
         <p className="sp-renovando">
           <strong>Nos estamos renovando</strong>
-          <span className="sp-renovando-sub">una nueva imagen, el mismo compromiso</span>
+          <span className="sp-renovando-sub">Una nueva imagen, el mismo compromiso</span>
         </p>
       </div>
 
