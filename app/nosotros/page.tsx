@@ -2,11 +2,13 @@ import Navbar from '@/components/Navbar'
 import PageHeader from '@/components/PageHeader'
 import Nosotros from '@/components/Nosotros'
 import Footer from '@/components/Footer'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Nosotros — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Nosotros',
   description: 'Más de 40 años de experiencia en asesoría, consultoría e intermediación de Fianzas.',
-}
+  path: '/nosotros',
+})
 
 export default function NosotrosPage() {
   return (

@@ -2,11 +2,13 @@ import Navbar from '@/components/Navbar'
 import PageHeader from '@/components/PageHeader'
 import Servicios from '@/components/Servicios'
 import Footer from '@/components/Footer'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Servicios — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Servicios',
   description: 'Fianzas de Fidelidad, Judiciales, Administrativas y de Crédito. Soluciones para cada necesidad.',
-}
+  path: '/servicios',
+})
 
 export default function ServiciosPage() {
   return (

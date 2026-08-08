@@ -3,8 +3,19 @@
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
-// Persiste durante navegación SPA, se resetea con cada recarga de página
-let splashShown = false
+/**
+ * Clave de sessionStorage: el splash se muestra UNA vez por sesión de pestaña,
+ * no en cada recarga. Se limpia sola al cerrar la pestaña.
+ */
+const SEEN_KEY = 'lm_splash_seen'
+
+/**
+ * Script que corre durante el parseo del HTML, ANTES de que el navegador
+ * pinte nada. Sin esto, en una recarga el splash alcanza a verse un instante
+ * (el HTML se pinta antes de que React hidrate y pueda ocultarlo).
+ * El CSS de .splash reacciona a este atributo en <html>.
+ */
+const NO_FLASH = `try{if(sessionStorage.getItem('${SEEN_KEY}'))document.documentElement.dataset.splashSeen='1'}catch(e){}`
 
 // Tiempos: 4s fase 1, crossfade 600ms, 4.5s fase 2, fade out 600ms
 const PHASE1 = 4000
@@ -21,12 +32,16 @@ export default function Splash() {
     const splash = splashRef.current!
     const p1 = phase1Ref.current!
     const p2 = phase2Ref.current!
-    const site = document.getElementById('site') as HTMLElement
 
-    // Si ya se mostró en esta navegación SPA, omitir splash
-    if (splashShown) {
+    const markSeen = () => {
+      try { sessionStorage.setItem(SEEN_KEY, '1') } catch { /* modo privado */ }
+      document.documentElement.dataset.splashSeen = '1'
+    }
+
+    // Ya se vio en esta sesión (recarga o navegación SPA): el script inline ya
+    // lo ocultó, aquí solo se desmonta la secuencia.
+    if (document.documentElement.dataset.splashSeen === '1') {
       splash.style.display = 'none'
-      site.style.opacity = '1'
       return
     }
 
@@ -48,22 +63,18 @@ export default function Splash() {
 
     // Fase 2 → sitio: fade out del splash completo
     const t2 = setTimeout(() => {
-      splashShown = true
+      markSeen()
       splash.style.transition = `opacity ${FADE_OUT}ms ease`
       splash.style.opacity = '0'
-      setTimeout(() => {
-        splash.style.display = 'none'
-        site.style.transition = `opacity ${FADE_OUT}ms ease`
-        site.style.opacity = '1'
-      }, FADE_OUT)
+      setTimeout(() => { splash.style.display = 'none' }, FADE_OUT)
     }, PHASE1 + CROSSFADE + PHASE2)
 
-    function skip() {
+    // Clic para saltar
+    const skip = () => {
       clearTimeout(t1)
       clearTimeout(t2)
-      splashShown = true
+      markSeen()
       splash.style.display = 'none'
-      site.style.opacity = '1'
     }
     splash.addEventListener('click', skip)
 
@@ -75,32 +86,36 @@ export default function Splash() {
   }, [])
 
   return (
-    <div ref={splashRef} id="splash" className="splash" style={{ background: '#1b4254' }}>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />
 
-      {/* ── Fase 1: "Nos estamos renovando" ── */}
-      <div ref={phase1Ref} className="sp-phase sp-phase-1">
-        <p className="sp-renovando">
-          <strong>Nos estamos renovando</strong>
-          <span className="sp-renovando-sub">Una nueva imagen, el mismo compromiso</span>
-        </p>
-      </div>
+      <div ref={splashRef} id="splash" className="splash" style={{ background: '#1b4254' }}>
 
-      {/* ── Fase 2: Logo LM ── */}
-      <div
-        ref={phase2Ref}
-        className="sp-phase sp-phase-2"
-        style={{ display: 'none', opacity: 0 }}
-      >
-        <div data-anim className="s2-logo">
-          <Image src="/logos/lm/Lomeli-Morfin.png" alt="Lomeli Morfin" width={480} height={144} quality={100} className="s2-logo-img" />
+        {/* ── Fase 1: "Nos estamos renovando" ── */}
+        <div ref={phase1Ref} className="sp-phase sp-phase-1">
+          <p className="sp-renovando">
+            <strong>Nos estamos renovando</strong>
+            <span className="sp-renovando-sub">Una nueva imagen, el mismo compromiso</span>
+          </p>
         </div>
-        <p data-anim className="s2-name">LOMELI MORFIN</p>
-        <div data-anim className="s2-divider" />
-        <p data-anim className="s2-sub">Consultores en Fianzas</p>
-      </div>
 
-      {/* Barra de progreso — cubre los 6s totales */}
-      <div className="sp-bar" />
-    </div>
+        {/* ── Fase 2: Logo LM ── */}
+        <div
+          ref={phase2Ref}
+          className="sp-phase sp-phase-2"
+          style={{ display: 'none', opacity: 0 }}
+        >
+          <div data-anim className="s2-logo">
+            <Image src="/logos/lm/Lomeli-Morfin.png" alt="Lomeli Morfin" width={480} height={144} quality={100} className="s2-logo-img" />
+          </div>
+          <p data-anim className="s2-name">LOMELI MORFIN</p>
+          <div data-anim className="s2-divider" />
+          <p data-anim className="s2-sub">Consultores en Fianzas</p>
+        </div>
+
+        {/* Barra de progreso — cubre los 6s totales */}
+        <div className="sp-bar" />
+      </div>
+    </>
   )
 }

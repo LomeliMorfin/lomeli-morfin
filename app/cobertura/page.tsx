@@ -2,11 +2,13 @@ import Navbar from '@/components/Navbar'
 import PageHeader from '@/components/PageHeader'
 import Cobertura from '@/components/Cobertura'
 import Footer from '@/components/Footer'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Cobertura — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Cobertura',
   description: 'Presencia en la República Mexicana, Argentina, Colombia, España, El Salvador y Chile.',
-}
+  path: '/cobertura',
+})
 
 export default function CoberturaPage() {
   return (

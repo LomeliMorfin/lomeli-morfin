@@ -15,7 +15,10 @@ export default function Home() {
   return (
     <>
       <Splash />
-      <main id="site" style={{ opacity: 0 }}>
+      {/* Sin opacity:0 — el contenido se renderiza visible desde el HTML y el
+          splash lo tapa por encima. Así el hero cuenta para el LCP y los
+          rastreadores no dependen de JS para ver la home. */}
+      <main id="site">
         <Navbar />
         <Hero />
         <Stats />

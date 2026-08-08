@@ -5,11 +5,13 @@ import ClientesSectores from '@/components/ClientesSectores'
 import Clientes from '@/components/Clientes'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Clientes — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Clientes',
   description: 'Más de 40 años respaldando empresas líderes en energía, construcción, logística, tecnología, telecomunicaciones y manufactura.',
-}
+  path: '/clientes',
+})
 
 export default function ClientesPage() {
   return (

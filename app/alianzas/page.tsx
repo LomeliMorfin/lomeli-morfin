@@ -4,11 +4,13 @@ import AlianzasIntro from '@/components/AlianzasIntro'
 import Afianzadoras from '@/components/Afianzadoras'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Alianzas — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Alianzas',
   description: 'Contamos con relación comercial con las 10 Afianzadoras líderes del sector. El respaldo que tu Fianza necesita.',
-}
+  path: '/alianzas',
+})
 
 export default function AlianzasPage() {
   return (

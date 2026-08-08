@@ -122,6 +122,10 @@ body {
 }
 
 /* ─── Splash — base ─── */
+/* Ya se vio el splash en esta sesión: lo marca el script inline de Splash.tsx
+   durante el parseo del HTML, así no alcanza a pintarse ni un frame. */
+html[data-splash-seen='1'] .splash { display: none !important; }
+
 .splash {
   position: fixed;
   inset: 0;

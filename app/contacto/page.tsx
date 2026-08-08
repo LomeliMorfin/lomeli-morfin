@@ -2,11 +2,13 @@ import Navbar from '@/components/Navbar'
 import PageHeader from '@/components/PageHeader'
 import ContactoForm from '@/components/ContactoForm'
 import Footer from '@/components/Footer'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata = {
-  title: 'Contacto — Lomeli Morfin Consultores en Fianzas',
+export const metadata = pageMetadata({
+  title: 'Contacto',
   description: 'Solicita tu cotización. Nuestros especialistas te atenderán a la brevedad.',
-}
+  path: '/contacto',
+})
 
 export default function ContactoPage() {
   return (
