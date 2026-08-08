@@ -2573,7 +2573,9 @@ a.cf-info-value:hover { color: #c8a020; }
 
 #clientes-stats {
   background: transparent;
-  padding: 0 6vw 100px;
+  /* El aire hacia Sectores lo aporta también el padding-top de
+     #clientes-sectores: lo que se ve es la suma de los dos. */
+  padding: 0 6vw 32px;
   position: relative;
   z-index: 2;
   margin-top: -48px;
@@ -2592,7 +2594,12 @@ a.cf-info-value:hover { color: #c8a020; }
   max-width: var(--container);
   margin: 0 auto;
   position: relative;
-  background: #1b4254;
+  /* Mismo degradado que el panel de stats de /nosotros (.nos-stats-grid):
+     halo dorado arriba + caída navy en diagonal. Va en el shorthand porque
+     ::before ya está ocupado por el dot grid en perspectiva. */
+  background:
+    radial-gradient(ellipse 65% 55% at 50% -5%, rgba(200, 160, 32, 0.1), transparent 65%),
+    linear-gradient(160deg, #1b4254 0%, #0f2535 55%, #0a1a24 100%);
   border: 1px solid rgba(200, 160, 32, 0.22);
   border-radius: 6px;
   box-shadow: var(--elevation-4);
@@ -2942,7 +2949,7 @@ a.cf-info-value:hover { color: #c8a020; }
 
 #clientes-sectores {
   background: transparent;
-  padding: 6.875rem 0;
+  padding: 4.5rem 0 6.875rem;   /* menos aire arriba: pega con el panel de stats */
   overflow: hidden;
 }
 
@@ -3871,7 +3878,9 @@ a.cf-info-value:hover { color: #c8a020; }
 
 /* ── Panel de stats flotante ── */
 #nos-stats {
-  padding: 0 6vw 80px;
+  /* El aire de abajo lo aporta también el padding-top de #nosotros:
+     entre el panel y la overline dorada la suma es lo que se ve. */
+  padding: 0 6vw 24px;
   margin-top: -48px;
   position: relative;
   z-index: 2;
@@ -3944,19 +3953,28 @@ a.cf-info-value:hover { color: #c8a020; }
 }
 @media (max-width: 480px) {
   .nos-stat-item { padding: 22px 20px; gap: 14px; }
-  #nos-stats { margin-top: -32px; padding-bottom: 60px; }
+  #nos-stats { margin-top: -32px; padding-bottom: 16px; }
+}
+
+/* ── Tablets (iPad, 769–1024): el panel de stats quedaba pegado al subtítulo
+      del PageHeader. Ahí el header conserva el padding de escritorio pero el
+      título y el subtítulo ocupan más líneas, así que se le da más aire abajo
+      y se reduce el traslape del panel. ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page-header { padding-bottom: 7.5rem; }
+  #nos-stats { margin-top: -32px; }
 }
 
 /* ── Historia ── */
 #nosotros {
-  padding: 48px 6vw 72px;   /* menos espacio con el panel de stats de arriba */
+  padding: 24px 6vw 72px;   /* menos espacio con el panel de stats de arriba */
 }
 .nos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 88px;
+  gap: 56px;                /* 88px separaba demasiado texto y foto */
   align-items: center;      /* la foto queda centrada a lo alto con el texto */
-  margin-top: 40px;
+  margin-top: 28px;
 }
 .nos-h2 {
   font-size: clamp(2rem, 3.8vw, 3.25rem);
@@ -3990,12 +4008,17 @@ a.cf-info-value:hover { color: #c8a020; }
   pointer-events: none;
 }
 .nos-photo {
-  width: 700px; /* Cambia 800px por el ancho real de tu foto */
-  height: 600px; /* Cambia 600px por el alto real de tu foto */
+  /* La foto es vertical (1086×1448). Nunca ancho/alto fijos en px: se sale de
+     su columna del grid. Ancho fluido + aspect-ratio, y el alto se topa para
+     que no desequilibre la columna de texto de al lado. */
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 32rem;
   border-radius: 6px;
-  background-image: url('/images/nosotros/Nosotros.png');
-  background-size: cover; /* o usa 'contain' según necesites */
-  background-position: center;
+  background-image: url('/images/nosotros/nos_equipo.jpg');
+  background-size: cover;
+  /* 35% vertical: mantiene las caras en cuadro cuando el recorte es más bajo */
+  background-position: center 35%;
   background-repeat: no-repeat;
   box-shadow: var(--elevation-3);
 }
@@ -4003,8 +4026,16 @@ a.cf-info-value:hover { color: #c8a020; }
   .nos-grid { grid-template-columns: 1fr; gap: 48px; }
   .nos-visual { position: static; }
   .nos-year-badge { font-size: 5rem; }
-  .nos-photo { aspect-ratio: 16/9; }
-  #nosotros { padding: 60px 6vw 56px; }
+  /* En una sola columna la foto va a todo el ancho: se mantiene vertical
+     (un recorte 16/9 cortaba las cabezas) y se limita el alto. */
+  .nos-photo { aspect-ratio: 3 / 4; max-height: 26rem; }
+  #nosotros { padding: 40px 6vw 56px; }
+}
+/* En tablet la columna es mucho más ancha que en teléfono, así que el tope de
+   26rem dejaba la foto casi apaisada. Va después del bloque de 900 a propósito:
+   las media queries no suman especificidad, gana la última. */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nos-photo { max-height: 38rem; }
 }
 
 /* ── Misión / Visión ── */
