@@ -491,7 +491,7 @@ body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/images/hero/hero.png');
+  background-image: url('/images/hero/hero_bg.jpg');
   background-size: cover;
   background-position: center;
   background-color: #0f2535;
@@ -1192,7 +1192,7 @@ body {
 
 /* ─── Page Header (páginas internas) ─── */
 .page-header {
-  background-image: url('/images/hero/hero.png');
+  background-image: url('/images/hero/hero_bg.jpg');
   background-size: cover;
   background-position: center;
   background-color: #0f2535;
