@@ -8,7 +8,7 @@ const SERVICIOS = [
   'Fianzas Judiciales',
   'Fianzas Administrativas',
   'Fianzas de Crédito',
-  'Fianza Internacional',
+  'Fianzas Internacionales',
   'No lo sé aún / Necesito asesoría',
 ]
 

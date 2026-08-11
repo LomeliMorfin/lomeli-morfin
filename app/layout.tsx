@@ -78,7 +78,7 @@ const JSON_LD = {
     'Fianzas Judiciales',
     'Fianzas de Fidelidad',
     'Fianzas de Crédito',
-    'Fianza Internacional',
+    'Fianzas Internacionales',
   ],
 }
 

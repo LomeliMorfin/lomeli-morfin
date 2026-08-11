@@ -26,6 +26,9 @@
   /* Ancho de contenedor — se ensancha en pantallas grandes para que el
      contenido no quede chico y apretado al centro en monitores amplios */
   --container: 1440px;
+
+  /* Altura del navbar fijo — el hero la usa para garantizar holgura */
+  --nav-h: 72px;
 }
 @media (min-width: 1600px) { :root { --container: 1560px; } }
 @media (min-width: 1920px) { :root { --container: 1760px; } }
@@ -484,13 +487,21 @@ html[data-splash-seen='1'] .splash { display: none !important; }
 @media (max-width: 900px) { .btn-cta { display: none; } }
 
 /* ─── Hero ─── */
+/* Altura por MIN-height, nunca fija: con `height` fija + align-items:center,
+   si el contenido crecía más que la caja (laptop ancha y baja, zoom del
+   navegador o escalado del SO al 125/150%) el ítem centrado se desbordaba
+   hacia ARRIBA y la overline terminaba debajo del logo del navbar.
+   Con min-height la sección crece en vez de desbordarse. */
 #hero {
   position: relative;
-  height: 110vh;
-  height: 110svh; /* viewport visible real en móvil */
   min-height: 720px;
+  min-height: max(720px, 110vh);
+  min-height: max(720px, 110svh); /* viewport visible real en móvil */
   display: flex;
   align-items: center;
+  /* Red de seguridad: si aun así el contenido no cabe, `safe center` alinea
+     al inicio en vez de centrar — nunca invade el navbar. */
+  align-items: safe center;
 }
 .hero-bg {
   position: absolute;
@@ -524,11 +535,16 @@ html[data-splash-seen='1'] .splash { display: none !important; }
   width: 100%;
   /* Padding inferior: reserva espacio para el panel de stats que traslapa
      el hero (−68px) — sin él los botones quedaban recortados (feedback jul 2026) */
-  padding: 72px 6vw 120px;
+  /* El padding-top nunca puede ser menor que el navbar: es el piso que
+     garantiza que la overline quede libre del logo pase lo que pase. */
+  padding: calc(var(--nav-h) + 24px) 6vw 120px;
 }
 .hero-inner { max-width: 42.5rem; }
 .hero-h1 {
   font-size: clamp(2.625rem, 5.5vw, 5.5rem);
+  /* Tope ligado al alto del viewport: en pantallas anchas pero bajas el
+     5.5vw disparaba el h1 y el bloque dejaba de caber a lo alto. */
+  font-size: min(clamp(2.625rem, 5.5vw, 5.5rem), 12svh);
   font-weight: 600;
   color: white;
   text-transform: uppercase;
@@ -556,8 +572,7 @@ html[data-splash-seen='1'] .splash { display: none !important; }
    "muy arriba") + holgura bajo el navbar de 72px para que la overline respire. */
 @media (max-width: 768px) {
   #hero {
-    align-items: center;
-    height: auto;
+    align-items: safe center;
     min-height: 90svh;
   }
   .hero-content { padding-top: 116px; padding-bottom: 64px; }

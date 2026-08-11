@@ -10,7 +10,7 @@ const SERVICIOS_PREVIEW = [
   { num: '02', titulo: 'Fianzas Judiciales',        desc: 'Penales y no penales: civiles, mercantiles, amparo, laborales.' },
   { num: '03', titulo: 'Fianzas Administrativas',   desc: 'Licitación, anticipo, cumplimiento, arrendamiento y más.' },
   { num: '04', titulo: 'Fianzas de Crédito',        desc: 'Suministro PEMEX, ASA, compra-venta y distribución mercantil.' },
-  { num: '05', titulo: 'Fianza Internacional',      desc: 'Cobertura para operaciones y contratos fuera de México.' },
+  { num: '05', titulo: 'Fianzas Internacionales',      desc: 'Cobertura para operaciones y contratos fuera de México.' },
 ]
 
 export default function ServiciosPreview() {
