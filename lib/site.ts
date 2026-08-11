@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
  * (apex vs www), o los canonical apuntarán al dominio equivocado.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://lomelimorfin.com'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.lomelimorfin.com'
 ).replace(/\/$/, '')
 
 export const SITE_NAME = 'Lomeli Morfin Consultores en Fianzas'
