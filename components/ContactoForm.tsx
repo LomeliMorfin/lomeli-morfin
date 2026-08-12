@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const SERVICIOS = [
-  'Fianzas de Fidelidad',
-  'Fianzas Judiciales',
-  'Fianzas Administrativas',
-  'Fianzas de Crédito',
-  'Fianzas Internacionales',
+  'Fianza de Fidelidad',
+  'Fianza Judicial',
+  'Fianza Administrativa',
+  'Fianza de Crédito',
+  'Fianza Internacional',
   'No lo sé aún / Necesito asesoría',
 ]
 

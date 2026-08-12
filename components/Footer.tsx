@@ -11,10 +11,11 @@ const NAV_LINKS = [
 ]
 
 const SERVICIOS_LINKS = [
-  'Fianzas de Fidelidad',
-  'Fianzas Judiciales',
-  'Fianzas Administrativas',
-  'Fianzas de Crédito',
+  'Fianza de Fidelidad',
+  'Fianza Judicial',
+  'Fianza Administrativa',
+  'Fianza de Crédito',
+  'Fianza Internacional',
 ]
 
 export default function Footer() {

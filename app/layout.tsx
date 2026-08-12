@@ -74,11 +74,11 @@ const JSON_LD = {
     { '@type': 'Country', name: 'Chile' },
   ],
   knowsAbout: [
-    'Fianzas Administrativas',
-    'Fianzas Judiciales',
-    'Fianzas de Fidelidad',
-    'Fianzas de Crédito',
-    'Fianzas Internacionales',
+    'Fianza Administrativa',
+    'Fianza Judicial',
+    'Fianza de Fidelidad',
+    'Fianza de Crédito',
+    'Fianza Internacional',
   ],
 }
 
